@@ -1,7 +1,6 @@
 //import
 const fs = require('fs');
 const util = require('util');
-const process = require('process')
 const _config = require(`../config.json`);
 
 //class
@@ -50,7 +49,7 @@ class Logs {
                         console.log(data);
                     }
                 default:
-                    this.file += `[${new Date().toISOString()}] <${String(mode).toLowerCase()}> "` + await util.format(data) + `"\n`;
+                    this.file += `[${new Date().toISOString()}] <${String(mode).toLowerCase()}> "` + util.format(data) + `"\n`;
                     break;
             }
 

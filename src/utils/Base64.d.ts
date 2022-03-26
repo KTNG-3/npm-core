@@ -1,2 +1,2 @@
-export = toBase64;
-declare function toBase64(data: any, unicode?: string): any;
+export function toBase64(data: any): void;
+export function fromBase64(data: any): void;

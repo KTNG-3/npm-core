@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "@ing3kth Core for node package",
   "main": "index.js",
+  "types": "./src/index.d.ts",
   "scripts": {
     "build": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir src && yarn",
     "install": "node ./src/core/Config.js",

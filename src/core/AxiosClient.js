@@ -1,7 +1,7 @@
 //import
 const axios = require('axios').default;
 const { wrapper } = require('axios-cookiejar-support');
-const https = require('http-cookie-agent');
+const http_cookie_agent = require('http-cookie-agent');
 
 const AxiosCookie = require('./AxiosCookie');
 const Logs = require('../Logs/Logs');
@@ -17,8 +17,9 @@ class AxiosClient {
     }) {
         this.cookie = AxiosCookie.fromJSON(data.cookie);
         this.headers = data.headers;
+        this.agent = new http_cookie_agent.HttpsCookieAgent({ jar: this.cookie, rejectUnauthorized: false });
 
-        this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers, httpsAgent: new https.createCookieAgent({ jar: this.cookie, rejectUnauthorized: false })}));
+        this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers }));
     }
 
     /**
@@ -27,7 +28,7 @@ class AxiosClient {
      async get(url) {
         var response = false;
         try{
-            response = await this.axiosClient.get(url);
+            response = await this.axiosClient.get(url, { httpAgent: this.agent, httpsAgent: this.agent });
             await Logs.log("GET " + url, 'log');
         }catch(err){
             response = err.response;
@@ -44,7 +45,7 @@ class AxiosClient {
     async post(url, body = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.post(url, body);
+            response = await this.axiosClient.post(url, body, { httpAgent: this.agent, httpsAgent: this.agent });
             await Logs.log("POST " + url, 'log');
         }catch(err){
             response = err.response;
@@ -61,7 +62,7 @@ class AxiosClient {
     async put(url, body = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.put(url, body);
+            response = await this.axiosClient.put(url, body, { httpAgent: this.agent, httpsAgent: this.agent });
             await Logs.log("PUT " + url, 'log');
         }catch(err){
             response = err.response;
@@ -78,7 +79,7 @@ class AxiosClient {
     async delete(url, body = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.delete(url, body);
+            response = await this.axiosClient.delete(url, body, { httpAgent: this.agent, httpsAgent: this.agent });
             await Logs.log("DELETE " + url, 'log');
         }catch(err){
             response = err.response;

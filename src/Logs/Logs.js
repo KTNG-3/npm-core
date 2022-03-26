@@ -79,5 +79,4 @@ class Logs {
 //export
 Logs.log = Logs.logSync;
 
-module.exports.new = new Logs();
 module.exports = Logs;

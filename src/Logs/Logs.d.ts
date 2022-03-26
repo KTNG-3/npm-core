@@ -1,6 +1,6 @@
 export = Logs;
 declare class Logs {
-    static logSync(data: any, mode?: string, showup?: any): Promise<void>;
+    static logSync(data: any, mode?: string, showup?: boolean): Promise<void>;
     /**
      *
      * @param {String} path Where to save the logs file.
@@ -10,8 +10,8 @@ declare class Logs {
     path: string;
     file: any;
     new(): Promise<void>;
-    log(data: any, mode?: string, showup?: any): Promise<void>;
-    get(showup?: any): Promise<any>;
+    log(data: any, mode?: string, showup?: boolean): Promise<void>;
+    get(showup?: boolean): Promise<any>;
 }
 declare namespace Logs {
     import log = Logs.logSync;

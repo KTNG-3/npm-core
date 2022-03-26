@@ -1,7 +1,7 @@
 //import
 const fs = require('fs');
 const util = require('util');
-const _config = require(`../config.json`);
+const _config = require(`../config.js`);
 
 //class
 class Logs {

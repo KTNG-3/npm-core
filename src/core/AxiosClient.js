@@ -89,12 +89,8 @@ class AxiosClient {
         }
     }
 
-    static clientSync(data = {
-        cookie: new AxiosCookie().toJSON(),
-        headers: {},
-    }) {
-        const NewClient = new AxiosClient(data);
-        return NewClient.axiosClient;
+    static clientSync(config) {
+        return wrapper(axios.create(config));
     }
 }
 

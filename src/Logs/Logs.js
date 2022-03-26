@@ -2,7 +2,7 @@
 const fs = require('fs');
 const util = require('util');
 const process = require('process')
-const _config = require(process.cwd() + `/.ingconfig.json`);
+const _config = require(`../config.json`);
 
 //class
 class Logs {

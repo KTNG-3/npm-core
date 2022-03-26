@@ -1,9 +1,6 @@
 export = AxiosClient;
 declare class AxiosClient {
-    static clientSync(data?: {
-        cookie: any;
-        headers: {};
-    }): import("axios").AxiosInstance;
+    static clientSync(config: any): import("axios").AxiosInstance;
     /**
     * @param {JSON} data Services Data
     */

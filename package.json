@@ -3,12 +3,13 @@
   "version": "1.2.9",
   "description": "@ing3kth Core for node package",
   "main": "src/index.js",
-  "types": "./src/index.d.ts",
+  "types": "./types/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "npx -p typescript tsc src/index.js --declaration --allowJs --emitDeclarationOnly --outDir src && yarn",
+    "typescript": "npx tsc --project tsconfig.json",
+    "uptodate": "npm install --g && npm install --save",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

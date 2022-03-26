@@ -1,6 +1,7 @@
 //import
 const axios = require('axios').default;
 const { wrapper } = require('axios-cookiejar-support');
+const https = require('http-cookie-agent');
 
 const AxiosCookie = require('./AxiosCookie');
 const Logs = require('../Logs/Logs');
@@ -17,7 +18,7 @@ class AxiosClient {
         this.cookie = AxiosCookie.fromJSON(data.cookie);
         this.headers = data.headers;
 
-        this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers }));
+        this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers, httpsAgent: new https.createCookieAgent({ jar: this.cookie, rejectUnauthorized: false })}));
     }
 
     /**

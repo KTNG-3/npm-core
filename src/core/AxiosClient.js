@@ -1,10 +1,8 @@
 //import
 const axios = require('axios').default;
 const { wrapper } = require('axios-cookiejar-support');
-const tough = require('tough-cookie');
 
-const toughCookie = tough.CookieJar;
-
+const AxiosCookie = require('./AxiosCookie');
 const Logs = require('../Logs/Logs');
 
 //class
@@ -13,10 +11,10 @@ class AxiosClient {
     * @param {JSON} data Services Data
     */
     constructor(data = {
-        cookie: new toughCookie().toJSON(),
+        cookie: new AxiosCookie().toJSON(),
         headers: {},
     }) {
-        this.cookie = toughCookie.fromJSON(data.cookie);
+        this.cookie = AxiosCookie.fromJSON(data.cookie);
         this.headers = data.headers;
 
         this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers }));

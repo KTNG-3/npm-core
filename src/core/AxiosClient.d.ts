@@ -8,7 +8,7 @@ declare class AxiosClient {
     * @param {JSON} data Services Data
     */
     constructor(data?: JSON);
-    cookie: any;
+    cookie: AxiosCookie;
     headers: any;
     axiosClient: import("axios").AxiosInstance;
     /**
@@ -35,3 +35,4 @@ declare namespace AxiosClient {
     import client = AxiosClient.clientSync;
     export { client };
 }
+import AxiosCookie = require("./AxiosCookie");

@@ -1,4 +1,7 @@
-export const AxiosClient: typeof import("./core/AxiosClient");
+export namespace Axios {
+    const Client: typeof import("./core/AxiosClient");
+    const Cookie: typeof import("./core/AxiosCookie");
+}
 export const Config: {
     logs: {
         mode: boolean;

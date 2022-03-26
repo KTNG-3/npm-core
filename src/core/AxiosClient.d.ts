@@ -7,6 +7,7 @@ declare class AxiosClient {
     constructor(data?: JSON);
     cookie: AxiosCookie;
     headers: any;
+    agents: any;
     agent: any;
     axiosClient: import("axios").AxiosInstance;
     /**

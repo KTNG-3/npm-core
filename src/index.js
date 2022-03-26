@@ -1,9 +1,7 @@
 module.exports = {
     //core
-    Axios: {
-        Client: require('./core/AxiosClient'),
-        Cookie: require('./core/AxiosCookie'),
-    },
+    AxiosClient: require('./core/AxiosClient'),
+    AxiosCookie: require('./core/AxiosCookie'),
     Config: require('./config.js'),
 
     //logs

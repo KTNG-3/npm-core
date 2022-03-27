@@ -18,6 +18,7 @@ class AxiosClient {
         jar: new AxiosCookie().toJSON(),
         headers: {},
     }) {
+        this.classId = '@ing3kth/core/AxiosClient';
         if(config.cookie){
             this.jar = AxiosCookie.fromJSON(config.jar);
 
@@ -34,10 +35,10 @@ class AxiosClient {
         var response = false;
         try{
             response = await this.axiosClient.get(url);
-            await Logs.log("GET " + url, 'log');
+            await Logs.log(this.classId + " GET " + url, 'log');
         }catch(err){
             response = err.response;
-            await Logs.log("GET " + url, 'err', false);
+            await Logs.log(this.classId + " GET " + url, 'err', false);
         }finally {
             return response;
         }
@@ -51,10 +52,10 @@ class AxiosClient {
         var response = false;
         try{
             response = await this.axiosClient.post(url, body);
-            await Logs.log("POST " + url, 'log');
+            await Logs.log(this.classId + " POST " + url, 'log');
         }catch(err){
             response = err.response;
-            await Logs.log("POST " + url, 'err', false);
+            await Logs.log(this.classId + " POST " + url, 'err', false);
         }finally {
             return response;
         }
@@ -68,10 +69,10 @@ class AxiosClient {
         var response = false;
         try{
             response = await this.axiosClient.put(url, body);
-            await Logs.log("PUT " + url, 'log');
+            await Logs.log(this.classId + " PUT " + url, 'log');
         }catch(err){
             response = err.response;
-            await Logs.log("PUT " + url, 'err', false);
+            await Logs.log(this.classId + " PUT " + url, 'err', false);
         }finally {
             return response;
         }
@@ -85,10 +86,10 @@ class AxiosClient {
         var response = false;
         try{
             response = await this.axiosClient.delete(url, body);
-            await Logs.log("DELETE " + url, 'log');
+            await Logs.log(this.classId + " DELETE " + url, 'log');
         }catch(err){
             response = err.response;
-            await Logs.log("DELETE " + url, 'err', false);
+            await Logs.log(this.classId + " DELETE " + url, 'err', false);
         }finally {
             return response;
         }

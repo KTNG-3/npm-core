@@ -11,6 +11,8 @@ class Logs {
      * @param {String} name Name of the logs file.
      */
     constructor(path = "/data", name = false) {
+        this.classId = '@ing3kth/core/Logs';
+
         const _date = new Date();
         if(!name){
             var _file_name = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()

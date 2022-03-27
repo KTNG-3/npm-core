@@ -2,22 +2,29 @@
 const axios = require('axios').default;
 const { wrapper } = require('axios-cookiejar-support');
 
+const http = require('http');
+const https = require('https');
+
 const AxiosCookie = require('./AxiosCookie');
 const Logs = require('../Logs/Logs');
 
 //class
 class AxiosClient {
     /**
-    * @param {JSON} data Services Data
+    * @param {JSON} config Services Data
     */
-    constructor(data = {
-        cookie: new AxiosCookie().toJSON(),
+    constructor(config = {
+        cookie: true,
+        jar: new AxiosCookie().toJSON(),
         headers: {},
     }) {
-        this.cookie = AxiosCookie.fromJSON(data.cookie);
-        this.headers = data.headers;
+        if(config.cookie){
+            this.jar = AxiosCookie.fromJSON(config.jar);
 
-        this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: this.headers }));
+            this.axiosClient = wrapper(axios.create({ jar: this.cookie, withCredentials: true, headers: config.headers }));
+        }else {
+            this.axiosClient = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }), httpAgent: new http.Agent({ rejectUnauthorized: false }), headers: config.headers });
+        }
     }
 
     /**
@@ -87,12 +94,11 @@ class AxiosClient {
         }
     }
 
-    static clientSync(config = {}, cookie = false) {
-        if(cookie){
-            return wrapper(axios.create(config));
-        }else {
-            return axios.create(config);
-        }
+    /**
+    * @param {JSON} config Services Data
+    */
+    static clientSync(config) {
+        return new AxiosClient(config).axiosClient;
     }
 }
 

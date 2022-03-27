@@ -29,7 +29,6 @@
   "dependencies": {
     "axios": "^0.26.1",
     "axios-cookiejar-support": "^2.0.4",
-    "crypto-js": "^4.1.1",
     "http-cookie-agent": "^1.0.5",
     "tough": "^0.6.0",
     "tough-cookie": "^4.0.0"

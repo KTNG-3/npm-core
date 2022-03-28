@@ -5,7 +5,7 @@
 # install
 
 ```bash
-    npm install @ing3kth/core
+    npm install -g @ing3kth/core
 ```
 
 OR

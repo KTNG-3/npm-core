@@ -28,7 +28,7 @@ module.exports = {
             _file = fs.readFileSync(_path);
 
             if(!force){
-                return "Config file already exists";
+                return _path;
             }
         }
 
@@ -51,5 +51,7 @@ module.exports = {
 
         await fs.writeFileSync(_path, _file);
         await console.log("Create config file at: " + _path)
+
+        return _path;
     }
 }

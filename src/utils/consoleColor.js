@@ -28,4 +28,7 @@ module.exports = {
         cyan: '\x1b[46m',
         white: '\x1b[47m',
     },
+    colored(text, color = 'white') {
+        return `${module.exports.color[color]}${String(text)}${module.exports.effect.reset}`;
+    }
 };

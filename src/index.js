@@ -10,4 +10,5 @@ module.exports = {
     //util
     Base64: require('./utils/Base64'),
     wait: require('./utils/wait'),
+    consoleColor: require('./utils/consoleColor'),
 }

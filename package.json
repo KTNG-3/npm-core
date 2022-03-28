@@ -12,7 +12,7 @@
   },
   "scripts": {
     "typescript": "npx tsc --project tsconfig.json",
-    "postinstall": "npm install -g",
+    "postinstall": "npm install -g @ing3kth/core",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

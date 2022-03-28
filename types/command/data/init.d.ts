@@ -8,8 +8,8 @@ export namespace data {
 }
 export function execute({ force }: {
     force: any;
-}): Promise<"Config file already exists" | undefined>;
+}): Promise<string>;
 export function execute({ force }: {
     force: any;
-}): Promise<"Config file already exists" | undefined>;
+}): Promise<string>;
 //# sourceMappingURL=init.d.ts.map

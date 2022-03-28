@@ -4,10 +4,10 @@ module.exports = {
     AxiosCookie: require('./core/AxiosCookie'),
     Config: require('./config.js'),
 
-    //logs
+    //log
     Logs: require('./Logs/Logs'),
 
-    //utils
+    //util
     Base64: require('./utils/Base64'),
     wait: require('./utils/wait'),
 }

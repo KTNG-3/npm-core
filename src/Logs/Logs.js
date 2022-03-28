@@ -33,8 +33,6 @@ class Logs {
             await fs.createWriteStream(this.path, { flags: 'w' });
 
             this.file = await fs.readFileSync(this.path);
-
-            await this.log("Logs file created.");
         }
     }
 
@@ -51,7 +49,7 @@ class Logs {
                         console.log(data);
                     }
                 default:
-                    this.file += `[${new Date().toISOString()}] <${String(mode).toLowerCase()}> "` + util.format(data) + `"\n`;
+                    this.file += `${new Date().toISOString()}||${String(mode).toLowerCase()}||${util.format(data)}\n`;
                     break;
             }
 

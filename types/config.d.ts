@@ -1,14 +1,3 @@
-export = IngConfig;
-declare const IngConfig: {
-    logs: {
-        mode: boolean;
-        show: boolean;
-    };
-    "val-api": {
-        local: {
-            mode: boolean;
-            lockfile: string;
-        };
-    };
-};
+declare const _exports: any;
+export = _exports;
 //# sourceMappingURL=config.d.ts.map

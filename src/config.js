@@ -1,16 +1,9 @@
-var process = require('process')
+(async () => {
+    var process = require('process')
+    const fs = require('fs');
+    const ing3kth_init = require('./command/data/init');
 
-const IngConfig = {
-    "logs": {
-        "mode": true,
-        "show": false
-    },
-    "val-api": {
-        "local": {
-            "mode": true,
-            "lockfile": process.env.LOCALAPPDATA + "/Riot Games/Riot Client/Config/lockfile"
-        }
-    }
-}
+    ing3kth_init.execute(false);
 
-module.exports = IngConfig;
+    module.exports = require(process.cwd() + '/ing3kth-config.json');
+})();

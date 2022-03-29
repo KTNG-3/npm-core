@@ -58,15 +58,33 @@ class Logs {
     }
 
     async get(showup = _config.logs.show) {
-        if (!fs.existsSync(this.path)) {
+        if (fs.existsSync(this.path)) {
             const _getFile = String(this.file);
-            const _getFile_split = _getFile.split("\n");
-
-            if (showup) {
-                console.log(_getFile_split);
+            const file_per_line = _getFile.split("\n");
+            var file_split = [];
+            for (const _line of file_per_line){
+                file_split.push(_line.split("||"));
             }
 
-            return await util.format(_getFile_split);
+            var _get = [];
+            for (let i = 0; i < file_split.length; i++) {
+                if(i + 1 === file_split.length){
+                    break;
+                }
+
+                const _split = file_split[i];
+                _get.push({
+                    date: new Date(_split[0]),
+                    mode: String(_split[1]),
+                    data: util.format(_split[2]),
+                });
+            }
+
+            if (showup) {
+                console.log(_get);
+            }
+
+            return _get;
         }
     }
 
@@ -74,9 +92,15 @@ class Logs {
         const newLog = new Logs();
         await newLog.log(data, mode, showup);
     }
+
+    static async getSync(showup = _config.logs.show) {
+        const newLog = new Logs();
+        return await newLog.get(showup);
+    }
 }
 
 //export
 Logs.log = Logs.logSync;
+Logs.get = Logs.getSync;
 
 module.exports = Logs;

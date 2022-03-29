@@ -36,4 +36,5 @@ export const consoleColor: {
     };
     colored(text: any, color?: string): string;
 };
+export const Format: typeof import("./utils/format");
 //# sourceMappingURL=index.d.ts.map

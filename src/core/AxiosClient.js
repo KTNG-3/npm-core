@@ -40,7 +40,7 @@ class AxiosClient {
             response = err.response;
             await Logs.log(this.classId + " GET " + url, 'err', false);
         }finally {
-            return response;
+            return response.data;
         }
     }
 
@@ -57,7 +57,7 @@ class AxiosClient {
             response = err.response;
             await Logs.log(this.classId + " POST " + url, 'err', false);
         }finally {
-            return response;
+            return response.data;
         }
     }
 
@@ -74,7 +74,7 @@ class AxiosClient {
             response = err.response;
             await Logs.log(this.classId + " PUT " + url, 'err', false);
         }finally {
-            return response;
+            return response.data;
         }
     }
 
@@ -91,7 +91,7 @@ class AxiosClient {
             response = err.response;
             await Logs.log(this.classId + " DELETE " + url, 'err', false);
         }finally {
-            return response;
+            return response.data;
         }
     }
 

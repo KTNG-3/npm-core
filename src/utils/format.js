@@ -37,6 +37,4 @@ class Format {
 }
 
 //export
-Format = new Format
-
 module.exports = Format;

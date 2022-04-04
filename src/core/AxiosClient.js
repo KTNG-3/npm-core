@@ -6,7 +6,7 @@ const http = require('http');
 const https = require('https');
 
 const AxiosCookie = require('./AxiosCookie');
-const Logs = require('../Logs/Logs');
+const Logs = require('./Logs');
 
 //class
 class AxiosClient {

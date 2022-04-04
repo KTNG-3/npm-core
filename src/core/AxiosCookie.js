@@ -2,7 +2,7 @@
 const tough = require('tough-cookie');
 
 const toughCookie = tough.CookieJar;
-const Logs = require('../Logs/Logs');
+const Logs = require('./Logs');
 
 //class
 class AxiosCookie {

@@ -1,57 +1,88 @@
 //import
-var process = require('process')
-const fs = require('fs');
+var process = require("process");
+const fs = require("fs");
+
+const _folder = process.cwd() + "/ing3kth";
+const _cache = _folder + "/cache";
+const _logs = _folder + "/logs";
+const _config = _folder + "/config.json";
+
+const _localappdata = String(process.env.LOCALAPPDATA);
+const _appdata = String(process.env.APPDATA);
 
 //export
 module.exports = {
     data: {
-        name: 'init',
-        description: 'Create Config File',
-        option: [
-            {
-                name: '-f, --force',
-                description: 'Force to create config file',
-            }
-        ], 
+        name: "init",
+        description: "Create Config File",
+        option: [{
+            name: "-f, --force",
+            description: "Force to create config file",
+        }, ],
     },
     //script
-    async execute({force}) {
-        const _path = process.cwd() + '/ing3kth-config.json';
-        var _file;
+    async execute({
+        force
+    }) {
+        //folder
+        if (!fs.existsSync(_folder)) {
+            force = true;
+            await fs.mkdirSync(_folder);
 
-        //get file
-        if (!fs.existsSync(_path)) {
-            await fs.createWriteStream(_path, { flags: 'w' });
+            //cache
+            if (!fs.existsSync(_cache)) {
+                await fs.mkdirSync(_cache);
+                await fs.createWriteStream(_cache + "/NAME.json", {
+                    flags: 'w'
+                });
+            }
 
-            _file = await fs.readFileSync(_path);
-        } else {
-            _file = fs.readFileSync(_path);
-
-            if(!force){
-                return _path;
+            //Logs
+            if (!fs.existsSync(_logs)) {
+                await fs.mkdirSync(_logs);
+                await fs.createWriteStream(_logs + "/YEAR-MONTH-DAY_HOURS.log", {
+                    flags: 'w'
+                });
             }
         }
 
-        //write file
-        const _localappdata = String(process.env.LOCALAPPDATA);
-        const _appdata = String(process.env.APPDATA);
+        //config
+        if (!fs.existsSync(_config)) {
+            await module.exports.config();
+        } else {
+            if (!force) {
+                return _config;
+            }
 
-        _file = JSON.stringify({
-            "logs": {
-                "mode": true,
-                "show": false
+            await module.exports.config();
+        }
+
+        return _config;
+    },
+    async config() {
+        //script
+        const _file = await fs.createWriteStream(_config, {
+            flags: "w",
+        });
+
+        //create config file
+        await _file.write(JSON.stringify({
+            logs: {
+                mode: true,
+                show: false,
+                path: _logs,
             },
             "val-api": {
-                "local": {
-                    "mode": true,
-                    "lockfile": _localappdata + "/Riot Games/Riot Client/Config/lockfile"
-                }
-            }
-        })
+                local: {
+                    lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
+                },
+            },
+            cache: {
+                mode: false,
+                path: _cache,
+            },
+        }))
 
-        await fs.writeFileSync(_path, _file);
-        await console.log("Create config file at: " + _path)
-
-        return _path;
+        await console.log("Create config file at: " + _config);
     }
-}
+};

@@ -12,4 +12,6 @@ export function execute({ force }: {
 export function execute({ force }: {
     force: any;
 }): Promise<string>;
+export function config(): Promise<void>;
+export function config(): Promise<void>;
 //# sourceMappingURL=init.d.ts.map

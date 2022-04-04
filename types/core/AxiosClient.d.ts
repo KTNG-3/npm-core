@@ -14,22 +14,22 @@ declare class AxiosClient {
     /**
     * @param {String} url URL
     */
-    get(url: string): Promise<boolean>;
+    get(url: string): Promise<any>;
     /**
     * @param {String} url URL
     * @param {JSON} body Body
     */
-    post(url: string, body?: JSON): Promise<boolean>;
+    post(url: string, body?: JSON): Promise<any>;
     /**
     * @param {String} url URL
     * @param {JSON} body Body
     */
-    put(url: string, body?: JSON): Promise<boolean>;
+    put(url: string, body?: JSON): Promise<any>;
     /**
     * @param {String} url URL
     * @param {JSON} body Body
     */
-    delete(url: string, body?: JSON): Promise<boolean>;
+    delete(url: string, body?: JSON): Promise<any>;
 }
 declare namespace AxiosClient {
     import client = AxiosClient.clientSync;

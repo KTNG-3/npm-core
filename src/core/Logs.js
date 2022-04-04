@@ -1,6 +1,7 @@
 //import
 const fs = require('fs');
 const util = require('util');
+
 const _config = require(`../config.js`);
 
 //class
@@ -10,16 +11,13 @@ class Logs {
      * @param {String} path Where to save the logs file.
      * @param {String} name Name of the logs file.
      */
-    constructor(path = "/data", name = false) {
+    constructor(path = _config.logs.path) {
         this.classId = '@ing3kth/core/Logs';
 
         const _date = new Date();
-        if(!name){
-            var _file_name = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()
-            this.path = __dirname + `${path}/${_file_name}.log`
-        }else {
-            this.path = `${path}/${String(name)}.log`
-        }
+        var _file_name = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()
+
+        this.path = path + `/${_file_name}.log`
 
         if (!fs.existsSync(this.path)) {
             this.new();
@@ -42,14 +40,14 @@ class Logs {
                 case 'err' || 'error':
                     if (showup) {
                         console.error(data);
-                        data = new Error(data);
                     }
+                    data = new Error(data);
                 case 'log':
                     if (showup) {
                         console.log(data);
                     }
                 default:
-                    this.file += `${new Date().toISOString()}||${String(mode).toLowerCase()}||${util.format(data)}\n`;
+                    this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}\n`;
                     break;
             }
 
@@ -63,7 +61,7 @@ class Logs {
             const file_per_line = _getFile.split("\n");
             var file_split = [];
             for (const _line of file_per_line){
-                file_split.push(_line.split("||"));
+                file_split.push(_line.split("|||"));
             }
 
             var _get = [];
@@ -73,10 +71,19 @@ class Logs {
                 }
 
                 const _split = file_split[i];
+
+                const _log_date = new Date(_split[0]);
+                const _log_mode = String(_split[1]);
+                const _log_message = util.format(_split[2]);
+
+                if(_log_message === 'undefined'){
+                    continue;
+                }
+
                 _get.push({
-                    date: new Date(_split[0]),
-                    mode: String(_split[1]),
-                    data: util.format(_split[2]),
+                    date: _log_date,
+                    mode: _log_mode,
+                    data: _log_message,
                 });
             }
 

@@ -22,5 +22,7 @@ module.exports = {
             ]);
             return;
         }
+
+        console.log("\n@ing3kth/val-api is npm package for get data from VALORANT API.\n");
     }
 }

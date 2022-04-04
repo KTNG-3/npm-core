@@ -89,7 +89,8 @@ class Logs {
         const _ram_free = _ram.available;
         const _ram_used = _ram.active;
 
-        const _sys_name = (await systeminformation.system()).model;
+        const _sys_os = (await si.osInfo()).distro;
+        const _sys_model = (await systeminformation.system()).model;
 
         //log all
         await this.log(`CPU Name: ${_cpu_name}`, 'sys', showup);
@@ -99,7 +100,8 @@ class Logs {
         await this.log(`RAM Total: ${_ram_all}`, 'sys', showup);
         await this.log(`RAM Free: ${_ram_free}`, 'sys', showup);
         await this.log(`RAM Used: ${_ram_used}`, 'sys', showup);
-        await this.log(`System Name: ${_sys_name}`, 'sys', showup);
+        await this.log(`System OS: ${_sys_os}`, 'sys', showup);
+        await this.log(`System Model: ${_sys_model}`, 'sys', showup);
     }
 
     async get(showup = _config.logs.show || true) {

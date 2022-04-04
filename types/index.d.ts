@@ -1,9 +1,9 @@
 export namespace Core {
     const AxiosClient: typeof import("./core/AxiosClient");
     const AxiosCookie: typeof import("./core/AxiosCookie");
-    const Config: any;
+    const Logs: typeof import("./core/Logs");
 }
-export const Logs: typeof import("./core/Logs");
+export const Config: any;
 export namespace Utils {
     const Base64: typeof import("./utils/Base64");
     const wait: typeof import("./utils/wait");

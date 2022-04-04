@@ -3,11 +3,11 @@ module.exports = {
   Core: {
     AxiosClient: require("./core/AxiosClient"),
     AxiosCookie: require("./core/AxiosCookie"),
-    Config: require("./config.js"),
+    Logs: require("./core/Logs"),
   },
 
-  //log
-  Logs: require("./core/Logs"),
+  //config
+  Config: require("./config.js"),
 
   //util
   Utils: {

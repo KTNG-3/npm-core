@@ -1,16 +1,17 @@
 {
+    "create": "2022-04-04T11:08:38.145Z",
     "logs": {
         "mode": true,
         "show": false,
         "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs"
     },
+    "cache": {
+        "mode": false,
+        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache"
+    },
     "val-api": {
         "local": {
             "lockfile": "C:\\Users\\Windows10\\AppData\\Local/Riot Games/Riot Client/Config/lockfile"
         }
-    },
-    "cache": {
-        "mode": false,
-        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache"
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@ing3kth/core",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "@ing3kth Core for node package",
   "main": "src/index.js",
   "types": "./types/index.d.ts",
@@ -29,10 +29,10 @@
   },
   "homepage": "https://github.com/KTNG-3/npm-core#readme",
   "dependencies": {
-    "async": "^3.2.3",
     "axios": "^0.26.1",
     "axios-cookiejar-support": "^2.0.4",
     "commander": "^9.1.0",
+    "systeminformation": "^5.11.9",
     "tough-cookie": "^4.0.0"
   }
 }

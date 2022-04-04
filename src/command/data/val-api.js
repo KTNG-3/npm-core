@@ -1,6 +1,5 @@
 //import
-const { series } = require('async');
-const { exec } = require('child_process');
+const consoleColor = require('../../utils/consoleColor');
 
 //export
 module.exports = {
@@ -10,19 +9,17 @@ module.exports = {
         option: [
             {
                 name: '-i, --install',
-                description: 'Install @ing3kth/val-api',
+                description: 'How To Install @ing3kth/val-api',
             },
         ], 
     },
     //script
     async execute({install}) {
         if(install){
-            series([
-                () => exec('npm install @ing3kth/val-api'),
-            ]);
+            console.log(`\nRun ${consoleColor.effect.underscore}${consoleColor.colored("npm install @ing3kth/val-api", 'yellow')} In Terminal.`);
             return;
         }
 
-        console.log("\n@ing3kth/val-api is npm package for get data from VALORANT API.\n");
+        console.log(`\n${consoleColor.colored("@ing3kth/val-api", 'yellow')} is npm package for get data from VALORANT.\n`);
     }
 }

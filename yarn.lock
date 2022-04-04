@@ -9,11 +9,6 @@
   dependencies:
     "debug" "4"
 
-"async@^3.2.3":
-  "integrity" "sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g=="
-  "resolved" "https://registry.npmjs.org/async/-/async-3.2.3.tgz"
-  "version" "3.2.3"
-
 "axios-cookiejar-support@^2.0.4":
   "integrity" "sha512-N4MwaEp5zCAv+wIp5OFZOPiD2qXCCnx21mMQu7yvO8E9j6YlZWazEHXpz7iJlk6HhZ8vh09ujYJJ594H+iVKmA=="
   "resolved" "https://registry.npmjs.org/axios-cookiejar-support/-/axios-cookiejar-support-2.0.4.tgz"
@@ -66,6 +61,11 @@
   "integrity" "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   "version" "2.1.1"
+
+"systeminformation@^5.11.9":
+  "integrity" "sha512-eeMtL9UJFR/LYG+2rpeAgZ0Va4ojlNQTkYiQH/xbbPwDjDMsaetj3Pkc+C1aH5G8mav6HvDY8kI4Vl4noksSkA=="
+  "resolved" "https://registry.npmjs.org/systeminformation/-/systeminformation-5.11.9.tgz"
+  "version" "5.11.9"
 
 "tough-cookie@^4.0.0", "tough-cookie@>=4.0.0":
   "integrity" "sha512-tHdtEpQCMrc1YLrMaqXXcj6AxhYi/xgit6mZu1+EDWUn+qhUf8wMQoFIy9NXuq23zAwtcB0t/MjACGR18pcRbg=="

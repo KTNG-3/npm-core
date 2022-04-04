@@ -21,9 +21,7 @@ module.exports = {
         }, ],
     },
     //script
-    async execute({
-        force
-    }) {
+    async execute({force}) {
         //folder
         if (!fs.existsSync(_folder)) {
             force = true;
@@ -67,22 +65,23 @@ module.exports = {
 
         //create config file
         await _file.write(JSON.stringify({
+            create: String(new Date().toISOString()),
             logs: {
                 mode: true,
                 show: false,
                 path: _logs,
+            },
+            cache: {
+                mode: false,
+                path: _cache,
             },
             "val-api": {
                 local: {
                     lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
                 },
             },
-            cache: {
-                mode: false,
-                path: _cache,
-            },
         }))
 
-        await console.log("Create config file at: " + _config);
+        await console.log(`\nCreate config file at: ${_config}\n`);
     }
 };

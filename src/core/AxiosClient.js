@@ -107,10 +107,3 @@ class AxiosClient {
 AxiosClient.client = AxiosClient.clientSync;
 
 module.exports = AxiosClient;
-
-/*
-const http_cookie_agent = require('http-cookie-agent');
-this.agents = new http_cookie_agent.HttpsCookieAgent({ jar: this.cookie, rejectUnauthorized: false });
-this.agent = new http_cookie_agent.HttpCookieAgent({ jar: this.cookie, rejectUnauthorized: false });
-option for axios
-*/

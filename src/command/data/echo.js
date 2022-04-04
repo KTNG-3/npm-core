@@ -8,7 +8,7 @@ module.exports = {
     description: "Echo the given data",
     option: [
       {
-        name: "-e, --error <data>",
+        name: "-e, --error <error>",
         description: "Echo the given data as error",
       },
     ],

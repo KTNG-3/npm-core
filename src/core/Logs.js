@@ -3,6 +3,7 @@ const fs = require('fs');
 const util = require('util');
 
 const _config = require(`../config.js`);
+const consoleColor = require('../utils/consoleColor');
 
 //class
 class Logs {
@@ -22,7 +23,11 @@ class Logs {
         if (!fs.existsSync(this.path)) {
             this.new();
         } else {
-            this.file = fs.readFileSync(this.path);
+            try{
+                this.file = fs.readFileSync(this.path);
+            }catch(err){
+                return;
+            }
         }
     }
 
@@ -32,7 +37,11 @@ class Logs {
                 flags: 'w'
             });
 
-            this.file = await fs.readFileSync(this.path);
+            try{
+                this.file = await fs.readFileSync(this.path);
+            }catch(err){
+                return await this.new();
+            }
 
             await this.log('========== Logs File Created ==========', 'sys', false);
         }
@@ -48,27 +57,32 @@ class Logs {
         if (_config.logs.mode) {
             switch (String(mode).toLowerCase()) {
                 case 'err' || 'error':
+                    mode = 'error';
                     if (showup) {
-                        console.error(data);
+                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
                     }
                     data = new Error(data);
-                    mode = 'error';
+                    break;
                 case 'log':
                     if (showup) {
-                        console.log(data);
+                        console.log(`<${mode}> ` + String(data));
                     }
+                    break;
                 case 'sys' || 'system':
-                    if (showup) {
-                        console.log(data);
-                    }
                     mode = 'system';
+                    if (showup) {
+                        console.log(`<${mode}> ` + String(data));
+                    }
+                    break;
                 default:
-                    this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}\n`;
+                    mode = 'unknown';
                     break;
             }
 
-            await fs.writeFileSync(this.path, this.file);
+            this.file += await `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
         }
+        
+        return data;
     }
 
     async SystemInfo(showup = _config.logs.show) {

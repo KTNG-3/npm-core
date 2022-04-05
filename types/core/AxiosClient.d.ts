@@ -27,9 +27,8 @@ declare class AxiosClient {
     put(url: string, body?: JSON): Promise<any>;
     /**
     * @param {String} url URL
-    * @param {JSON} body Body
     */
-    delete(url: string, body?: JSON): Promise<any>;
+    delete(url: string): Promise<any>;
 }
 declare namespace AxiosClient {
     import client = AxiosClient.clientSync;

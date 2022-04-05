@@ -31,10 +31,10 @@ class AxiosClient {
     /**
     * @param {String} url URL
     */
-     async get(url) {
+     async get(url, config = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.get(url);
+            response = await this.axiosClient.get(url, config);
             await Logs.log(this.classId + " GET " + url, 'log');
         }catch(err){
             response = err.response;
@@ -48,10 +48,10 @@ class AxiosClient {
     * @param {String} url URL
     * @param {JSON} body Body
     */
-    async post(url, body = {}) {
+    async post(url, body = {}, config = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.post(url, body);
+            response = await this.axiosClient.post(url, body, config);
             await Logs.log(this.classId + " POST " + url, 'log');
         }catch(err){
             response = err.response;
@@ -65,10 +65,10 @@ class AxiosClient {
     * @param {String} url URL
     * @param {JSON} body Body
     */
-    async put(url, body = {}) {
+    async put(url, body = {}, config = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.put(url, body);
+            response = await this.axiosClient.put(url, body, config);
             await Logs.log(this.classId + " PUT " + url, 'log');
         }catch(err){
             response = err.response;
@@ -81,10 +81,10 @@ class AxiosClient {
     /**
     * @param {String} url URL
     */
-    async delete(url) {
+    async delete(url, config = {}) {
         var response = false;
         try{
-            response = await this.axiosClient.delete(url);
+            response = await this.axiosClient.delete(url, config);
             await Logs.log(this.classId + " DELETE " + url, 'log');
         }catch(err){
             response = err.response;
@@ -97,7 +97,7 @@ class AxiosClient {
     /**
     * @param {JSON} config Services Data
     */
-    static clientSync(config) {
+    static clientSync(config = {}) {
         return new AxiosClient(config).axiosClient;
     }
 }

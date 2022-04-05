@@ -23,11 +23,7 @@ class Logs {
         if (!fs.existsSync(this.path)) {
             this.new();
         } else {
-            try{
-                this.file = fs.readFileSync(this.path);
-            }catch(err){
-                return;
-            }
+            this.file = fs.readFileSync(this.path);
         }
     }
 
@@ -40,6 +36,7 @@ class Logs {
             try{
                 this.file = await fs.readFileSync(this.path);
             }catch(err){
+                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Try To Create New Log At: ${this.basePath}`, 'red') + `\n`);
                 return await this.new();
             }
 
@@ -79,9 +76,12 @@ class Logs {
                     break;
             }
 
-            this.file += await `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
+            this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
+            await fs.writeFileSync(this.path, await this.file);
+            
+            return await data;
         }
-        
+
         return data;
     }
 

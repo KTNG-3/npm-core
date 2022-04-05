@@ -77,6 +77,7 @@ module.exports = {
             },
             "val-api": {
                 local: {
+                    ip: '127.0.0.1',
                     lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
                 },
             },

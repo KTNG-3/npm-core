@@ -80,12 +80,11 @@ class AxiosClient {
 
     /**
     * @param {String} url URL
-    * @param {JSON} body Body
     */
-    async delete(url, body = {}) {
+    async delete(url) {
         var response = false;
         try{
-            response = await this.axiosClient.delete(url, body);
+            response = await this.axiosClient.delete(url);
             await Logs.log(this.classId + " DELETE " + url, 'log');
         }catch(err){
             response = err.response;

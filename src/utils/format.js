@@ -5,8 +5,9 @@ const util = require('util')
 class Format {
     /**
      * 
-     * @param {*} data Data to format.
+     * @param {any} data Data to format.
      * @param {String} format Format.
+     * @returns {any}
      */
     constructor(data = 'data', format = false) {
         this.data = data;

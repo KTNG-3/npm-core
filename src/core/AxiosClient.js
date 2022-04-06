@@ -8,10 +8,12 @@ const https = require('https');
 const AxiosCookie = require('./AxiosCookie');
 const Logs = require('./Logs');
 
+const i_AxiosClient = require('../interface/i_AxiosClient');
+
 //class
 class AxiosClient {
     /**
-    * @param {JSON} config Services Data
+    * @param {i_AxiosClient} config Config
     */
     constructor(config = {
         cookie: true,
@@ -30,6 +32,8 @@ class AxiosClient {
 
     /**
     * @param {String} url URL
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
      async get(url, config = {}) {
         var response = false;
@@ -47,6 +51,8 @@ class AxiosClient {
     /**
     * @param {String} url URL
     * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
     async post(url, body = {}, config = {}) {
         var response = false;
@@ -64,6 +70,8 @@ class AxiosClient {
     /**
     * @param {String} url URL
     * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
     async put(url, body = {}, config = {}) {
         var response = false;
@@ -80,6 +88,8 @@ class AxiosClient {
 
     /**
     * @param {String} url URL
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
     async delete(url, config = {}) {
         var response = false;
@@ -95,7 +105,7 @@ class AxiosClient {
     }
 
     /**
-    * @param {JSON} config Services Data
+    * @param {i_AxiosClient} config Config
     */
     static clientSync(config = {}) {
         return new AxiosClient(config).axiosClient;

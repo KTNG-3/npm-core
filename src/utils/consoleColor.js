@@ -29,6 +29,12 @@ module.exports = {
         white: '\x1b[47m',
     },
     newline: '\n',
+    /**
+     * 
+     * @param {String} text Text
+     * @param {String} color Color
+     * @returns {String}
+     */
     colored(text, color = 'white') {
         return `${module.exports.color[color]}${String(text)}${module.exports.effect.reset}`;
     }

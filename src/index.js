@@ -17,4 +17,11 @@ module.exports = {
     Format: require("./utils/format"),
     FindInArray: require("./utils/FindInArray"),
   },
+  
+  //interface
+  Interface: {
+    AxiosClient: require("./interface/i_AxiosClient"),
+    Config: require('./interface/i_config'),
+    FindInArray: require('./interface/i_FindInArray'),
+  },
 };

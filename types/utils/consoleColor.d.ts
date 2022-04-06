@@ -36,6 +36,18 @@ export namespace background {
     export { white_1 as white };
 }
 export const newline: string;
-export function colored(text: any, color?: string): string;
-export function colored(text: any, color?: string): string;
+/**
+ *
+ * @param {String} text Text
+ * @param {String} color Color
+ * @returns {String}
+ */
+export function colored(text: string, color?: string): string;
+/**
+ *
+ * @param {String} text Text
+ * @param {String} color Color
+ * @returns {String}
+ */
+export function colored(text: string, color?: string): string;
 //# sourceMappingURL=consoleColor.d.ts.map

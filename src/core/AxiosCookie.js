@@ -6,6 +6,11 @@ const Logs = require('./Logs');
 
 //class
 class AxiosCookie {
+    /**
+     * 
+     * @param {Object} cookie CookieJar toJSON
+     * @returns {Object}
+     */
     constructor(cookie = false) {
         this.classId = '@ing3kth/core/AxiosCookie';
         if(cookie){
@@ -17,13 +22,22 @@ class AxiosCookie {
         return this.cookie;
     }
 
+    /**
+     * 
+     * @returns {Object}
+     */
     toJSON() {
-        Logs.log("Export " + this.classId,);
+        Logs.log("Export " + this.classId);
         return this.cookie.toJSON();
     }
 
+    /**
+     * 
+     * @param {Object} cookie CookieJar toJSON
+     * @returns {void}
+     */
     static fromJSONSync(cookie) {
-        Logs.log("Import " + this.classId,);
+        Logs.log("Import " + this.classId);
         return new AxiosCookie(cookie);
     }
 }

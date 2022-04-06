@@ -2,8 +2,9 @@ export = Format;
 declare class Format {
     /**
      *
-     * @param {*} data Data to format.
+     * @param {any} data Data to format.
      * @param {String} format Format.
+     * @returns {any}
      */
     constructor(data?: any, format?: string);
     data: any;

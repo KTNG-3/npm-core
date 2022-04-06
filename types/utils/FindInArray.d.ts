@@ -1,7 +1,13 @@
-export function find(array: any[], target: any, start?: number, end?: number): any;
-export function start(array: any[], target: any): any;
-export function normal(array: any, target: any): {
-    find: boolean;
-    position: number;
+export function find(array: any[], target: any, start?: number, end?: number): {
+    find: BooleanConstructor;
+    position: NumberConstructor;
+};
+export function start(array: any[], target: any): {
+    find: BooleanConstructor;
+    position: NumberConstructor;
+};
+export function normal(array: any[], target: any): {
+    find: BooleanConstructor;
+    position: NumberConstructor;
 };
 //# sourceMappingURL=FindInArray.d.ts.map

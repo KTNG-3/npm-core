@@ -1,10 +1,24 @@
 export = AxiosCookie;
 declare class AxiosCookie {
-    static fromJSONSync(cookie: any): AxiosCookie;
-    constructor(cookie?: boolean);
+    /**
+     *
+     * @param {Object} cookie CookieJar toJSON
+     * @returns {void}
+     */
+    static fromJSONSync(cookie: Object): void;
+    /**
+     *
+     * @param {Object} cookie CookieJar toJSON
+     * @returns {Object}
+     */
+    constructor(cookie?: Object);
     classId: string;
     cookie: any;
-    toJSON(): any;
+    /**
+     *
+     * @returns {Object}
+     */
+    toJSON(): Object;
 }
 declare namespace AxiosCookie {
     import fromJSON = AxiosCookie.fromJSONSync;

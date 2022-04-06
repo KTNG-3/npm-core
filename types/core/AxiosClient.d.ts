@@ -1,38 +1,53 @@
 export = AxiosClient;
 declare class AxiosClient {
     /**
-    * @param {JSON} config Services Data
+    * @param {i_AxiosClient} config Config
     */
-    static clientSync(config?: JSON): import("axios").AxiosInstance;
+    static clientSync(config?: {
+        cookie: BooleanConstructor;
+        jar: ObjectConstructor;
+        headers: ObjectConstructor;
+    }): import("axios").AxiosInstance;
     /**
-    * @param {JSON} config Services Data
+    * @param {i_AxiosClient} config Config
     */
-    constructor(config?: JSON);
+    constructor(config?: {
+        cookie: BooleanConstructor;
+        jar: ObjectConstructor;
+        headers: ObjectConstructor;
+    });
     classId: string;
-    jar: AxiosCookie | undefined;
+    jar: void;
     axiosClient: import("axios").AxiosInstance;
     /**
     * @param {String} url URL
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
-    get(url: string, config?: {}): Promise<any>;
+    get(url: string, config?: Object): Object;
     /**
     * @param {String} url URL
     * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
-    post(url: string, body?: JSON, config?: {}): Promise<any>;
+    post(url: string, body?: JSON, config?: Object): Object;
     /**
     * @param {String} url URL
     * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
-    put(url: string, body?: JSON, config?: {}): Promise<any>;
+    put(url: string, body?: JSON, config?: Object): Object;
     /**
     * @param {String} url URL
+    * @param {Object} config Axios Config
+    * @returns {Object}
     */
-    delete(url: string, config?: {}): Promise<any>;
+    delete(url: string, config?: Object): Object;
 }
 declare namespace AxiosClient {
     import client = AxiosClient.clientSync;
     export { client };
 }
-import AxiosCookie = require("./AxiosCookie");
 //# sourceMappingURL=AxiosClient.d.ts.map

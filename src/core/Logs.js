@@ -10,7 +10,6 @@ class Logs {
     /**
      * 
      * @param {String} path Where to save the logs file.
-     * @param {String} name Name of the logs file.
      */
     constructor(path = _config.logs.path) {
         this.classId = '@ing3kth/core/Logs';
@@ -27,6 +26,10 @@ class Logs {
         }
     }
 
+    /**
+     * 
+     * @returns {void}
+     */
     async new() {
         if (_config.logs.mode) {
             await fs.createWriteStream(this.path, {
@@ -49,6 +52,7 @@ class Logs {
      * @param {any} data Any data to log.
      * @param {String} mode Log mode. (log, error, system)
      * @param {Boolean} showup Show the log in the console.
+     * @returns {String}
      */
     async log(data, mode = 'log', showup = _config.logs.show) {
         if (_config.logs.mode) {
@@ -85,6 +89,11 @@ class Logs {
         return data;
     }
 
+    /**
+     * 
+     * @param {Boolean} showup Show the log in the console.
+     * @returns {void}
+     */
     async SystemInfo(showup = _config.logs.show) {
         //import
         const systeminformation = require('systeminformation');
@@ -117,7 +126,12 @@ class Logs {
         await this.log(`System OS: ${_sys_os}`, 'sys', showup);
         await this.log(`System Model: ${_sys_model}`, 'sys', showup);
     }
-
+    
+    /**
+     * 
+     * @param {Boolean} showup Show the log in the console.
+     * @returns {Object}
+     */
     async get(showup = _config.logs.show || true) {
         if (fs.existsSync(this.path)) {
             const _getFile = String(this.file);
@@ -158,11 +172,23 @@ class Logs {
         }
     }
 
+    /**
+     * 
+     * @param {any} data Any data to log.
+     * @param {String} mode Log mode. (log, error, system)
+     * @param {Boolean} showup Show the log in the console.
+     * @returns {String}
+     */
     static async logSync(data, mode = 'log', showup = _config.logs.show) {
         const newLog = new Logs();
         await newLog.log(data, mode, showup);
     }
 
+    /**
+     * 
+     * @param {Boolean} showup Show the log in the console.
+     * @returns {Object}
+     */
     static async getSync(showup = true || _config.logs.show) {
         const newLog = new Logs();
         return await newLog.get(showup);

@@ -1,1 +1,1 @@
-{"version":3,"file":"format.d.ts","sourceRoot":"","sources":["../../src/utils/format.js"],"names":[],"mappings":";AAIA;IACI;;;;OAIG;IACH,yCA0EC;IAzEG,UAAgB;IAGZ,2BAA0C;CAuErD"}
+{"version":3,"file":"format.d.ts","sourceRoot":"","sources":["../../src/utils/format.js"],"names":[],"mappings":";AAIA;IACI;;;;;OAKG;IACH,mBAJW,GAAG,mBA8Eb;IAzEG,UAAgB;IAGZ,2BAA0C;CAuErD"}

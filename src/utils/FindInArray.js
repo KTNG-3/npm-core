@@ -1,9 +1,12 @@
+const i_FindInArray = require('../interface/i_FindInArray');
+
 module.exports = {
     /**
      * @param {Array} array Array
-     * @param {*} target Target To Find In Array
+     * @param {any} target Target To Find In Array
      * @param {Number} start Start Path in Array to find Target
      * @param {Number} end End Path in Array to find Target
+     * @returns {i_FindInArray}
      */
     find: function (array, target, start = 0, end = array.length) {
         if (start > end){
@@ -29,7 +32,8 @@ module.exports = {
     },
     /**
      * @param {Array} array Array
-     * @param {*} target Target To Find In Array
+     * @param {any} target Target To Find In Array
+     * @returns {i_FindInArray}
      */
     start: function (array, target) {
         if(array[0] === target){
@@ -48,6 +52,12 @@ module.exports = {
 
         return module.exports.find(array, target, Number(0), Number(array.length));
     },
+    /**
+     * 
+     * @param {Array} array 
+     * @param {any} target 
+     * @returns {i_FindInArray}
+     */
     normal: function (array, target) {
         for(var i = 0; i < array.length; i++){
             if(array[i] === target){

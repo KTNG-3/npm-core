@@ -60,22 +60,29 @@ class Logs {
         if (_config.logs.mode) {
             switch (String(mode).toLowerCase()) {
                 case 'err' || 'error':
-                    mode = 'error';
                     if (showup) {
                         console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
                     }
                     data = new Error(data);
+                    mode = 'error';
                     break;
-                case 'log':
+                case 'warn' || 'warning':
                     if (showup) {
-                        console.log(`<${mode}> ` + String(data));
+                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow') + `\n`);
                     }
+                    mode = 'warning';
                     break;
                 case 'sys' || 'system':
-                    mode = 'system';
                     if (showup) {
                         console.log(`<${mode}> ` + String(data));
                     }
+                    mode = 'system';
+                    break;
+                case 'log' || 'info':
+                    if (showup) {
+                        console.log(`<${mode}> ` + String(data));
+                    }
+                    mode = 'info';
                     break;
                 default:
                     mode = 'unknown';

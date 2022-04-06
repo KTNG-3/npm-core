@@ -8,16 +8,18 @@ const consoleColor = require('../utils/consoleColor');
 //class
 class Logs {
     /**
-     * 
+     * @param {String} fileName File name.
      * @param {String} path Where to save the logs file.
      */
-    constructor(path = _config.logs.path) {
+    constructor(fileName = false, path = _config.logs.path) {
         this.classId = '@ing3kth/core/Logs';
 
         const _date = new Date();
-        var _file_name = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()
+        if (!fileName) {
+            fileName = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()
+        }
 
-        this.path = path + `/${_file_name}.log`
+        this.path = path + `/${fileName}.log`
 
         if (!fs.existsSync(this.path)) {
             this.new();
@@ -43,7 +45,7 @@ class Logs {
                     await this.log('========== Logs File Created ==========', 'sys', false);
                 } catch (err) {
                     console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
-                    return;
+                    return err;
                 }
             });
         }
@@ -147,7 +149,7 @@ class Logs {
      * @returns {Object}
      */
     async get(showup = _config.logs.show || true) {
-        if (fs.existsSync(this.path)) {
+        if (await fs.existsSync(this.path)) {
             const _getFile = String(this.file);
             const file_per_line = _getFile.split("\n");
             var file_split = [];
@@ -165,7 +167,7 @@ class Logs {
 
                 const _log_date = new Date(_split[0]);
                 const _log_mode = String(_split[1]);
-                const _log_message = util.format(_split[2]);
+                const _log_message = await util.format(_split[2]);
 
                 if (_log_message === 'undefined') {
                     continue;
@@ -193,8 +195,8 @@ class Logs {
      * @param {Boolean} showup Show the log in the console.
      * @returns {String}
      */
-    static async logSync(data, mode = 'log', showup = _config.logs.show) {
-        const newLog = new Logs();
+    static async log(data, mode = 'log', showup = _config.logs.show) {
+        const newLog = await new Logs();
         await newLog.log(data, mode, showup);
     }
 
@@ -203,14 +205,31 @@ class Logs {
      * @param {Boolean} showup Show the log in the console.
      * @returns {Object}
      */
-    static async getSync(showup = true || _config.logs.show) {
-        const newLog = new Logs();
+    static async get(showup = true || _config.logs.show) {
+        const newLog = await new Logs();
         return await newLog.get(showup);
+    }
+
+    /**
+     * @param {Number} times Number of times to pre create the log.
+     */
+    static async preCreate(times = 1) {
+        const _date = new Date();
+        let _year = Number(_date.getUTCFullYear());
+        let _month = Number(_date.getUTCMonth());
+        let _day = Number(_date.getUTCDate());
+        let _hours = Number(_date.getUTCHours());
+
+        for (let i = 0; i < Number(times); i++) {
+            if (_hours > 24) {
+                break;
+            }
+
+            let fileName = `${_year}-${_month}-${_day}_${_hours}`;
+            await new Logs(fileName);
+        }
     }
 }
 
 //export
-Logs.log = Logs.logSync;
-Logs.get = Logs.getSync;
-
 module.exports = Logs;

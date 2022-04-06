@@ -2,14 +2,14 @@
 
 @ing3kth Core for node package
 
-# install
-
-```bash
-    npm install -g @ing3kth/core
-```
-
-OR
+## install
 
 ```bash
     npm install --save-dev @ing3kth/core
+```
+
+## Usage
+
+```bash
+    npx ing3kth init
 ```

@@ -32,7 +32,7 @@ module.exports = {
                 await fs.mkdirSync(_cache);
                 await fs.createWriteStream(_cache + "/NAME.json", {
                     flags: 'w'
-                });
+                }).write(JSON.stringify({}));
             }
 
             //Logs
@@ -40,7 +40,7 @@ module.exports = {
                 await fs.mkdirSync(_logs);
                 await fs.createWriteStream(_logs + "/YEAR-MONTH-DAY_HOURS.log", {
                     flags: 'w'
-                });
+                }).write(`date|||mode|||data`);
             }
         }
 
@@ -49,6 +49,7 @@ module.exports = {
             await module.exports.config();
         } else {
             if (!force) {
+                await console.log(`\nFind config file at: ${_config}\n`);
                 return _config;
             }
 

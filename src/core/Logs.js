@@ -32,18 +32,20 @@ class Logs {
      */
     async new() {
         if (_config.logs.mode) {
-            await fs.createWriteStream(this.path, {
+            const _FILE = await fs.createWriteStream(this.path, {
                 flags: 'w'
             });
 
-            try{
-                this.file = await fs.readFileSync(this.path);
-            }catch(err){
-                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Try To Create New Log At: ${this.basePath}`, 'red') + `\n`);
-                return await this.new();
-            }
+            await _FILE.on('finish', async () => {
+                try {
+                    this.file = await fs.readFileSync(this.path);
 
-            await this.log('========== Logs File Created ==========', 'sys', false);
+                    await this.log('========== Logs File Created ==========', 'sys', false);
+                } catch (err) {
+                    console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
+                    return;
+                }
+            });
         }
     }
 
@@ -52,7 +54,7 @@ class Logs {
      * @param {any} data Any data to log.
      * @param {String} mode Log mode. (log, error, system)
      * @param {Boolean} showup Show the log in the console.
-     * @returns {String}
+     * @returns {any}
      */
     async log(data, mode = 'log', showup = _config.logs.show) {
         if (_config.logs.mode) {
@@ -80,9 +82,14 @@ class Logs {
                     break;
             }
 
-            this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
-            await fs.writeFileSync(this.path, await this.file);
-            
+            try {
+                this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
+                await fs.writeFileSync(this.path, await this.file);
+            } catch (err) {
+                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
+                return err;
+            }
+
             return await data;
         }
 
@@ -126,7 +133,7 @@ class Logs {
         await this.log(`System OS: ${_sys_os}`, 'sys', showup);
         await this.log(`System Model: ${_sys_model}`, 'sys', showup);
     }
-    
+
     /**
      * 
      * @param {Boolean} showup Show the log in the console.

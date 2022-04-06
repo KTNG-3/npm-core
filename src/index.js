@@ -4,6 +4,7 @@ module.exports = {
     AxiosClient: require("./core/AxiosClient"),
     AxiosCookie: require("./core/AxiosCookie"),
     Logs: require("./core/Logs"),
+    Cache: require("./core/Cache"),
   },
 
   //config

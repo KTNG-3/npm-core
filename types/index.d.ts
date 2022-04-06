@@ -2,6 +2,7 @@ export namespace Core {
     const AxiosClient: typeof import("./core/AxiosClient");
     const AxiosCookie: typeof import("./core/AxiosCookie");
     const Logs: typeof import("./core/Logs");
+    const Cache: typeof import("./core/Cache");
 }
 export const Config: any;
 export namespace Utils {

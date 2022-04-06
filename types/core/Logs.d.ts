@@ -32,9 +32,9 @@ declare class Logs {
      * @param {any} data Any data to log.
      * @param {String} mode Log mode. (log, error, system)
      * @param {Boolean} showup Show the log in the console.
-     * @returns {String}
+     * @returns {any}
      */
-    log(data: any, mode?: string, showup?: boolean): string;
+    log(data: any, mode?: string, showup?: boolean): any;
     /**
      *
      * @param {Boolean} showup Show the log in the console.

@@ -87,9 +87,25 @@ class Cache {
      * @returns {Object}
      */
     async output(interactionId) {
-        const _json = await JSON.parse(this.file);
+        if (_config.cache.mode) {
+            const _json = await JSON.parse(this.file);
 
-        return await _json[String(interactionId)];
+            return await _json[String(interactionId)];
+        }
+    }
+
+    /**
+     * @param {Number} interactionId Interaction ID.
+     * @returns {void}
+     */
+    async clear(interactionId) {
+        if (_config.cache.mode) {
+            let _json = await JSON.parse(this.file);
+
+            delete _json[interactionId];
+
+            await fs.writeFileSync(this.path, await JSON.stringify(await _json));
+        }
     }
 
     /**

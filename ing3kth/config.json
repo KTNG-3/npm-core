@@ -1,1 +1,18 @@
-{"create":"2022-04-06T12:16:06.516Z","logs":{"mode":true,"show":false,"path":"C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs"},"cache":{"mode":false,"path":"C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache"},"val-api":{"local":{"ip":"127.0.0.1","lockfile":"C:\\Users\\Windows10\\AppData\\Local/Riot Games/Riot Client/Config/lockfile"}}}
+{
+    "create": "2022-04-06T12:16:06.516Z",
+    "logs": {
+        "mode": true,
+        "show": false,
+        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs"
+    },
+    "cache": {
+        "mode": false,
+        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache"
+    },
+    "val-api": {
+        "local": {
+            "ip": "127.0.0.1",
+            "lockfile": "C:\\Users\\Windows10\\AppData\\Local/Riot Games/Riot Client/Config/lockfile"
+        }
+    }
+}

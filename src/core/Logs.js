@@ -149,42 +149,44 @@ class Logs {
      * @returns {Object}
      */
     async get(showup = _config.logs.show || true) {
-        if (await fs.existsSync(this.path)) {
-            const _getFile = String(this.file);
-            const file_per_line = _getFile.split("\n");
-            var file_split = [];
-            for (const _line of file_per_line) {
-                file_split.push(_line.split("|||"));
-            }
-
-            var _get = [];
-            for (let i = 0; i < file_split.length; i++) {
-                if (i + 1 === file_split.length) {
-                    break;
+        if (_config.logs.mode) {
+            if (await fs.existsSync(this.path)) {
+                const _getFile = String(this.file);
+                const file_per_line = _getFile.split("\n");
+                var file_split = [];
+                for (const _line of file_per_line) {
+                    file_split.push(_line.split("|||"));
                 }
-
-                const _split = file_split[i];
-
-                const _log_date = new Date(_split[0]);
-                const _log_mode = String(_split[1]);
-                const _log_message = await util.format(_split[2]);
-
-                if (_log_message === 'undefined') {
-                    continue;
+    
+                var _get = [];
+                for (let i = 0; i < file_split.length; i++) {
+                    if (i + 1 === file_split.length) {
+                        break;
+                    }
+    
+                    const _split = file_split[i];
+    
+                    const _log_date = new Date(_split[0]);
+                    const _log_mode = String(_split[1]);
+                    const _log_message = await util.format(_split[2]);
+    
+                    if (_log_message === 'undefined') {
+                        continue;
+                    }
+    
+                    _get.push({
+                        date: _log_date,
+                        mode: _log_mode,
+                        data: _log_message,
+                    });
                 }
-
-                _get.push({
-                    date: _log_date,
-                    mode: _log_mode,
-                    data: _log_message,
-                });
+    
+                if (showup) {
+                    console.log(_get);
+                }
+    
+                return _get;
             }
-
-            if (showup) {
-                console.log(_get);
-            }
-
-            return _get;
         }
     }
 

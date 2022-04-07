@@ -14,7 +14,7 @@ module.exports = {
     ],
   },
   //script
-  async execute(data, {error}) {
+  async execute(data, { error }) {
     console.log(util.format(data));
 
     if (error) {

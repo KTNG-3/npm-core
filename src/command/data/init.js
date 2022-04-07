@@ -21,27 +21,27 @@ module.exports = {
         }, ],
     },
     //script
-    async execute({force}) {
+    async execute({ force }) {
         //folder
         if (!fs.existsSync(_folder)) {
             force = true;
             await fs.mkdirSync(_folder);
+        }
 
-            //cache
-            if (!fs.existsSync(_cache)) {
-                await fs.mkdirSync(_cache);
-                await fs.createWriteStream(_cache + "/NAME.json", {
-                    flags: 'w'
-                }).write(JSON.stringify({}));
-            }
+        //cache
+        if (!fs.existsSync(_cache)) {
+            await fs.mkdirSync(_cache);
+            await fs.createWriteStream(_cache + "/NAME.json", {
+                flags: 'w'
+            }).write(JSON.stringify({}));
+        }
 
-            //Logs
-            if (!fs.existsSync(_logs)) {
-                await fs.mkdirSync(_logs);
-                await fs.createWriteStream(_logs + "/YEAR-MONTH-DAY_HOURS.log", {
-                    flags: 'w'
-                }).write(`date|||mode|||data`);
-            }
+        //Logs
+        if (!fs.existsSync(_logs)) {
+            await fs.mkdirSync(_logs);
+            await fs.createWriteStream(_logs + "/NAME.log", {
+                flags: 'w'
+            }).write(`date|||mode|||data`);
         }
 
         //config

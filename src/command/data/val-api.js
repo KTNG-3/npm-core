@@ -14,7 +14,7 @@ module.exports = {
         ], 
     },
     //script
-    async execute({install}) {
+    async execute({ install }) {
         if(install){
             console.log(`\nRun ${consoleColor.effect.underscore}${consoleColor.colored("npm install @ing3kth/val-api", 'yellow')} In Terminal.`);
             return;

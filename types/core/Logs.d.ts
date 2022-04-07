@@ -7,18 +7,22 @@ declare class Logs {
      * @param {Boolean} showup Show the log in the console.
      * @returns {String}
      */
-    static logSync(data: any, mode?: string, showup?: boolean): string;
+    static log(data: any, mode?: string, showup?: boolean): string;
     /**
      *
      * @param {Boolean} showup Show the log in the console.
      * @returns {Object}
      */
-    static getSync(showup?: boolean): Object;
+    static get(showup?: boolean): Object;
     /**
-     *
+     * @param {Number} times Number of times to pre create the log.
+     */
+    static preCreate(times?: number): Promise<void>;
+    /**
+     * @param {String} fileName File name.
      * @param {String} path Where to save the logs file.
      */
-    constructor(path?: string);
+    constructor(fileName?: string, path?: string);
     classId: string;
     path: string;
     file: any;
@@ -47,11 +51,5 @@ declare class Logs {
      * @returns {Object}
      */
     get(showup?: boolean): Object;
-}
-declare namespace Logs {
-    import log = Logs.logSync;
-    export { log };
-    import get = Logs.getSync;
-    export { get };
 }
 //# sourceMappingURL=Logs.d.ts.map

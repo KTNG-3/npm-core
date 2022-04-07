@@ -1,4 +1,4 @@
 module.exports = interface = {
     name: String,
-    interactionId: Number,
+    interactionId: String,
 };

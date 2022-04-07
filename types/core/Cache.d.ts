@@ -6,7 +6,7 @@ declare class Cache {
      */
     static output(path: {
         name: StringConstructor;
-        interactionId: NumberConstructor;
+        interactionId: StringConstructor;
     }): Object;
     /**
      *
@@ -25,17 +25,22 @@ declare class Cache {
     /**
      *
      * @param {any} data Data to save.
-     * @param {any} interactionId Interaction ID.
+     * @param {String} interactionId Interaction ID.
      * @returns {i_Cache}
      */
-    input(data: any, interactionId?: any): {
+    input(data: any, interactionId?: string): {
         name: StringConstructor;
-        interactionId: NumberConstructor;
+        interactionId: StringConstructor;
     };
     /**
-     * @param {Number} interactionId Interaction ID.
+     * @param {String} interactionId Interaction ID.
      * @returns {Object}
      */
-    output(interactionId: number): Object;
+    output(interactionId: string): Object;
+    /**
+     * @param {String} interactionId Interaction ID.
+     * @returns {void}
+     */
+    clear(interactionId: string): void;
 }
 //# sourceMappingURL=Cache.d.ts.map

@@ -11,13 +11,8 @@ class Logs {
      * @param {String} fileName File name.
      * @param {String} path Where to save the logs file.
      */
-    constructor(fileName = false, path = _config.logs.path) {
+    constructor(fileName = 'NAME', path = _config.logs.path) {
         this.classId = '@ing3kth/core/Logs';
-
-        const _date = new Date();
-        if (!fileName) {
-            fileName = _date.getUTCFullYear() + "-" + _date.getUTCMonth() + "-" + _date.getUTCDate() + "_" + _date.getUTCHours()
-        }
 
         this.path = path + `/${fileName}.log`
 
@@ -62,29 +57,29 @@ class Logs {
         if (_config.logs.mode) {
             switch (String(mode).toLowerCase()) {
                 case 'err' || 'error':
+                    mode = 'error';
                     if (showup) {
                         console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
                     }
                     data = new Error(data);
-                    mode = 'error';
                     break;
                 case 'warn' || 'warning':
+                    mode = 'warning';
                     if (showup) {
                         console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow') + `\n`);
                     }
-                    mode = 'warning';
                     break;
                 case 'sys' || 'system':
-                    if (showup) {
-                        console.log(`<${mode}> ` + String(data));
-                    }
                     mode = 'system';
+                    if (showup) {
+                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan') + `\n`);
+                    }
                     break;
                 case 'log' || 'info':
+                    mode = 'info';
                     if (showup) {
                         console.log(`<${mode}> ` + String(data));
                     }
-                    mode = 'info';
                     break;
                 default:
                     mode = 'unknown';
@@ -92,7 +87,7 @@ class Logs {
             }
 
             try {
-                this.file += `${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}\n`;
+                this.file += `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}`;
                 await fs.writeFileSync(this.path, await this.file);
             } catch (err) {
                 console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
@@ -149,44 +144,38 @@ class Logs {
      * @returns {Object}
      */
     async get(showup = _config.logs.show || true) {
-        if (_config.logs.mode) {
-            if (await fs.existsSync(this.path)) {
-                const _getFile = String(this.file);
-                const file_per_line = _getFile.split("\n");
-                var file_split = [];
-                for (const _line of file_per_line) {
-                    file_split.push(_line.split("|||"));
-                }
-    
-                var _get = [];
-                for (let i = 0; i < file_split.length; i++) {
-                    if (i + 1 === file_split.length) {
-                        break;
-                    }
-    
-                    const _split = file_split[i];
-    
-                    const _log_date = new Date(_split[0]);
-                    const _log_mode = String(_split[1]);
-                    const _log_message = await util.format(_split[2]);
-    
-                    if (_log_message === 'undefined') {
-                        continue;
-                    }
-    
-                    _get.push({
-                        date: _log_date,
-                        mode: _log_mode,
-                        data: _log_message,
-                    });
-                }
-    
-                if (showup) {
-                    console.log(_get);
-                }
-    
-                return _get;
+        if (await fs.existsSync(this.path)) {
+            const _getFile = String(this.file);
+            const file_per_line = _getFile.split("\n");
+            var file_split = [];
+            for (const _line of file_per_line) {
+                file_split.push(_line.split("|||"));
             }
+
+            var _get = [];
+            for (let i = 0; i < file_split.length; i++) {    
+                const _split = file_split[i];
+
+                const _log_date = new Date(_split[0]);
+                const _log_mode = String(_split[1]);
+                const _log_message = await util.format(_split[2]);
+
+                if (_log_message === 'undefined') {
+                    continue;
+                }
+
+                _get.push({
+                    date: _log_date,
+                    mode: _log_mode,
+                    data: _log_message,
+                });
+            }
+
+            if (showup) {
+                console.log(_get);
+            }
+
+            return _get;
         }
     }
 

@@ -54,7 +54,7 @@ class Cache {
     /**
      * 
      * @param {any} data Data to save.
-     * @param {any} interactionId Interaction ID.
+     * @param {String} interactionId Interaction ID.
      * @returns {i_Cache}
      */
     async input(data, interactionId = false) {
@@ -66,7 +66,7 @@ class Cache {
             try {
                 let _json = await JSON.parse(this.file);
 
-                _json[interactionId] = data;
+                _json[String(interactionId)] = data;
 
                 await fs.writeFileSync(this.path, await JSON.stringify(await _json));
             } catch (err) {
@@ -83,7 +83,7 @@ class Cache {
     }
 
     /**
-     * @param {Number} interactionId Interaction ID.
+     * @param {String} interactionId Interaction ID.
      * @returns {Object}
      */
     async output(interactionId) {
@@ -95,14 +95,14 @@ class Cache {
     }
 
     /**
-     * @param {Number} interactionId Interaction ID.
+     * @param {String} interactionId Interaction ID.
      * @returns {void}
      */
     async clear(interactionId) {
         if (_config.cache.mode) {
             let _json = await JSON.parse(this.file);
 
-            delete _json[interactionId];
+            delete _json[String(interactionId)];
 
             await fs.writeFileSync(this.path, await JSON.stringify(await _json));
         }

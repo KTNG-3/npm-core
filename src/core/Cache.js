@@ -60,13 +60,13 @@ class Cache {
     async input(data, interactionId = false) {
         if (_config.cache.mode) {
             if (!interactionId) {
-                interactionId = Number(new Date().getTime());
+                interactionId = String(new Date().getTime());
             }
 
             try {
                 let _json = await JSON.parse(this.file);
 
-                _json[String(interactionId)] = data;
+                _json[interactionId] = data;
 
                 await fs.writeFileSync(this.path, await JSON.stringify(await _json));
             } catch (err) {
@@ -90,7 +90,7 @@ class Cache {
         if (_config.cache.mode) {
             const _json = await JSON.parse(this.file);
 
-            return await _json[String(interactionId)];
+            return await _json[interactionId];
         }
     }
 
@@ -102,7 +102,7 @@ class Cache {
         if (_config.cache.mode) {
             let _json = await JSON.parse(this.file);
 
-            delete _json[String(interactionId)];
+            delete _json[interactionId];
 
             await fs.writeFileSync(this.path, await JSON.stringify(await _json));
         }

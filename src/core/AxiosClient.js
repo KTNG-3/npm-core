@@ -8,12 +8,12 @@ const https = require('https');
 const AxiosCookie = require('./AxiosCookie');
 const Logs = require('./Logs');
 
-const i_AxiosClient = require('../interface/i_AxiosClient');
+const IAxiosClient = require('../interface/IAxiosClient');
 
 //class
 class AxiosClient {
     /**
-    * @param {i_AxiosClient} config Config
+    * @param {IAxiosClient} config Config
     */
     constructor(config = {
         cookie: true,
@@ -105,7 +105,7 @@ class AxiosClient {
     }
 
     /**
-    * @param {i_AxiosClient} config Config
+    * @param {IAxiosClient} config Config
     */
     static clientSync(config = {}) {
         return new AxiosClient(config).axiosClient;

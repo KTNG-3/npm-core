@@ -17,4 +17,4 @@ declare const _exports: {
     };
 };
 export = _exports;
-//# sourceMappingURL=i_config.d.ts.map
+//# sourceMappingURL=IConfig.d.ts.map

@@ -4,7 +4,7 @@ const fs = require('fs');
 const _config = require(`../config.js`);
 const consoleColor = require('../utils/consoleColor');
 
-const i_Cache = require('../interface/i_Cache');
+const ICache = require('../interface/ICache');
 
 //class
 class Cache {
@@ -55,7 +55,7 @@ class Cache {
      * 
      * @param {any} data Data to save.
      * @param {String} interactionId Interaction ID.
-     * @returns {i_Cache}
+     * @returns {ICache}
      */
     async input(data, interactionId = false) {
         if (_config.cache.mode) {
@@ -109,7 +109,7 @@ class Cache {
     }
 
     /**
-     * @param {i_Cache} path Path to Data.
+     * @param {ICache} path Path to Data.
      * @returns {Object}
      */
     static async output(path) {

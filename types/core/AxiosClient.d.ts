@@ -1,7 +1,7 @@
 export = AxiosClient;
 declare class AxiosClient {
     /**
-    * @param {i_AxiosClient} config Config
+    * @param {IAxiosClient} config Config
     */
     static clientSync(config?: {
         cookie: BooleanConstructor;
@@ -9,7 +9,7 @@ declare class AxiosClient {
         headers: ObjectConstructor;
     }): import("axios").AxiosInstance;
     /**
-    * @param {i_AxiosClient} config Config
+    * @param {IAxiosClient} config Config
     */
     constructor(config?: {
         cookie: BooleanConstructor;

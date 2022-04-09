@@ -21,8 +21,9 @@ module.exports = {
   
   //interface
   Interface: {
-    AxiosClient: require("./interface/i_AxiosClient"),
-    Config: require('./interface/i_config'),
-    FindInArray: require('./interface/i_FindInArray'),
+    AxiosClient: require('./interface/IAxiosClient'),
+    Cache: require('./interface/ICache'),
+    Config: require('./interface/IConfig'),
+    FindInArray: require('./interface/IFindInArray'),
   },
 };

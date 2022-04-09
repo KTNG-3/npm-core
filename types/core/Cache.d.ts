@@ -1,7 +1,7 @@
 export = Cache;
 declare class Cache {
     /**
-     * @param {i_Cache} path Path to Data.
+     * @param {ICache} path Path to Data.
      * @returns {Object}
      */
     static output(path: {
@@ -26,7 +26,7 @@ declare class Cache {
      *
      * @param {any} data Data to save.
      * @param {String} interactionId Interaction ID.
-     * @returns {i_Cache}
+     * @returns {ICache}
      */
     input(data: any, interactionId?: string): {
         name: StringConstructor;

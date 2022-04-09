@@ -64,6 +64,11 @@ export namespace Interface {
         headers: ObjectConstructor;
     };
     export { AxiosClient_2 as AxiosClient };
+    const Cache_2: {
+        name: StringConstructor;
+        interactionId: StringConstructor;
+    };
+    export { Cache_2 as Cache };
     const Config_1: {
         create: StringConstructor;
         logs: {

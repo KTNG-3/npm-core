@@ -1,6 +1,7 @@
 //import
 var process = require("process");
 const fs = require("fs");
+const systeminformation = require('systeminformation/lib/osinfo');
 
 const _folder = process.cwd() + "/ing3kth";
 const _cache = _folder + "/cache";
@@ -64,9 +65,12 @@ module.exports = {
             flags: "w",
         });
 
+        const _sysplatfrom = (await systeminformation.osInfo()).platform
+
         //create config file
         await _file.write(JSON.stringify({
             create: String(new Date().toISOString()),
+            platfrom: _sysplatfrom,
             logs: {
                 mode: true,
                 show: false,

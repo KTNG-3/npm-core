@@ -24,25 +24,20 @@ class Update {
 
         const ing3kth_api = await this.getVersion();
 
-        let _needUpdate = {
+        var _needUpdate = {
             response: "Find new version available!",
             data: [],
         };
 
         if (fs.existsSync(_modules) && fs.existsSync(ing3kth_folder)) {
             const packages = fs.readdirSync(ing3kth_folder);
-            for (_pack of packages) {
+            for (let _pack of packages) {
                 const package_json = require(ing3kth_folder + '/' + _pack + '/package.json');
-    
+
                 const _pack_version = package_json.version; //Current version
                 const _api_version = ing3kth_api.npm[_pack].version; //Latest version
-    
-                if (_pack_version !== _api_version) {
-                    if(_pack_version > _api_version) {
-                        _needUpdate.response = `You are using a newer version of '${_pack}' than the latest version.`;
-                        continue;
-                    }
 
+                if (_pack_version < _api_version) {
                     _needUpdate.data.push({
                         name: _pack,
                         version: {
@@ -54,7 +49,7 @@ class Update {
             }
         }
 
-        if(_needUpdate.data.length <= 0) {
+        if (_needUpdate.data.length <= 0) {
             _needUpdate.response = "No Update Available, all packages are up to date!!";
         }
 

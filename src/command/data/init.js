@@ -16,10 +16,12 @@ module.exports = {
     data: {
         name: "init",
         description: "Create Config File",
-        option: [{
-            name: "-f, --force",
-            description: "Force to create config file",
-        }, ],
+        option: [
+            {
+                name: "-f, --force",
+                description: "Force to create config file",
+            }, 
+        ],
     },
     //script
     async execute({ force }) {

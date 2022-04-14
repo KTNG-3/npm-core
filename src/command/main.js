@@ -14,7 +14,7 @@ for (const file of commandsFolders) {
         .description(command.data.description)
         .action(command.execute);
 
-    if (command.data.option.length > 0) {
+    if (command.data.option && command.data.option.length > 0) {
         for (const option of command.data.option) {
             newCommand.option(option.name, option.description);
         }

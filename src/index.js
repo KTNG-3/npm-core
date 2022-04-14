@@ -7,9 +7,6 @@ module.exports = {
     Cache: require("./core/Cache"),
   },
 
-  //config
-  Config: require("./config.js"),
-
   //util
   Utils: {
     Base64: require("./utils/Base64"),
@@ -26,4 +23,9 @@ module.exports = {
     Config: require('./interface/IConfig'),
     FindInArray: require('./interface/IFindInArray'),
   },
+
+  //main
+  Config: require('./config'),
+  Update: require('./update'),
+
 };

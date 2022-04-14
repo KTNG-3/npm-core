@@ -1,11 +1,10 @@
-export namespace Core {
+export declare namespace Core {
     const AxiosClient: typeof import("./core/AxiosClient");
     const AxiosCookie: typeof import("./core/AxiosCookie");
     const Logs: typeof import("./core/Logs");
     const Cache: typeof import("./core/Cache");
 }
-export const Config: any;
-export namespace Utils {
+export declare namespace Utils {
     const Base64: typeof import("./utils/Base64");
     const wait: typeof import("./utils/wait");
     const consoleColor: {
@@ -57,7 +56,7 @@ export namespace Utils {
         };
     };
 }
-export namespace Interface {
+export declare namespace Interface {
     const AxiosClient_2: {
         cookie: BooleanConstructor;
         jar: ObjectConstructor;
@@ -69,7 +68,7 @@ export namespace Interface {
         interactionId: StringConstructor;
     };
     export { Cache_2 as Cache };
-    const Config_1: {
+    export const Config: {
         create: StringConstructor;
         logs: {
             mode: BooleanConstructor;
@@ -87,11 +86,13 @@ export namespace Interface {
             };
         };
     };
-    export { Config_1 as Config };
     const FindInArray_1: {
         find: BooleanConstructor;
         position: NumberConstructor;
     };
     export { FindInArray_1 as FindInArray };
 }
+declare const Config_1: any;
+export { Config_1 as Config };
+export declare const Update: typeof import("./update");
 //# sourceMappingURL=index.d.ts.map

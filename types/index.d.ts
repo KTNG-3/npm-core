@@ -63,6 +63,10 @@ export declare namespace Interface {
         headers: ObjectConstructor;
     };
     export { AxiosClient_2 as AxiosClient };
+    export const AxiosClientOut: {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
     const Cache_2: {
         name: StringConstructor;
         interactionId: StringConstructor;
@@ -95,8 +99,27 @@ export declare namespace Interface {
         position: NumberConstructor;
     };
     export { FindInArray_1 as FindInArray };
+    export const Update: {
+        response: StringConstructor;
+        data: {
+            update: {
+                name: StringConstructor;
+                version: {
+                    current: StringConstructor;
+                    latest: StringConstructor;
+                };
+            }[];
+            latest: {
+                name: StringConstructor;
+                version: {
+                    current: StringConstructor;
+                    latest: StringConstructor;
+                };
+            }[];
+        };
+    };
 }
 declare const Config_1: any;
-export { Config_1 as Config };
-export declare const Update: typeof import("./update");
+declare const Update_1: typeof import("./update");
+export { Config_1 as Config, Update_1 as Update };
 //# sourceMappingURL=index.d.ts.map

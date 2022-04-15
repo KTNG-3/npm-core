@@ -1,4 +1,7 @@
 export = Cache;
+/**
+ * Cache Data in JSON format.
+ */
 declare class Cache {
     /**
      * @param {ICache} path Path to Data.

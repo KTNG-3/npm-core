@@ -1,4 +1,7 @@
 export = Logs;
+/**
+ * Log data for debugging purposes.
+ */
 declare class Logs {
     /**
      *

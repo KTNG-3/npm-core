@@ -19,9 +19,11 @@ module.exports = {
   //interface
   Interface: {
     AxiosClient: require('./interface/IAxiosClient'),
+    AxiosClientOut: require('./interface/IAxiosClientOut'),
     Cache: require('./interface/ICache'),
     Config: require('./interface/IConfig'),
     FindInArray: require('./interface/IFindInArray'),
+    Update: require('./interface/IUpdate'),
   },
 
   //main

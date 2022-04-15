@@ -6,6 +6,10 @@ const _config = require(`../config.js`);
 const consoleColor = require('../utils/consoleColor');
 
 //class
+
+/**
+ * Log data for debugging purposes.
+ */
 class Logs {
     /**
      * @param {String} fileName File name.

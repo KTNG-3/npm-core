@@ -7,6 +7,10 @@ const consoleColor = require('../utils/consoleColor');
 const ICache = require('../interface/ICache');
 
 //class
+
+/**
+ * Cache Data in JSON format.
+ */
 class Cache {
     /**
      * 

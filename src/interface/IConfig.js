@@ -1,5 +1,9 @@
 module.exports = interface = {
     "create": String,
+    "process": {
+        "platform": String,
+        "directory": String,
+    },
     "logs": {
         "mode": Boolean,
         "show": Boolean,

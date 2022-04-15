@@ -3,7 +3,7 @@ declare class AxiosClient {
     /**
     * @param {IAxiosClient} config Config
     */
-    static clientSync(config?: {
+    static client(config?: {
         cookie: BooleanConstructor;
         jar: ObjectConstructor;
         headers: ObjectConstructor;
@@ -22,32 +22,40 @@ declare class AxiosClient {
     /**
     * @param {String} url URL
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
-    get(url: string, config?: Object): Object;
+    get(url: string, config?: Object): {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
     /**
     * @param {String} url URL
     * @param {JSON} body Body
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
-    post(url: string, body?: JSON, config?: Object): Object;
+    post(url: string, body?: JSON, config?: Object): {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
     /**
     * @param {String} url URL
     * @param {JSON} body Body
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
-    put(url: string, body?: JSON, config?: Object): Object;
+    put(url: string, body?: JSON, config?: Object): {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
     /**
     * @param {String} url URL
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
-    delete(url: string, config?: Object): Object;
-}
-declare namespace AxiosClient {
-    import client = AxiosClient.clientSync;
-    export { client };
+    delete(url: string, config?: Object): {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
 }
 //# sourceMappingURL=AxiosClient.d.ts.map

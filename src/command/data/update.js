@@ -15,13 +15,14 @@ module.exports = {
 
         console.log(`\n${_update.response}\n`);
 
-        if(_update.data && _update.data.length <= 0){
+        if(_update.data.update && _update.data.update.length <= 0){
             return;
         }
 
-        _update.data.forEach(updateList => {
+        _update.data.update.forEach(updateList => {
             console.log(`${consoleColor.colored(updateList.name, 'cyan')}: ${consoleColor.colored(updateList.version.current, 'red')} --> ${consoleColor.colored(updateList.version.latest, 'green')}`);
         });
-        console.log(`\n`);
+
+        console.log(``);
     }
 }

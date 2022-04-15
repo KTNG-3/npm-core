@@ -25,7 +25,7 @@ module.exports = {
   },
 
   //main
-  Config: require('./config'),
+  Config: require('./config.js'),
   Update: require('./update'),
 
 };

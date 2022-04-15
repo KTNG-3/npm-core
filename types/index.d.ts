@@ -70,6 +70,10 @@ export declare namespace Interface {
     export { Cache_2 as Cache };
     export const Config: {
         create: StringConstructor;
+        process: {
+            platform: StringConstructor;
+            directory: StringConstructor;
+        };
         logs: {
             mode: BooleanConstructor;
             show: BooleanConstructor;

@@ -5,7 +5,7 @@ declare class AxiosCookie {
      * @param {Object} cookie CookieJar toJSON
      * @returns {void}
      */
-    static fromJSONSync(cookie: Object): void;
+    static fromJSON(cookie: Object): void;
     /**
      *
      * @param {Object} cookie CookieJar toJSON
@@ -19,9 +19,5 @@ declare class AxiosCookie {
      * @returns {Object}
      */
     toJSON(): Object;
-}
-declare namespace AxiosCookie {
-    import fromJSON = AxiosCookie.fromJSONSync;
-    export { fromJSON };
 }
 //# sourceMappingURL=AxiosCookie.d.ts.map

@@ -9,6 +9,7 @@ const AxiosCookie = require('./AxiosCookie');
 const Logs = require('./Logs');
 
 const IAxiosClient = require('../interface/IAxiosClient');
+const IAxiosClientOut = require('../interface/IAxiosClientOut');
 
 //class
 class AxiosClient {
@@ -33,18 +34,26 @@ class AxiosClient {
     /**
     * @param {String} url URL
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
      async get(url, config = {}) {
-        var response = false;
+        var response;
+        var ERRoR = false;
+
         try{
             response = await this.axiosClient.get(url, config);
             await Logs.log(this.classId + " GET " + url, 'log');
+
         }catch(err){
             response = err.response;
+            ERRoR = true;
+
             await Logs.log(this.classId + " GET " + url, 'err', false);
         }finally {
-            return response.data;
+            return {
+                isError: ERRoR,
+                data: response.data,
+            }
         }
     }
 
@@ -52,18 +61,26 @@ class AxiosClient {
     * @param {String} url URL
     * @param {JSON} body Body
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
     async post(url, body = {}, config = {}) {
-        var response = false;
+        var response;
+        var ERRoR = false;
+
         try{
             response = await this.axiosClient.post(url, body, config);
             await Logs.log(this.classId + " POST " + url, 'log');
+
         }catch(err){
             response = err.response;
+            ERRoR = true;
+
             await Logs.log(this.classId + " POST " + url, 'err', false);
         }finally {
-            return response.data;
+            return {
+                isError: ERRoR,
+                data: response.data,
+            }
         }
     }
 
@@ -71,48 +88,66 @@ class AxiosClient {
     * @param {String} url URL
     * @param {JSON} body Body
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
     async put(url, body = {}, config = {}) {
-        var response = false;
+        var response;
+        var ERRoR = false;
+
         try{
             response = await this.axiosClient.put(url, body, config);
             await Logs.log(this.classId + " PUT " + url, 'log');
+
         }catch(err){
             response = err.response;
+            ERRoR = true;
+
             await Logs.log(this.classId + " PUT " + url, 'err', false);
         }finally {
-            return response.data;
+            return {
+                isError: ERRoR,
+                data: response.data,
+            }
         }
     }
 
     /**
     * @param {String} url URL
     * @param {Object} config Axios Config
-    * @returns {Object}
+    * @returns {IAxiosClientOut}
     */
     async delete(url, config = {}) {
-        var response = false;
+        var response;
+        var ERRoR = false;
+
         try{
             response = await this.axiosClient.delete(url, config);
             await Logs.log(this.classId + " DELETE " + url, 'log');
+
         }catch(err){
             response = err.response;
+            ERRoR = true;
+
             await Logs.log(this.classId + " DELETE " + url, 'err', false);
         }finally {
-            return response.data;
+            return {
+                isError: ERRoR,
+                data: response.data,
+            }
         }
     }
 
     /**
     * @param {IAxiosClient} config Config
     */
-    static clientSync(config = {}) {
+    static client(config = {
+        cookie: false,
+        jar: null,
+        headers: {},
+    }) {
         return new AxiosClient(config).axiosClient;
     }
 }
 
 //export
-AxiosClient.client = AxiosClient.clientSync;
-
 module.exports = AxiosClient;

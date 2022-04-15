@@ -1,6 +1,9 @@
 {
-    "create": "2022-04-09T04:47:12.974Z",
-    "platfrom": "Windows",
+    "create": "2022-04-15T05:42:31.756Z",
+    "process": {
+        "platform": "Windows",
+        "directory": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core"
+    },
     "logs": {
         "mode": true,
         "show": false,

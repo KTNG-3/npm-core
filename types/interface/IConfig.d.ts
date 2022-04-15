@@ -1,5 +1,9 @@
 declare const _exports: {
     create: StringConstructor;
+    process: {
+        platform: StringConstructor;
+        directory: StringConstructor;
+    };
     logs: {
         mode: BooleanConstructor;
         show: BooleanConstructor;

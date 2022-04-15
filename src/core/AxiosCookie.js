@@ -36,13 +36,11 @@ class AxiosCookie {
      * @param {Object} cookie CookieJar toJSON
      * @returns {void}
      */
-    static fromJSONSync(cookie) {
+    static fromJSON(cookie) {
         Logs.log("Import " + this.classId);
         return new AxiosCookie(cookie);
     }
 }
 
 //export
-AxiosCookie.fromJSON = AxiosCookie.fromJSONSync;
-
 module.exports = AxiosCookie;

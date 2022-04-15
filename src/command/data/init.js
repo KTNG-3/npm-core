@@ -72,7 +72,10 @@ module.exports = {
         //create config file
         await _file.write(JSON.stringify({
             create: String(new Date().toISOString()),
-            platfrom: _sysplatfrom,
+            process: {
+                platform: _sysplatfrom,
+                directory: await process.cwd(),
+            },
             logs: {
                 mode: true,
                 show: false,

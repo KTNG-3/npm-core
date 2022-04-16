@@ -113,6 +113,33 @@ class AxiosClient {
 
     /**
     * @param {String} url URL
+    * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {IAxiosClientOut}
+    */
+    async patch(url, body = {}, config = {}) {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.patch(url, body, config);
+            await Logs.log(this.classId + " PATCH " + url, 'log');
+
+        }catch(err){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " PATCH " + url, 'err', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            }
+        }
+    }
+
+    /**
+    * @param {String} url URL
     * @param {Object} config Axios Config
     * @returns {IAxiosClientOut}
     */

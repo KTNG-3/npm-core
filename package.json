@@ -1,6 +1,6 @@
 {
   "name": "@ing3kth/core",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "@ing3kth Core for node package",
   "main": "src/index.js",
   "types": "./types/index.d.ts",

@@ -50,6 +50,16 @@ declare class AxiosClient {
     };
     /**
     * @param {String} url URL
+    * @param {JSON} body Body
+    * @param {Object} config Axios Config
+    * @returns {IAxiosClientOut}
+    */
+    patch(url: string, body?: JSON, config?: Object): {
+        isError: BooleanConstructor;
+        data: ObjectConstructor;
+    };
+    /**
+    * @param {String} url URL
     * @param {Object} config Axios Config
     * @returns {IAxiosClientOut}
     */

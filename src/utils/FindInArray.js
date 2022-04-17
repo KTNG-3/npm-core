@@ -41,7 +41,7 @@ module.exports = {
                 find: true,
                 position: 0,
             };
-        };
+        }
 
         if(array[array.length] === target){
             return {
@@ -73,4 +73,4 @@ module.exports = {
             position: NaN,
         };
     }
-}
+};

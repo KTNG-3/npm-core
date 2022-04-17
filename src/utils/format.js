@@ -32,7 +32,7 @@ class Format {
             case 'bool' || 'boolean':
                 return Boolean(this.data);
             case 'ms' || 'milliseconds':
-                let ms_total = new Date(inputMS).getTime();
+                let ms_total = new Date(this.data).getTime();
                 let second_total = 0;
                 let minute_total = 0;
                 let hour_total = 0;

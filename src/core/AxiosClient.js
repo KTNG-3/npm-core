@@ -80,7 +80,7 @@ class AxiosClient {
             return {
                 isError: ERRoR,
                 data: response.data,
-            }
+            };
         }
     }
 

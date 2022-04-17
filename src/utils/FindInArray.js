@@ -48,7 +48,7 @@ module.exports = {
                 find: true,
                 position: array.length,
             };
-        };
+        }
 
         return module.exports.find(array, target, Number(0), Number(array.length));
     },

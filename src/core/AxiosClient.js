@@ -107,7 +107,7 @@ class AxiosClient {
             return {
                 isError: ERRoR,
                 data: response.data,
-            }
+            };
         }
     }
 
@@ -134,7 +134,7 @@ class AxiosClient {
             return {
                 isError: ERRoR,
                 data: response.data,
-            }
+            };
         }
     }
 
@@ -160,7 +160,7 @@ class AxiosClient {
             return {
                 isError: ERRoR,
                 data: response.data,
-            }
+            };
         }
     }
 

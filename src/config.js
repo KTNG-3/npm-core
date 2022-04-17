@@ -1,5 +1,5 @@
-var process = require('process')
-const fs = require('fs')
+var process = require('process');
+const fs = require('fs');
 
 const consoleColor = require('./utils/consoleColor'); 
 const _path = process.cwd() + '/ing3kth/config.json';

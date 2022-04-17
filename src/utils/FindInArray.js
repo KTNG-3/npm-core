@@ -11,7 +11,7 @@ module.exports = {
     find: function (array, target, start = 0, end = array.length) {
         if (start > end){
             return module.exports.normal(array, target);
-        };
+        }
 
         const middle = Number(Math.floor( (start + end) / 2 ));
 
@@ -19,7 +19,7 @@ module.exports = {
             return {
                 find: true,
                 position: middle,
-            }
+            };
         }
 
         if(array[middle] > target){

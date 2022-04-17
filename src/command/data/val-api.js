@@ -22,4 +22,4 @@ module.exports = {
 
         console.log(`\n${consoleColor.colored("@ing3kth/val-api", 'yellow')} is npm package for get data from VALORANT.\n`);
     }
-}
+};

@@ -67,7 +67,7 @@ module.exports = {
             flags: "w",
         });
 
-        const _sysplatfrom = (await systeminformation.osInfo()).platform
+        const _sysplatfrom = (await systeminformation.osInfo()).platform;
 
         //create config file
         await _file.write(JSON.stringify({
@@ -91,7 +91,7 @@ module.exports = {
                     lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
                 },
             },
-        }))
+        }));
 
         await console.log(`\nCreate config file at: ${_config}\n`);
     }

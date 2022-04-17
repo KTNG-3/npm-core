@@ -10,7 +10,7 @@ const fs = require("fs");
 class Update {
     constructor() {
         this.classId = '@ing3kth/core/Update';
-        this.axiosClient = axios.create()
+        this.axiosClient = axios.create();
     }
 
     /**

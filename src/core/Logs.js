@@ -18,7 +18,7 @@ class Logs {
     constructor(fileName = 'NAME', path = _config.logs.path) {
         this.classId = '@ing3kth/core/Logs';
 
-        this.path = path + `/${fileName}.log`
+        this.path = path + `/${fileName}.log`;
 
         if (!fs.existsSync(this.path)) {
             this.new();
@@ -127,7 +127,7 @@ class Logs {
         const _ram_free = _ram.available;
         const _ram_used = _ram.active;
 
-        const _sys_os = (await si.osInfo()).distro;
+        const _sys_os = (await systeminformation.osInfo()).distro;
         const _sys_model = (await systeminformation.system()).model;
 
         //log all

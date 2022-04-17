@@ -19,10 +19,10 @@ module.exports = {
             return;
         }
 
-        _update.data.update.forEach(updateList => {
+        for(const updateList of _update.data.update){
             console.log(`${consoleColor.colored(updateList.name, 'cyan')}: ${consoleColor.colored(updateList.version.current, 'red')} --> ${consoleColor.colored(updateList.version.latest, 'green')}`);
-        });
+        }
 
         console.log(``);
     }
-}
+};

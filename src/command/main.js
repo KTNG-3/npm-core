@@ -5,7 +5,7 @@ const fs = require('fs');
 const commander = require('commander');
 
 //script
-const commandsFolders = fs.readdirSync(__dirname + '/data');;
+const commandsFolders = fs.readdirSync(__dirname + '/data');
 for (const file of commandsFolders) {
     const command = require(`./data/${file}`);
 

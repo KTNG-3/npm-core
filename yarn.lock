@@ -23,10 +23,10 @@ axios@^0.26.1:
   dependencies:
     follow-redirects "^1.14.8"
 
-commander@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.npmjs.org/commander/-/commander-9.1.0.tgz"
-  integrity sha512-i0/MaqBtdbnJ4XQs4Pmyb+oFQl+q0lsAmokVUH92SlSw4fkeAcG3bVon+Qt7hmtF+u3Het6o4VgrcY3qAoEB6w==
+commander@^9.2.0:
+  version "9.2.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-9.2.0.tgz"
+  integrity sha512-e2i4wANQiSXgnrBlIatyHtP1odfUp0BbV5Y5nEGbxtIrStkEOAAzCUirvLBNXHLr7kwLvJl6V+4V3XV9x7Wd9w==
 
 debug@4:
   version "4.3.4"
@@ -62,10 +62,10 @@ punycode@^2.1.1:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-systeminformation@^5.11.9:
-  version "5.11.9"
-  resolved "https://registry.npmjs.org/systeminformation/-/systeminformation-5.11.9.tgz"
-  integrity sha512-eeMtL9UJFR/LYG+2rpeAgZ0Va4ojlNQTkYiQH/xbbPwDjDMsaetj3Pkc+C1aH5G8mav6HvDY8kI4Vl4noksSkA==
+systeminformation@^5.11.10:
+  version "5.11.10"
+  resolved "https://registry.npmjs.org/systeminformation/-/systeminformation-5.11.10.tgz"
+  integrity sha512-1Ydh53H9JoVCDoH1Bs/LbxtBhZzbVLKZ4wpEBHTivWIz5ZyNmBQ9pA4yasiDWcK9L6gbKBrkpVwtqP4t9Vspag==
 
 tough-cookie@^4.0.0:
   version "4.0.0"

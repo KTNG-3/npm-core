@@ -50,7 +50,13 @@ module.exports = {
             };
         }
 
-        return module.exports.find(array, target, Number(0), Number(array.length));
+        const _Find = module.exports.find(array, target, Number(0), Number(array.length));
+
+        if(_Find === undefined){
+            return module.exports.normal(array, target);
+        }
+
+        return _Find
     },
     /**
      * 

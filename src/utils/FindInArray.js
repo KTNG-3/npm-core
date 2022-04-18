@@ -52,11 +52,11 @@ module.exports = {
 
         const _Find = module.exports.find(array, target, Number(0), Number(array.length));
 
-        if(_Find === undefined){
+        if(!_Find){
             return module.exports.normal(array, target);
         }
 
-        return _Find
+        return _Find;
     },
     /**
      * 

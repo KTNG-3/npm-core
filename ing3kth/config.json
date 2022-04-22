@@ -1,0 +1,41 @@
+{
+    "create": "2022-04-22T08:19:18.753Z",
+    "version": "1.7.4-1",
+    "process": {
+        "platform": "Windows",
+        "directory": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core"
+    },
+    "logs": {
+        "show": true,
+        "save": false,
+        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs",
+        "file": {
+            "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs",
+            "extension": "log"
+        }
+    },
+    "cache": {
+        "file": {
+            "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache",
+            "extension": "json"
+        }
+    },
+    "val-api": {
+        "RiotLocal": {
+            "ip": "127.0.0.1",
+            "username": "riot",
+            "lockfile": "C:\\Users\\Windows10\\AppData\\Local/Riot Games/Riot Client/Config/lockfile"
+        },
+        "ValClient": {
+            "client": {
+                "version": "release-04.07-shipping-15-699063",
+                "platfrom": {
+                    "platformType": "PC",
+                    "platformOS": "Windows",
+                    "platformOSVersion": "10.0.19042.1.256.64bit",
+                    "platformChipset": "Unknown"
+                }
+            }
+        }
+    }
+}

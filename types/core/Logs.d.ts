@@ -28,7 +28,7 @@ declare class Logs {
     constructor(fileName?: string, path?: string);
     classId: string;
     path: string;
-    file: any;
+    file: Buffer | undefined;
     /**
      *
      * @returns {void}

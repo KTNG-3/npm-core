@@ -1,3 +1,7 @@
+declare namespace exports {
+    export { exports as default };
+}
+declare namespace module { }
 export declare namespace Core {
     const AxiosClient: typeof import("./core/AxiosClient");
     const AxiosCookie: typeof import("./core/AxiosCookie");
@@ -121,5 +125,6 @@ export declare namespace Interface {
 }
 declare const Config_1: any;
 declare const Update_1: typeof import("./update");
+export default module.exports;
 export { Config_1 as Config, Update_1 as Update };
 //# sourceMappingURL=index.d.ts.map

@@ -31,3 +31,7 @@ module.exports = {
   Update: require('./update'),
 
 };
+
+
+//sometime typescript are use ImportName['default']
+module.exports.default = module.exports;

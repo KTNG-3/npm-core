@@ -1,7 +1,6 @@
 //import
 var process = require("process");
 const fs = require("fs");
-const systeminformation = require('systeminformation/lib/osinfo');
 
 const _folder = process.cwd() + "/ing3kth";
 const _cache = _folder + "/cache";
@@ -67,29 +66,49 @@ module.exports = {
             flags: "w",
         });
 
+        const systeminformation = require('systeminformation');
         const _sysplatfrom = (await systeminformation.osInfo()).platform;
 
         //create config file
         await _file.write(JSON.stringify({
             create: String(new Date().toISOString()),
+            version: "1.7.4",
             process: {
                 platform: _sysplatfrom,
                 directory: await process.cwd(),
             },
             logs: {
-                mode: true,
-                show: false,
+                show: true,
+                save: false,
                 path: _logs,
+                file: {
+                    path: _logs,
+                    extension: "log",
+                }
             },
             cache: {
-                mode: false,
-                path: _cache,
+                file: {
+                    path: _cache,
+                    extension: "json",
+                }
             },
             "val-api": {
-                local: {
+                RiotLocal: {
                     ip: '127.0.0.1',
+                    username: 'riot',
                     lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
                 },
+                ValClient: {
+                    client: {
+                        version: 'release-04.07-shipping-15-699063',
+                        platfrom: {
+                            platformType: 'PC',
+                            platformOS: 'Windows',
+                            platformOSVersion: '10.0.19042.1.256.64bit',
+                            platformChipset: 'Unknown'
+                        },
+                    }
+                }
             },
         }));
 

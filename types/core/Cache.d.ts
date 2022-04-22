@@ -19,7 +19,7 @@ declare class Cache {
     classId: string;
     baseName: string;
     path: string;
-    file: any;
+    file: Buffer | undefined;
     /**
      *
      * @returns {void}

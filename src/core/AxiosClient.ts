@@ -1,0 +1,184 @@
+//import
+import axios, { Axios, AxiosError, AxiosRequestConfig } from 'axios';
+import { wrapper } from 'axios-cookiejar-support';
+
+import * as https from 'https'
+
+import { AxiosCookie } from './AxiosCookie';
+
+import { Logs } from './Logs';
+
+import { IAxiosClient, IAxiosClientOut } from "../interface/IAxiosClient";
+
+//class
+class AxiosClient {
+    classId:string
+    jar: AxiosCookie | any;
+    axiosClient: Axios;
+    
+
+    /**
+    * @param {IAxiosClient} config Config
+    */
+    constructor(config = {
+        cookie: true,
+        jar: new AxiosCookie().toJSON(),
+        headers: {},
+    }) {
+        this.classId = '@ing3kth/core/AxiosClient';
+        if(config.cookie){
+            this.jar = AxiosCookie.fromJSON(config.jar);
+
+            this.axiosClient = wrapper(axios.create({ jar: this.jar, withCredentials: true, headers: config.headers }));
+        }else {
+            this.axiosClient = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }), headers: config.headers });
+        }
+    }
+
+    /**
+    * @param {String} url URL
+    * @param {AxiosRequestConfig} config Axios Config
+    * @returns {Promise<IAxiosClientOut>}
+    */
+     async get(url:string, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.get(url, config);
+            await Logs.log(this.classId + " GET " + url, 'info');
+
+        }catch(err:AxiosError | any){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " GET " + url, 'error', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            };
+        }
+    }
+
+    /**
+    * @param {String} url URL
+    * @param {Object} body Body
+    * @param {AxiosRequestConfig} config Axios Config
+    * @returns {Promise<IAxiosClientOut>}
+    */
+    async post(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.post(url, body, config);
+            await Logs.log(this.classId + " POST " + url, 'info');
+
+        }catch(err:AxiosError | any){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " POST " + url, 'error', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            };
+        }
+    }
+
+    /**
+    * @param {String} url URL
+    * @param {Object} body Body
+    * @param {AxiosRequestConfig} config Axios Config
+    * @returns {Promise<IAxiosClientOut>}
+    */
+    async put(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.put(url, body, config);
+            await Logs.log(this.classId + " PUT " + url, 'info');
+
+        }catch(err:AxiosError | any){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " PUT " + url, 'error', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            };
+        }
+    }
+
+    /**
+    * @param {String} url URL
+    * @param {Object} body Body
+    * @param {AxiosRequestConfig} config Axios Config
+    * @returns {Promise<IAxiosClientOut>}
+    */
+    async patch(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.patch(url, body, config);
+            await Logs.log(this.classId + " PATCH " + url, 'info');
+
+        }catch(err:AxiosError | any){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " PATCH " + url, 'error', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            };
+        }
+    }
+
+    /**
+    * @param {String} url URL
+    * @param {AxiosRequestConfig} config Axios Config
+    * @returns {Promise<IAxiosClientOut>}
+    */
+    async delete(url:string, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
+        var response;
+        var ERRoR = false;
+
+        try{
+            response = await this.axiosClient.delete(url, config);
+            await Logs.log(this.classId + " DELETE " + url, 'info');
+
+        }catch(err:AxiosError | any){
+            response = err.response;
+            ERRoR = true;
+
+            await Logs.log(this.classId + " DELETE " + url, 'error', false);
+        }finally {
+            return {
+                isError: ERRoR,
+                data: response.data,
+            };
+        }
+    }
+
+    /**
+    * @param {IAxiosClient} config Config
+    */
+    static client(config:IAxiosClient = {
+        cookie: false,
+        jar: null,
+        headers: {},
+    }) {
+        return new AxiosClient(config).axiosClient;
+    }
+}
+
+//export
+export { AxiosClient };

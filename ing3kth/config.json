@@ -1,22 +1,17 @@
 {
-    "create": "2022-04-22T08:19:18.753Z",
-    "version": "1.7.4-1",
-    "process": {
-        "platform": "Windows",
-        "directory": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core"
-    },
+    "create": "2022-04-25T05:20:59.236Z",
+    "version": "1",
     "logs": {
-        "show": true,
         "save": false,
-        "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs",
+        "show": true,
         "file": {
-            "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/logs",
+            "path": "/logs",
             "extension": "log"
         }
     },
     "cache": {
         "file": {
-            "path": "C:\\Users\\Windows10\\Documents\\GitHub\\npm-core/ing3kth/cache",
+            "path": "/cache",
             "extension": "json"
         }
     },

@@ -12,7 +12,7 @@ import { IFindInArray } from "../interface/IFindInArray";
             return {
                 find: true,
                 position: Number(i),
-            }
+            };
         }
     }
 

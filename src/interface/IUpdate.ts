@@ -12,6 +12,6 @@ interface IUpdate {
         update: Array<IUpdate_Part>,
         latest: Array<IUpdate_Part>,
     },
-};
+}
 
 export type { IUpdate, IUpdate_Part };

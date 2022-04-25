@@ -4,7 +4,7 @@ import { wrapper } from 'axios-cookiejar-support';
 
 import * as https from 'https'
 
-import { AxiosCookie } from './AxiosCookie';
+import { CookieJar as toughCookie } from "tough-cookie";
 
 import { Logs } from './Logs';
 
@@ -13,25 +13,27 @@ import { IAxiosClient, IAxiosClientOut } from "../interface/IAxiosClient";
 //class
 class AxiosClient {
     classId:string
-    jar: AxiosCookie | any;
+    headers:object | any
+    jar: toughCookie | any;
     axiosClient: Axios;
     
 
     /**
     * @param {IAxiosClient} config Config
     */
-    constructor(config = {
+    constructor(config: IAxiosClient = {
         cookie: true,
-        jar: new AxiosCookie().toJSON(),
+        jar: new toughCookie().toJSON(),
         headers: {},
     }) {
         this.classId = '@ing3kth/core/AxiosClient';
+        this.headers = config.headers;
         if(config.cookie){
-            this.jar = AxiosCookie.fromJSON(config.jar);
+            this.jar = toughCookie.fromJSON(config.jar);
 
-            this.axiosClient = wrapper(axios.create({ jar: this.jar, withCredentials: true, headers: config.headers }));
+            this.axiosClient = wrapper(axios.create({ jar: this.jar, withCredentials: true, headers: this.headers }));
         }else {
-            this.axiosClient = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }), headers: config.headers });
+            this.axiosClient = axios.create({ httpsAgent: new https.Agent({ rejectUnauthorized: false }), headers: this.headers });
         }
     }
 
@@ -41,8 +43,8 @@ class AxiosClient {
     * @returns {Promise<IAxiosClientOut>}
     */
      async get(url:string, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
-        var response;
-        var ERRoR = false;
+        var response:any;
+        var ERRoR:boolean = false;
 
         try{
             response = await this.axiosClient.get(url, config);
@@ -68,8 +70,8 @@ class AxiosClient {
     * @returns {Promise<IAxiosClientOut>}
     */
     async post(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
-        var response;
-        var ERRoR = false;
+        var response:any;
+        var ERRoR:boolean = false;
 
         try{
             response = await this.axiosClient.post(url, body, config);
@@ -95,8 +97,8 @@ class AxiosClient {
     * @returns {Promise<IAxiosClientOut>}
     */
     async put(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
-        var response;
-        var ERRoR = false;
+        var response:any;
+        var ERRoR:boolean = false;
 
         try{
             response = await this.axiosClient.put(url, body, config);
@@ -122,8 +124,8 @@ class AxiosClient {
     * @returns {Promise<IAxiosClientOut>}
     */
     async patch(url:string, body:object = {}, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
-        var response;
-        var ERRoR = false;
+        var response:any;
+        var ERRoR:boolean = false;
 
         try{
             response = await this.axiosClient.patch(url, body, config);
@@ -148,8 +150,8 @@ class AxiosClient {
     * @returns {Promise<IAxiosClientOut>}
     */
     async delete(url:string, config:AxiosRequestConfig = {}):Promise<IAxiosClientOut> {
-        var response;
-        var ERRoR = false;
+        var response:any;
+        var ERRoR:boolean = false;
 
         try{
             response = await this.axiosClient.delete(url, config);

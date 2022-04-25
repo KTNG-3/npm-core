@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 //import
 const process = __importStar(require("process"));
@@ -64,86 +55,82 @@ exports.default = {
         ],
     },
     //script
-    execute({ force }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            //folder
-            if (!fs.existsSync(_folder)) {
-                force = true;
-                fs.mkdirSync(_folder);
+    async execute({ force }) {
+        //folder
+        if (!fs.existsSync(_folder)) {
+            force = true;
+            fs.mkdirSync(_folder);
+        }
+        //cache
+        if (!fs.existsSync(_cache)) {
+            fs.mkdirSync(_cache);
+            fs.createWriteStream(_cache + "/NAME.json", {
+                flags: 'w'
+            }).write(JSON.stringify({}));
+        }
+        //Logs
+        if (!fs.existsSync(_logs)) {
+            fs.mkdirSync(_logs);
+            fs.createWriteStream(_logs + "/NAME.log", {
+                flags: 'w'
+            }).write(`date|||mode|||data`);
+        }
+        //config
+        if (!fs.existsSync(_config)) {
+            await exports.default.config();
+        }
+        else {
+            if (!force) {
+                console.log(`\nFind config file at: ${_config}\n`);
+                return _config;
             }
-            //cache
-            if (!fs.existsSync(_cache)) {
-                fs.mkdirSync(_cache);
-                fs.createWriteStream(_cache + "/NAME.json", {
-                    flags: 'w'
-                }).write(JSON.stringify({}));
-            }
-            //Logs
-            if (!fs.existsSync(_logs)) {
-                fs.mkdirSync(_logs);
-                fs.createWriteStream(_logs + "/NAME.log", {
-                    flags: 'w'
-                }).write(`date|||mode|||data`);
-            }
-            //config
-            if (!fs.existsSync(_config)) {
-                yield exports.default.config();
-            }
-            else {
-                if (!force) {
-                    console.log(`\nFind config file at: ${_config}\n`);
-                    return _config;
-                }
-                yield exports.default.config();
-            }
-            return _config;
-        });
+            await exports.default.config();
+        }
+        return _config;
     },
-    config() {
-        return __awaiter(this, void 0, void 0, function* () {
-            //script
-            const _file = yield fs.createWriteStream(_config, {
-                flags: "w",
-            });
-            //create config file
-            yield _file.write(JSON.stringify({
-                create: String(new Date().toISOString()),
-                version: "1",
-                logs: {
-                    save: false,
-                    show: true,
-                    file: {
-                        path: _logs_path,
-                        extension: "log",
-                    }
-                },
-                cache: {
-                    file: {
-                        path: _cache_path,
-                        extension: "json",
-                    }
-                },
-                "val-api": {
-                    RiotLocal: {
-                        ip: '127.0.0.1',
-                        username: 'riot',
-                        lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
-                    },
-                    ValClient: {
-                        client: {
-                            version: 'release-04.07-shipping-15-699063',
-                            platfrom: {
-                                platformType: 'PC',
-                                platformOS: 'Windows',
-                                platformOSVersion: '10.0.19042.1.256.64bit',
-                                platformChipset: 'Unknown'
-                            },
-                        }
-                    }
-                },
-            }));
-            yield console.log(`\nCreate config file at: ${_config}\n`);
+    async config() {
+        //script
+        const _file = await fs.createWriteStream(_config, {
+            flags: "w",
         });
+        //create config file
+        await _file.write(JSON.stringify({
+            create: String(new Date().toISOString()),
+            version: "1",
+            logs: {
+                save: false,
+                show: true,
+                file: {
+                    path: _logs_path,
+                    extension: "log",
+                }
+            },
+            cache: {
+                file: {
+                    path: _cache_path,
+                    extension: "json",
+                }
+            },
+            "val-api": {
+                RiotLocal: {
+                    ip: '127.0.0.1',
+                    username: 'riot',
+                    lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
+                },
+                ValClient: {
+                    client: {
+                        version: 'release-04.07-shipping-15-699063',
+                        platfrom: {
+                            platformType: 'PC',
+                            platformOS: 'Windows',
+                            platformOSVersion: '10.0.19042.1.256.64bit',
+                            platformChipset: 'Unknown'
+                        },
+                    }
+                }
+            },
+        }));
+        await console.log(`\nCreate config file at: ${_config}\n`);
     }
 };
 //# sourceMappingURL=init.js.map

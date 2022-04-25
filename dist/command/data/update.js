@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 //import
 const update_1 = require("../../update");
@@ -43,18 +34,16 @@ exports.default = {
         option: [],
     },
     //script
-    execute() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _update = yield update_1.Update.checkForUpdate();
-            console.log(`\n${_update.response}\n`);
-            if (_update.data.update && _update.data.update.length <= 0) {
-                return;
-            }
-            for (const updateList of _update.data.update) {
-                console.log(`${consoleColor.colored(String(updateList.name), 'cyan')}: ${consoleColor.colored(String(updateList.version.current), 'red')} --> ${consoleColor.colored(String(updateList.version.latest), 'green')}`);
-            }
-            console.log(``);
-        });
+    async execute() {
+        const _update = await update_1.Update.checkForUpdate();
+        console.log(`\n${_update.response}\n`);
+        if (_update.data.update && _update.data.update.length <= 0) {
+            return;
+        }
+        for (const updateList of _update.data.update) {
+            console.log(`${consoleColor.colored(String(updateList.name), 'cyan')}: ${consoleColor.colored(String(updateList.version.current), 'red')} --> ${consoleColor.colored(String(updateList.version.latest), 'green')}`);
+        }
+        console.log(``);
     }
 };
 //# sourceMappingURL=update.js.map

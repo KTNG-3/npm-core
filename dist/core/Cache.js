@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cache = void 0;
 //import
@@ -43,6 +34,10 @@ const consoleColor = __importStar(require("../utils/ConsoleColor"));
  * Cache Data in JSON format.
  */
 class Cache {
+    classId;
+    baseName;
+    path;
+    file;
     /**
      *
      * @param {String} name Name
@@ -62,23 +57,21 @@ class Cache {
      *
      * @returns {Promise<any>}
      */
-    create() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _FILE = yield fs.createWriteStream(this.path, {
-                flags: 'w'
-            });
-            yield _FILE.once('ready', () => __awaiter(this, void 0, void 0, function* () {
-                yield _FILE.write(JSON.stringify({}));
-            }));
-            yield _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
-                try {
-                    this.file = yield fs.readFileSync(this.path);
-                }
-                catch (err) {
-                    console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`);
-                    return err;
-                }
-            }));
+    async create() {
+        const _FILE = await fs.createWriteStream(this.path, {
+            flags: 'w'
+        });
+        await _FILE.once('ready', async () => {
+            await _FILE.write(JSON.stringify({}));
+        });
+        await _FILE.on('finish', async () => {
+            try {
+                this.file = await fs.readFileSync(this.path);
+            }
+            catch (err) {
+                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`);
+                return err;
+            }
         });
     }
     /**
@@ -87,56 +80,48 @@ class Cache {
      * @param {String} interactionId Interaction ID.
      * @returns {Promise<ICache>}
      */
-    input(data, interactionId = '') {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!interactionId) {
-                interactionId = String(new Date().getTime());
-            }
-            try {
-                let _json = yield JSON.parse(this.file);
-                _json[interactionId] = data;
-                yield fs.writeFileSync(this.path, yield JSON.stringify(yield _json));
-            }
-            catch (err) {
-                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Cache File`, 'red') + `\n`);
-                yield fs.writeFileSync(this.path, yield JSON.stringify({}));
-            }
-            return {
-                name: this.baseName,
-                interactionId: interactionId,
-            };
-        });
+    async input(data, interactionId = '') {
+        if (!interactionId) {
+            interactionId = String(new Date().getTime());
+        }
+        try {
+            let _json = await JSON.parse(this.file);
+            _json[interactionId] = data;
+            await fs.writeFileSync(this.path, await JSON.stringify(await _json));
+        }
+        catch (err) {
+            console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Cache File`, 'red') + `\n`);
+            await fs.writeFileSync(this.path, await JSON.stringify({}));
+        }
+        return {
+            name: this.baseName,
+            interactionId: interactionId,
+        };
     }
     /**
      * @param {String} interactionId Interaction ID.
      * @returns {Promise<any>}
      */
-    output(interactionId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _json = yield JSON.parse(this.file);
-            return yield _json[interactionId];
-        });
+    async output(interactionId) {
+        const _json = await JSON.parse(this.file);
+        return await _json[interactionId];
     }
     /**
      * @param {String} interactionId Interaction ID.
      * @returns {Promise<void>}
      */
-    clear(interactionId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let _json = yield JSON.parse(this.file);
-            delete _json[interactionId];
-            yield fs.writeFileSync(this.path, yield JSON.stringify(yield _json));
-        });
+    async clear(interactionId) {
+        let _json = await JSON.parse(this.file);
+        delete _json[interactionId];
+        await fs.writeFileSync(this.path, await JSON.stringify(await _json));
     }
     /**
      * @param {ICache} path Path to Data.
      * @returns {Promise<any>}
      */
-    static output(path) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _NewCache = yield new Cache(path.name);
-            return yield _NewCache.output(path.interactionId);
-        });
+    static async output(path) {
+        const _NewCache = await new Cache(path.name);
+        return await _NewCache.output(path.interactionId);
     }
 }
 exports.Cache = Cache;

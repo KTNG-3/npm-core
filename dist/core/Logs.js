@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logs = void 0;
 //import
@@ -43,6 +34,9 @@ const consoleColor = __importStar(require("../utils/ConsoleColor"));
  * Log data for debugging purposes.
  */
 class Logs {
+    classId;
+    path;
+    file;
     /**
      * @param {String} fileName File name.
      * @param {String} path Where to save the logs file.
@@ -61,24 +55,22 @@ class Logs {
      *
      * @returns {void}
      */
-    new() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (config_1._config.logs.save) {
-                const _FILE = yield fs.createWriteStream(this.path, {
-                    flags: 'w'
-                });
-                yield _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
-                    try {
-                        this.file = yield fs.readFileSync(this.path);
-                        yield this.log('========== Logs File Created ==========', 'system', false);
-                    }
-                    catch (err) {
-                        console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
-                        return err;
-                    }
-                }));
-            }
-        });
+    async new() {
+        if (config_1._config.logs.save) {
+            const _FILE = await fs.createWriteStream(this.path, {
+                flags: 'w'
+            });
+            await _FILE.on('finish', async () => {
+                try {
+                    this.file = await fs.readFileSync(this.path);
+                    await this.log('========== Logs File Created ==========', 'system', false);
+                }
+                catch (err) {
+                    console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
+                    return err;
+                }
+            });
+        }
     }
     /**
      *
@@ -87,82 +79,78 @@ class Logs {
      * @param {Boolean} showup Show the log in the console.
      * @returns {any}
      */
-    log(data, mode = 'info', showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            switch (String(mode).toLowerCase()) {
-                case 'error':
-                    if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
-                    }
-                    data = new Error(data);
-                    break;
-                case 'warning':
-                    if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow') + `\n`);
-                    }
-                    break;
-                case 'system':
-                    if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan') + `\n`);
-                    }
-                    break;
-                case 'info':
-                    if (showup) {
-                        console.log(`<${mode}> ` + String(data));
-                    }
-                    break;
-                default:
-                    mode = 'unknown';
-                    break;
-            }
-            if (config_1._config.logs.save) {
-                try {
-                    this.file += `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${yield util.format(data)}`;
-                    yield fs.writeFileSync(this.path, yield this.file);
+    async log(data, mode = 'info', showup = config_1._config.logs.show) {
+        switch (String(mode).toLowerCase()) {
+            case 'error':
+                if (showup) {
+                    console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
                 }
-                catch (err) {
-                    console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
-                    return err;
+                data = new Error(data);
+                break;
+            case 'warning':
+                if (showup) {
+                    console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow') + `\n`);
                 }
+                break;
+            case 'system':
+                if (showup) {
+                    console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan') + `\n`);
+                }
+                break;
+            case 'info':
+                if (showup) {
+                    console.log(`<${mode}> ` + String(data));
+                }
+                break;
+            default:
+                mode = 'unknown';
+                break;
+        }
+        if (config_1._config.logs.save) {
+            try {
+                this.file += `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}`;
+                await fs.writeFileSync(this.path, await this.file);
             }
-            return yield data;
-        });
+            catch (err) {
+                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
+                return err;
+            }
+        }
+        return await data;
     }
     /**
      *
      * @param {Boolean} showup Show the log in the console.
      * @returns {Object}
      */
-    get(showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var _get = [];
-            if (fs.existsSync(this.path)) {
-                const _getFile = String(this.file);
-                const file_per_line = _getFile.split("\n");
-                var file_split = [];
-                for (const _line of file_per_line) {
-                    file_split.push(_line.split("|||"));
-                }
-                for (let i = 0; i < file_split.length; i++) {
-                    const _split = file_split[i];
-                    const _log_date = new Date(_split[0]);
-                    const _log_mode = String(_split[1]);
-                    const _log_message = util.format(_split[2]);
-                    if (_log_message === 'undefined') {
-                        continue;
-                    }
-                    _get.push({
-                        date: _log_date,
-                        mode: _log_mode,
-                        data: _log_message,
-                    });
-                }
-                if (showup) {
-                    console.log(_get);
-                }
+    async get(showup = config_1._config.logs.show) {
+        var _get = [];
+        if (fs.existsSync(this.path)) {
+            const _getFile = String(this.file);
+            const file_per_line = _getFile.split("\n");
+            var file_split = [];
+            for (const _line of file_per_line) {
+                file_split.push(_line.split("|||"));
             }
-            return _get;
-        });
+            for (let i = 0; i < file_split.length; i++) {
+                const _split = file_split[i];
+                const _log_date = new Date(_split[0]);
+                const _log_mode = String(_split[1]);
+                const _log_message = util.format(_split[2]);
+                if (_log_message === 'undefined') {
+                    continue;
+                }
+                _get.push({
+                    date: _log_date,
+                    mode: _log_mode,
+                    data: _log_message,
+                });
+            }
+            if (showup) {
+                console.log(_get);
+            }
+        }
+        return _get;
     }
     /**
      *
@@ -171,41 +159,35 @@ class Logs {
      * @param {Boolean} showup Show the log in the console.
      * @returns {String}
      */
-    static log(data, mode = 'info', showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const newLog = yield new Logs();
-            yield newLog.log(data, mode, showup);
-        });
+    static async log(data, mode = 'info', showup = config_1._config.logs.show) {
+        const newLog = await new Logs();
+        await newLog.log(data, mode, showup);
     }
     /**
      *
      * @param {Boolean} showup Show the log in the console.
      * @returns {Object}
      */
-    static get(showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const newLog = yield new Logs();
-            return yield newLog.get(showup);
-        });
+    static async get(showup = config_1._config.logs.show) {
+        const newLog = await new Logs();
+        return await newLog.get(showup);
     }
     /**
      * @param {Number} times Number of times to pre create the log.
      */
-    static preCreate_WithDate(times = 1) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _date = new Date();
-            let _year = Number(_date.getUTCFullYear());
-            let _month = Number(_date.getUTCMonth());
-            let _day = Number(_date.getUTCDate());
-            let _hours = Number(_date.getUTCHours());
-            for (let i = 0; i < Number(times); i++) {
-                if (_hours > 24) {
-                    break;
-                }
-                let fileName = `${_year}-${_month}-${_day}_${_hours}`;
-                yield new Logs(fileName);
+    static async preCreate_WithDate(times = 1) {
+        const _date = new Date();
+        let _year = Number(_date.getUTCFullYear());
+        let _month = Number(_date.getUTCMonth());
+        let _day = Number(_date.getUTCDate());
+        let _hours = Number(_date.getUTCHours());
+        for (let i = 0; i < Number(times); i++) {
+            if (_hours > 24) {
+                break;
             }
-        });
+            let fileName = `${_year}-${_month}-${_day}_${_hours}`;
+            await new Logs(fileName);
+        }
     }
 }
 exports.Logs = Logs;

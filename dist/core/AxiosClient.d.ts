@@ -1,18 +1,15 @@
 import { Axios, AxiosRequestConfig } from 'axios';
-import { AxiosCookie } from './AxiosCookie';
+import { CookieJar as toughCookie } from "tough-cookie";
 import { IAxiosClient, IAxiosClientOut } from "../interface/IAxiosClient";
 declare class AxiosClient {
     classId: string;
-    jar: AxiosCookie | any;
+    headers: object | any;
+    jar: toughCookie | any;
     axiosClient: Axios;
     /**
     * @param {IAxiosClient} config Config
     */
-    constructor(config?: {
-        cookie: boolean;
-        jar: import("tough-cookie").CookieJar.Serialized;
-        headers: {};
-    });
+    constructor(config?: IAxiosClient);
     /**
     * @param {String} url URL
     * @param {AxiosRequestConfig} config Axios Config

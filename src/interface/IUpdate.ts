@@ -1,4 +1,4 @@
-interface IUpdatePart {
+interface IUpdate_Part {
     name: string,
     version: {
         current: string,
@@ -9,9 +9,9 @@ interface IUpdatePart {
 interface IUpdate {
     response: string,
     data: {
-        update: Array<IUpdatePart>,
-        latest: Array<IUpdatePart>,
+        update: Array<IUpdate_Part>,
+        latest: Array<IUpdate_Part>,
     },
 };
 
-export type { IUpdate, IUpdatePart };
+export type { IUpdate, IUpdate_Part };

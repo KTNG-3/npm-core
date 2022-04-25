@@ -1,9 +1,9 @@
 /**
  * 
  * @param {Number} ms 
- * @returns {Promise<Number>}
+ * @returns {Promise<any>}
  */
-async function wait(ms:number):Promise<number> {
+async function wait(ms:number):Promise<any> {
     return await new Promise((resolve) => {
         setTimeout(resolve, ms);
     });

@@ -1,7 +1,7 @@
 //import
 import axios, { Axios } from 'axios';
 
-import { IUpdate, IUpdatePart } from './interface/IUpdate';
+import { IUpdate, IUpdate_Part } from './interface/IUpdate';
 
 import { cwd as CurrentWorkingDirectory } from 'process';
 import { existsSync, readdirSync } from 'fs';
@@ -18,7 +18,7 @@ class Update {
 
     /**
      * 
-     * @returns {Object}
+     * @returns {Promise<any>}
      */
     async getVersion():Promise<any> {
         return (await this.axiosClient.get('https://ktng-3.github.io/api.json')).data;
@@ -26,7 +26,7 @@ class Update {
 
     /**
      * 
-     * @returns {IUpdate}
+     * @returns {Promise<IUpdate>}
      */
     async checkForUpdate():Promise<IUpdate> {
         const _modules:string = await CurrentWorkingDirectory() + '/node_modules';
@@ -36,8 +36,8 @@ class Update {
 
         var _response = "Find new version available!";
         var _after_response = "";
-        var _needUpdate:Array<IUpdatePart> = [];
-        var _dontNeedUpdate:Array<IUpdatePart> = [];
+        var _needUpdate:Array<IUpdate_Part> = [];
+        var _dontNeedUpdate:Array<IUpdate_Part> = [];
 
         if (existsSync(_modules) && existsSync(ing3kth_folder)) {
             const packages = readdirSync(ing3kth_folder);
@@ -96,18 +96,18 @@ class Update {
 
     /**
      * 
-     * @returns {Object}
+     * @returns {Promise<any>}
      */
-    static async getVersion() {
+    static async getVersion():Promise<any> {
         const _newUpdate:Update = new Update();
         return await _newUpdate.getVersion();
     }
 
     /**
      * 
-     * @returns {IUpdate}
+     * @returns {Promise<IUpdate>}
      */
-    static async checkForUpdate() {
+    static async checkForUpdate():Promise<IUpdate> {
         const _newUpdate:Update = new Update();
         return await _newUpdate.checkForUpdate();
     }

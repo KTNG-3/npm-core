@@ -3,4 +3,4 @@ interface ICache {
     interactionId: string,
 }
 
-export type { ICache }
+export type { ICache };

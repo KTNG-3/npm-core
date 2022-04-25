@@ -6,9 +6,9 @@ interface IAxiosClient {
     headers: object,
 }
 
-interface IAxiosClientOut {
+interface IAxiosClient_Out {
     isError: boolean,
     data: object | any,
 }
 
-export type { IAxiosClient, IAxiosClientOut }
+export type { IAxiosClient, IAxiosClient_Out };

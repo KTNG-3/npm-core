@@ -1,4 +1,4 @@
-interface IMillisecondsPart {
+interface IMilliseconds_Part {
     day: number,
     hour: number,
     minute: number,
@@ -7,8 +7,8 @@ interface IMillisecondsPart {
 }
 
 interface IMilliseconds {
-    data: IMillisecondsPart,
-    all: IMillisecondsPart
+    data: IMilliseconds_Part,
+    all: IMilliseconds_Part
 }
 
-export type { IMilliseconds, IMillisecondsPart };
+export type { IMilliseconds, IMilliseconds_Part };

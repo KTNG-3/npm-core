@@ -5,7 +5,7 @@ import { readdirSync } from 'fs';
 import * as commander from 'commander';
 
 //script
-const commandsFolders = readdirSync(__dirname + '/data').filter(file => file.endsWith('.js'));
+const commandsFolders = readdirSync(__dirname + '/data').filter((file) => file.endsWith('.js'));
 for (const file of commandsFolders) {
     const command = require(`./data/${file}`).default;
 

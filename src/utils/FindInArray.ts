@@ -1,32 +1,25 @@
 import { IFindInArray } from "../interface/IFindInArray";
 
 /**
+ * 
  * @param {Array<any>} array Array
  * @param {any} target Target To Find In Array
  * @returns {IFindInArray}
  */
- function start(array: Array<any>, target:any):IFindInArray {
-    if(array[0] === target){
-        return {
-            find: true,
-            position: 0,
-        };
+ function normal(array: Array<any>, target:any):IFindInArray {
+    for (let i in array) {
+        if (array[Number(i)] === target) {
+            return {
+                find: true,
+                position: Number(i),
+            }
+        }
     }
 
-    if(array[array.length] === target){
-        return {
-            find: true,
-            position: array.length,
-        };
-    }
-
-    const _Find:IFindInArray = find(array, target, Number(0), Number(array.length));
-
-    if(!_Find){
-        return normal(array, target);
-    }
-
-    return _Find;
+    return {
+        find: false,
+        position: NaN,
+    };
 }
 
 /**
@@ -61,33 +54,40 @@ function find(array: Array<any>, target:any, start:number = 0, end:number = arra
     return {
         find: false,
         position: NaN,
-    }
+    };
 }
 
 /**
- * 
  * @param {Array<any>} array Array
  * @param {any} target Target To Find In Array
  * @returns {IFindInArray}
  */
-function normal(array: Array<any>, target:any):IFindInArray {
-    for (let i in array) {
-        if (array[Number(i)] === target) {
-            return {
-                find: true,
-                position: Number(i),
-            }
-        }
+ function start(array: Array<any>, target:any):IFindInArray {
+    if(array[0] === target){
+        return {
+            find: true,
+            position: 0,
+        };
     }
 
-    return {
-        find: false,
-        position: NaN,
-    };
+    if(array[array.length] === target){
+        return {
+            find: true,
+            position: array.length,
+        };
+    }
+
+    const _Find:IFindInArray = find(array, target, Number(0), Number(array.length));
+
+    if(!_Find){
+        return normal(array, target);
+    }
+
+    return _Find;
 }
 
 export {
-    start,
-    find,
     normal,
+    find,
+    start,
 };

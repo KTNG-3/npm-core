@@ -1,6 +1,6 @@
 //import
 import * as fs from 'fs';
-import * as util from 'util'
+import * as util from 'util';
 
 import { cwd as CurrentWorkingDirectory } from 'process';
 
@@ -39,7 +39,7 @@ class Logs {
 
     /**
      * 
-     * @returns {void}
+     * @returns {Promise<any>}
      */
     async new():Promise<any> {
         if (_config.logs.save) {
@@ -63,9 +63,9 @@ class Logs {
     /**
      * 
      * @param {any} data Any data to log.
-     * @param {Logs_Mode} mode Log mode. (log, error, system)
+     * @param {String} mode Log mode. (log, error, system)
      * @param {Boolean} showup Show the log in the console.
-     * @returns {any}
+     * @returns {Promise<any>}
      */
     async log(data:any, mode:Logs_Mode = 'info', showup:boolean = _config.logs.show):Promise<any> {
         switch (String(mode).toLowerCase()) {
@@ -111,7 +111,7 @@ class Logs {
     /**
      * 
      * @param {Boolean} showup Show the log in the console.
-     * @returns {Object}
+     * @returns {Promise<Array<ILogs>>}
      */
     async get(showup:boolean = _config.logs.show):Promise<Array<ILogs>> {
         var _get:Array<ILogs> = [];
@@ -154,11 +154,11 @@ class Logs {
     /**
      * 
      * @param {any} data Any data to log.
-     * @param {Logs_Mode} mode Log mode.
+     * @param {String} mode Log mode.
      * @param {Boolean} showup Show the log in the console.
-     * @returns {String}
+     * @returns {Promise<void>}
      */
-    static async log(data:any, mode:Logs_Mode = 'info', showup:boolean = _config.logs.show):Promise<any> {
+    static async log(data:any, mode:Logs_Mode = 'info', showup:boolean = _config.logs.show):Promise<void> {
         const newLog:Logs = await new Logs();
         await newLog.log(data, mode, showup);
     }
@@ -166,7 +166,7 @@ class Logs {
     /**
      * 
      * @param {Boolean} showup Show the log in the console.
-     * @returns {Object}
+     * @returns {Promise<any>}
      */
     static async get(showup:boolean = _config.logs.show):Promise<any> {
         const newLog:Logs = await new Logs();
@@ -175,8 +175,9 @@ class Logs {
 
     /**
      * @param {Number} times Number of times to pre create the log.
+     * @returns {Promise<void>}
      */
-    static async preCreate_WithDate(times:number = 1):Promise<any> {
+    static async preCreate_WithDate(times:number = 1):Promise<void> {
         const _date:Date = new Date();
         let _year:number = Number(_date.getUTCFullYear());
         let _month:number = Number(_date.getUTCMonth());

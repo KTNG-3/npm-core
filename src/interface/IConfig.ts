@@ -1,4 +1,4 @@
-interface IConfigFile {
+interface IConfig_File {
     "path": string;
     "extension": string;
 }
@@ -9,10 +9,10 @@ interface IConfig {
     "logs": {
         "save": boolean,
         "show": boolean,
-        "file": IConfigFile,
+        "file": IConfig_File,
     },
     "cache": {
-        "file": IConfigFile,
+        "file": IConfig_File,
     },
     "val-api": {
         "RiotLocal": {
@@ -34,4 +34,4 @@ interface IConfig {
     }
 }
 
-export type { IConfig, IConfigFile }
+export type { IConfig, IConfig_File };

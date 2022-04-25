@@ -7,7 +7,7 @@ const _Color = {
     magenta: '\x1b[35m',
     cyan: '\x1b[36m',
     white: '\x1b[37m',
-}
+};
 
 const _Effect = {
     reset: '\x1b[0m',
@@ -17,7 +17,7 @@ const _Effect = {
     blink: '\x1b[5m',
     reverse: '\x1b[7m',
     hidden: '\x1b[8m',
-}
+};
 
 const _Background = {
     black: '\x1b[40m',
@@ -28,11 +28,9 @@ const _Background = {
     magenta: '\x1b[45m',
     cyan: '\x1b[46m',
     white: '\x1b[47m',
-}
+};
 
 const _NewLine = '\n';
-
-type Colored_color = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white';
 
 /**
 * 
@@ -40,8 +38,8 @@ type Colored_color = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' |
 * @param {String} color Color
 * @returns {String}
 */
-function colored(text:string, color:Colored_color):string {
-    return `${_Color[color as keyof typeof _Color]}${text}${_Effect.reset}`;
+function colored(text:string, color:keyof typeof _Color):string {
+    return `${_Color[color]}${text}${_Effect.reset}`;
 }
 
 export {

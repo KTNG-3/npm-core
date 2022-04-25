@@ -4,4 +4,4 @@ interface ILogs {
     data: any,
 }
 
-export type { ILogs }
+export type { ILogs };

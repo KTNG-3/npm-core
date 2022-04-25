@@ -8,7 +8,7 @@ const _folder:string = process.cwd() + "/ing3kth";
 const _cache_path:string = "/cache";
 const _cache:string = _folder + _cache_path;
 
-const _logs_path:string = "/logs"
+const _logs_path:string = "/logs";
 const _logs:string = _folder + _logs_path;
 
 const _config_path:string = "/config.json";
@@ -18,11 +18,11 @@ var _localappdata:string = String(process.env.LOCALAPPDATA);
 var _appdata:string = String(process.env.APPDATA);
 
 if(!_localappdata){
-    _localappdata == ""
+    _localappdata == "";
 }
 
 if(!_appdata){
-    _appdata == ""
+    _appdata == "";
 }
 
 //export

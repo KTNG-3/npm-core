@@ -1,10 +1,10 @@
-import { Axios, AxiosRequestConfig } from 'axios';
+import { Axios, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { CookieJar as toughCookie } from "tough-cookie";
 import { IAxiosClient, IAxiosClient_Out } from "../interface/IAxiosClient";
 declare class AxiosClient {
     classId: string;
-    headers: object | any;
-    jar: toughCookie | any;
+    headers: AxiosRequestHeaders;
+    jar: toughCookie | null | undefined;
     axiosClient: Axios;
     /**
     * @param {IAxiosClient} config Config

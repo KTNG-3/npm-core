@@ -1,5 +1,5 @@
 //import
-import axios, { Axios, AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { Axios, AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 
 import * as https from 'https';
@@ -13,8 +13,8 @@ import { IAxiosClient, IAxiosClient_Out } from "../interface/IAxiosClient";
 //class
 class AxiosClient {
     classId:string
-    headers:object | any
-    jar: toughCookie | any;
+    headers:AxiosRequestHeaders;
+    jar: toughCookie | null | undefined;
     axiosClient: Axios;
 
     /**
@@ -28,7 +28,7 @@ class AxiosClient {
         this.classId = '@ing3kth/core/AxiosClient';
         this.headers = config.headers;
         if(config.cookie){
-            this.jar = toughCookie.fromJSON(config.jar);
+            this.jar = toughCookie.fromJSON(JSON.stringify(config.jar));
 
             this.axiosClient = wrapper(axios.create({ jar: this.jar, withCredentials: true, headers: this.headers }));
         }else {

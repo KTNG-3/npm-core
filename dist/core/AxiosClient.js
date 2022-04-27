@@ -55,7 +55,7 @@ class AxiosClient {
         this.classId = '@ing3kth/core/AxiosClient';
         this.headers = config.headers;
         if (config.cookie) {
-            this.jar = tough_cookie_1.CookieJar.fromJSON(config.jar);
+            this.jar = tough_cookie_1.CookieJar.fromJSON(JSON.stringify(config.jar));
             this.axiosClient = (0, axios_cookiejar_support_1.wrapper)(axios_1.default.create({ jar: this.jar, withCredentials: true, headers: this.headers }));
         }
         else {

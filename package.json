@@ -1,6 +1,6 @@
 {
   "name": "@ing3kth/core",
-  "version": "1.8.3",
+  "version": "1.8.2",
   "description": "@ing3kth Core for node package",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",

@@ -38,16 +38,16 @@ class Cache {
     }
 
     /**
-     * 
+     * @param {Object} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    async create():Promise<any> {
+    async create(dataWithFile:object = {}):Promise<any> {
         const _FILE:fs.WriteStream = await fs.createWriteStream(this.path, {
             flags: 'w'
         });
 
         await _FILE.once('ready', async () => {
-            await _FILE.write(JSON.stringify({}));
+            await _FILE.write(JSON.stringify(dataWithFile));
         });
 
         await _FILE.on('finish', async () => {

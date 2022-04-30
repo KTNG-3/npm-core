@@ -38,20 +38,22 @@ class Logs {
     }
 
     /**
-     * 
+     * @param {String} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    async new():Promise<any> {
+    async new(dataWithFile:string = Logs.logMessage('========== Logs File Created ==========', 'system')):Promise<any> {
         if (_config.logs.save) {
             const _FILE = await fs.createWriteStream(this.path, {
                 flags: 'w'
             });
 
+            await _FILE.once('ready', async () => {
+                await _FILE.write(String(dataWithFile));
+            });
+
             await _FILE.on('finish', async () => {
                 try {
                     this.file = await fs.readFileSync(this.path);
-
-                    await this.log('========== Logs File Created ==========', 'system', false);
                 } catch (err) {
                     console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
                     return err;
@@ -97,7 +99,7 @@ class Logs {
 
         if(_config.logs.save){
             try {
-                this.file += `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${await util.format(data)}`;
+                this.file += Logs.logMessage(data, mode);
                 await fs.writeFileSync(this.path, await this.file);
             } catch (err) {
                 console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
@@ -149,6 +151,10 @@ class Logs {
         }
 
         return _get;
+    }
+    
+    static logMessage(data:any, mode:Logs_Mode = 'info'):string {
+        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}`
     }
 
     /**

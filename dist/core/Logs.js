@@ -58,19 +58,21 @@ class Logs {
         }
     }
     /**
-     *
+     * @param {String} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    new() {
+    new(dataWithFile = Logs.logMessage('========== Logs File Created ==========', 'system')) {
         return __awaiter(this, void 0, void 0, function* () {
             if (config_1._config.logs.save) {
                 const _FILE = yield fs.createWriteStream(this.path, {
                     flags: 'w'
                 });
+                yield _FILE.once('ready', () => __awaiter(this, void 0, void 0, function* () {
+                    yield _FILE.write(String(dataWithFile));
+                }));
                 yield _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
                     try {
                         this.file = yield fs.readFileSync(this.path);
-                        yield this.log('========== Logs File Created ==========', 'system', false);
                     }
                     catch (err) {
                         console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
@@ -117,7 +119,7 @@ class Logs {
             }
             if (config_1._config.logs.save) {
                 try {
-                    this.file += `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${yield util.format(data)}`;
+                    this.file += Logs.logMessage(data, mode);
                     yield fs.writeFileSync(this.path, yield this.file);
                 }
                 catch (err) {
@@ -163,6 +165,9 @@ class Logs {
             }
             return _get;
         });
+    }
+    static logMessage(data, mode = 'info') {
+        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}`;
     }
     /**
      *

@@ -13,10 +13,10 @@ declare class Logs {
      */
     constructor(fileName?: string, path?: string);
     /**
-     *
+     * @param {String} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    new(): Promise<any>;
+    new(dataWithFile?: string): Promise<any>;
     /**
      *
      * @param {any} data Any data to log.
@@ -31,6 +31,7 @@ declare class Logs {
      * @returns {Promise<Array<ILogs>>}
      */
     get(showup?: boolean): Promise<Array<ILogs>>;
+    static logMessage(data: any, mode?: Logs_Mode): string;
     /**
      *
      * @param {any} data Any data to log.

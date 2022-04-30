@@ -13,10 +13,10 @@ declare class Cache {
      */
     constructor(name?: string);
     /**
-     *
+     * @param {Object} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    create(): Promise<any>;
+    create(dataWithFile?: object): Promise<any>;
     /**
      *
      * @param {any} data Data to save.

@@ -59,16 +59,16 @@ class Cache {
         }
     }
     /**
-     *
+     * @param {Object} dataWithFile Insert Data with log file.
      * @returns {Promise<any>}
      */
-    create() {
+    create(dataWithFile = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             const _FILE = yield fs.createWriteStream(this.path, {
                 flags: 'w'
             });
             yield _FILE.once('ready', () => __awaiter(this, void 0, void 0, function* () {
-                yield _FILE.write(JSON.stringify({}));
+                yield _FILE.write(JSON.stringify(dataWithFile));
             }));
             yield _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
                 try {

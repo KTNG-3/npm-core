@@ -1,5 +1,7 @@
 # NPM Core
 
+<strong><u>This module changes very often. If you use any version then don't change it.</u></strong>
+
 <!-- Main -->
 <div align="center">
 

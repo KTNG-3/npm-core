@@ -13,7 +13,6 @@
   "scripts": {
     "postinstall": "npx ing3kth update && npx ing3kth init",
     "typescript": "npx tsc --project tsconfig.json",
-    "build": "npm update && npm run typescript",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

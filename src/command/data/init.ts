@@ -84,7 +84,7 @@ export default {
         //create config file
         await _file.write(JSON.stringify({
             create: String(new Date().toISOString()),
-            version: "1",
+            version: 2,
             logs: {
                 save: false,
                 show: true,

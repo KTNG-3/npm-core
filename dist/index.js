@@ -23,16 +23,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Update = exports.Config = exports.Wait = exports.Random = exports.Milliseconds = exports.FindInArray = exports.ConsoleColor = exports.Interface_Update = exports.Interface_Milliseconds = exports.Interface_ILogs = exports.Interface_FindInArray = exports.Interface_Config = exports.Interface_Cache = exports.Interface_AxiosClient = exports.Logs = exports.Cache = exports.AxiosClient = void 0;
+exports.Update = exports.Config = exports.Wait = exports.Random = exports.Milliseconds = exports.FindInArray = exports.ConsoleColor = exports.Interface_Update = exports.Interface_Milliseconds = exports.Interface_ILogs = exports.Interface_FindInArray = exports.Interface_Config = exports.Interface_Cache = exports.Logs = exports.Cache = void 0;
 //core
-var AxiosClient_1 = require("./core/AxiosClient");
-Object.defineProperty(exports, "AxiosClient", { enumerable: true, get: function () { return AxiosClient_1.AxiosClient; } });
 var Cache_1 = require("./core/Cache");
 Object.defineProperty(exports, "Cache", { enumerable: true, get: function () { return Cache_1.Cache; } });
 var Logs_1 = require("./core/Logs");
 Object.defineProperty(exports, "Logs", { enumerable: true, get: function () { return Logs_1.Logs; } });
 //interface
-exports.Interface_AxiosClient = __importStar(require("./interface/IAxiosClient"));
 exports.Interface_Cache = __importStar(require("./interface/ICache"));
 exports.Interface_Config = __importStar(require("./interface/IConfig"));
 exports.Interface_FindInArray = __importStar(require("./interface/IFindInArray"));

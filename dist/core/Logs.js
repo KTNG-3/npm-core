@@ -100,12 +100,12 @@ class Logs {
                     break;
                 case 'warning':
                     if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow') + `\n`);
+                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow'));
                     }
                     break;
                 case 'system':
                     if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan') + `\n`);
+                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan'));
                     }
                     break;
                 case 'info':

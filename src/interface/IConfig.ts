@@ -5,7 +5,7 @@ interface IConfig_File {
 
 interface IConfig {
     "create": Date | string,
-    "version": number | string,
+    "version": number,
     "logs": {
         "save": boolean,
         "show": boolean,

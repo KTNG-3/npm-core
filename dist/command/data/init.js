@@ -108,7 +108,7 @@ exports.default = {
             //create config file
             yield _file.write(JSON.stringify({
                 create: String(new Date().toISOString()),
-                version: "1",
+                version: 2,
                 logs: {
                     save: false,
                     show: true,

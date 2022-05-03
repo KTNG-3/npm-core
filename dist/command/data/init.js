@@ -130,6 +130,9 @@ exports.default = {
                         lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
                     },
                     ValClient: {
+                        auth: {
+                            'User-Agent': 'RiotClient/43.0.1.4195386.4190634 rso-auth (Windows; 10;;Professional, x64)',
+                        },
                         client: {
                             version: 'release-04.07-shipping-15-699063',
                             platfrom: {

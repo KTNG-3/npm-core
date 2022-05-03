@@ -20,6 +20,9 @@ interface IConfig {
             "lockfile": string;
         };
         "ValClient": {
+            "auth": {
+                "User-Agent": string;
+            };
             "client": {
                 "version": string;
                 "platform": {

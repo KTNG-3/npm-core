@@ -154,7 +154,7 @@ class Logs {
     }
     
     static logMessage(data:any, mode:Logs_Mode = 'info'):string {
-        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}`
+        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}`;
     }
 
     /**

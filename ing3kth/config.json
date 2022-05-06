@@ -1,6 +1,6 @@
 {
-    "create": "2022-04-25T05:20:59.236Z",
-    "version": "1",
+    "create": "2022-05-06T14:08:58.687Z",
+    "version": 2,
     "logs": {
         "save": false,
         "show": true,
@@ -22,6 +22,9 @@
             "lockfile": "C:\\Users\\Windows10\\AppData\\Local/Riot Games/Riot Client/Config/lockfile"
         },
         "ValClient": {
+            "auth": {
+                "User-Agent": "RiotClient/43.0.1.4195386.4190634 rso-auth (Windows; 10;;Professional, x64)"
+            },
             "client": {
                 "version": "release-04.07-shipping-15-699063",
                 "platfrom": {

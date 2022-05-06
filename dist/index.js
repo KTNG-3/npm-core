@@ -23,12 +23,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Update = exports.Config = exports.Wait = exports.Random = exports.Milliseconds = exports.FindInArray = exports.ConsoleColor = exports.Interface_Update = exports.Interface_Milliseconds = exports.Interface_ILogs = exports.Interface_FindInArray = exports.Interface_Config = exports.Interface_Cache = exports.Logs = exports.Cache = void 0;
+exports.Update = exports.Config = exports.Wait = exports.Random = exports.Milliseconds = exports.FindInArray = exports.ConsoleColor = exports.Interface_Update = exports.Interface_Milliseconds = exports.Interface_ILogs = exports.Interface_FindInArray = exports.Interface_Config = exports.Interface_Cache = exports.CustomEvent = exports.Logs = exports.Cache = void 0;
 //core
 var Cache_1 = require("./core/Cache");
 Object.defineProperty(exports, "Cache", { enumerable: true, get: function () { return Cache_1.Cache; } });
 var Logs_1 = require("./core/Logs");
 Object.defineProperty(exports, "Logs", { enumerable: true, get: function () { return Logs_1.Logs; } });
+var Event_1 = require("./core/Event");
+Object.defineProperty(exports, "CustomEvent", { enumerable: true, get: function () { return Event_1.Event; } });
 //interface
 exports.Interface_Cache = __importStar(require("./interface/ICache"));
 exports.Interface_Config = __importStar(require("./interface/IConfig"));

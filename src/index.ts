@@ -1,6 +1,7 @@
 //core
 export { Cache } from "./core/Cache";
 export { Logs, type Logs_Mode } from "./core/Logs";
+export { Event as CustomEvent } from "./core/Event";
 
 //interface
 export * as Interface_Cache from "./interface/ICache";

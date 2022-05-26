@@ -14,9 +14,9 @@ declare class Cache {
     constructor(name?: string);
     /**
      * @param {Object} dataWithFile Insert Data with log file.
-     * @returns {Promise<any>}
+     * @returns {voi}
      */
-    create(dataWithFile?: object): Promise<any>;
+    create(dataWithFile?: object): void;
     /**
      *
      * @param {any} data Data to save.

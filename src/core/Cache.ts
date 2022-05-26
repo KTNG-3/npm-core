@@ -39,23 +39,22 @@ class Cache {
 
     /**
      * @param {Object} dataWithFile Insert Data with log file.
-     * @returns {Promise<any>}
+     * @returns {voi}
      */
-    async create(dataWithFile:object = {}):Promise<any> {
-        const _FILE:fs.WriteStream = await fs.createWriteStream(this.path, {
+    create(dataWithFile:object = {}):void {
+        const _FILE:fs.WriteStream = fs.createWriteStream(this.path, {
             flags: 'w'
         });
 
-        await _FILE.once('ready', async () => {
+        _FILE.once('ready', async () => {
             await _FILE.write(JSON.stringify(dataWithFile));
         });
 
-        await _FILE.on('finish', async () => {
+        _FILE.on('finish', async () => {
             try {
                 this.file = await fs.readFileSync(this.path);
             } catch (err) {
-                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`);
-                return err;
+                throw new Error(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`)
             }
         });
     }

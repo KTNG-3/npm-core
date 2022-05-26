@@ -1,10 +1,7 @@
 //class
 
-/**
- * EventEmitter
- */
-class Event {
-    private EventController: {
+class CustomEvent {
+    protected EventController: {
         //key:value
         [key: string]: Array<Function>;
     };
@@ -18,7 +15,7 @@ class Event {
      * @param {String} name Name
      * @param {any} args Data
      */
-    protected emit(name: string, ...args: Array<any>): void {
+     public emit(name: string, ...args: Array<any>): void {
         if (this.EventController[name]) {
             this.EventController[name].forEach((callback:Function) => {
                 callback(...args);
@@ -31,7 +28,7 @@ class Event {
      * @param {String} name Name
      * @param {Function} callback Call Back Function
      */
-    public off(name: string, callback?: Function): void {
+     public off(name: string, callback?: Function): void {
         if (this.EventController[name]) {
             if (callback) {
                 this.EventController[name] = this.EventController[name].filter((cb:Function) => {
@@ -48,7 +45,7 @@ class Event {
      * @param {String} name Name
      * @param {Function} callback Call Back Function
      */
-    public on(name: string, callback: Function): void {
+     public on(name: string, callback: Function): void {
         if (!this.EventController[name]) {
             this.EventController[name] = [];
         }
@@ -61,7 +58,7 @@ class Event {
      * @param {String} name Name
      * @param {Function} callback Call Back Function
      */
-    public once(name: string, callback: Function): void {
+     public once(name: string, callback: Function): void {
         const self = this;
         const onceCallback = function (...args: Array<any>) {
             callback(...args);
@@ -74,4 +71,4 @@ class Event {
 }
 
 //export
-export { Event }
+export { CustomEvent };

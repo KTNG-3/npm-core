@@ -94,7 +94,7 @@ class Logs {
             switch (String(mode).toLowerCase()) {
                 case 'error':
                     if (showup) {
-                        console.log(`\n<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red') + `\n`);
+                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red'));
                     }
                     data = new Error(data);
                     break;
@@ -123,7 +123,7 @@ class Logs {
                     yield fs.writeFileSync(this.path, yield this.file);
                 }
                 catch (err) {
-                    console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red') + `\n`);
+                    console.log(`<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red'));
                     return err;
                 }
             }

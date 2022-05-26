@@ -1,11 +1,8 @@
 "use strict";
 //class
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Event = void 0;
-/**
- * EventEmitter
- */
-class Event {
+exports.CustomEvent = void 0;
+class CustomEvent {
     constructor() {
         this.EventController = {};
     }
@@ -63,5 +60,5 @@ class Event {
         this.on(name, onceCallback);
     }
 }
-exports.Event = Event;
+exports.CustomEvent = CustomEvent;
 //# sourceMappingURL=Event.js.map

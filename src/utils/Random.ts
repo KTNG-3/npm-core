@@ -4,7 +4,7 @@
  * @param {Number} max Maximum value.
  * @returns {Number}
  */
-function Random(min:number = 0, max:number):Number {
+function Random(min:number = 0, max:number):number {
     if(min === max) {
         return min;
     }

@@ -1,6 +1,6 @@
 {
   "name": "@ing3kth/core",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "@ing3kth Core for node package",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,7 +11,7 @@
     "ing3kth": "./dist/command/main.js"
   },
   "scripts": {
-    "postinstall": "npx ing3kth update && npx ing3kth init",
+    "postinstall": "npx ing3kth init",
     "typescript": "npx tsc --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -39,11 +39,10 @@
   },
   "homepage": "https://github.com/KTNG-3/npm-core#readme",
   "dependencies": {
-    "axios": "^0.27.2",
     "commander": "^9.2.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.25",
-    "typescript": "^4.6.3"
+    "@types/node": "^17.0.35",
+    "typescript": "^4.7.2"
   }
 }

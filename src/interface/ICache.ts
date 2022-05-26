@@ -1,6 +1,6 @@
 interface ICache {
-    name: string,
-    interactionId: string,
+    name: string;
+    interactionId: string;
 }
 
 export type { ICache };

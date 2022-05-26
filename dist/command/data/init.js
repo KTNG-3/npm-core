@@ -91,7 +91,7 @@ exports.default = {
             }
             else {
                 if (!force) {
-                    console.log(`\nFind config file at: ${_config}\n`);
+                    console.log(`Find config file at: ${_config}`);
                     return _config;
                 }
                 yield exports.default.config();
@@ -108,7 +108,7 @@ exports.default = {
             //create config file
             yield _file.write(JSON.stringify({
                 create: String(new Date().toISOString()),
-                version: 2,
+                version: 3,
                 logs: {
                     save: false,
                     show: true,
@@ -123,29 +123,8 @@ exports.default = {
                         extension: "json",
                     }
                 },
-                "val-api": {
-                    RiotLocal: {
-                        ip: '127.0.0.1',
-                        username: 'riot',
-                        lockfile: _localappdata + "/Riot Games/Riot Client/Config/lockfile",
-                    },
-                    ValClient: {
-                        auth: {
-                            'User-Agent': 'RiotClient/43.0.1.4195386.4190634 rso-auth (Windows; 10;;Professional, x64)',
-                        },
-                        client: {
-                            version: 'release-04.07-shipping-15-699063',
-                            platfrom: {
-                                platformType: 'PC',
-                                platformOS: 'Windows',
-                                platformOSVersion: '10.0.19042.1.256.64bit',
-                                platformChipset: 'Unknown'
-                            },
-                        }
-                    }
-                },
             }));
-            yield console.log(`\nCreate config file at: ${_config}\n`);
+            yield console.log(`Create config file at: ${_config}`);
         });
     }
 };

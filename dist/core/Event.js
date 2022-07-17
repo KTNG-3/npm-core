@@ -2,14 +2,18 @@
 //class
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomEvent = void 0;
+/**
+ * Basic Custom Event Emitter
+ */
 class CustomEvent {
     constructor() {
         this.EventController = {};
     }
     /**
      *
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {any} args Data
+     * @returns {void}
      */
     emit(name, ...args) {
         if (this.EventController[name]) {
@@ -20,8 +24,9 @@ class CustomEvent {
     }
     /**
      *
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
     off(name, callback) {
         if (this.EventController[name]) {
@@ -37,8 +42,9 @@ class CustomEvent {
     }
     /**
      *
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
     on(name, callback) {
         if (!this.EventController[name]) {
@@ -48,17 +54,16 @@ class CustomEvent {
     }
     /**
      *
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
     once(name, callback) {
-        const self = this;
-        const onceCallback = function (...args) {
+        const onceCallback = (...args) => {
             callback(...args);
-            self.off(name, onceCallback);
+            this.off(name, onceCallback);
         };
         this.on(name, onceCallback);
     }
 }
 exports.CustomEvent = CustomEvent;
-//# sourceMappingURL=Event.js.map

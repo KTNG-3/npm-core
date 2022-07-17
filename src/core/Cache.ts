@@ -1,123 +1,129 @@
 //import
-import * as fs from 'fs';
 
+import { join as JoinPath } from 'path';
 import { cwd as CurrentWorkingDirectory } from 'process';
 
-import { _config } from '../config';
-import * as consoleColor from '../utils/ConsoleColor';
+import * as fs from 'fs';
 
-import { ICache } from '../interface/ICache';
+//interface
+
+namespace Cache {
+    export interface Options {
+        /**
+         * Location of Cache Folder
+        */
+        path?: string;
+        /**
+         * Name of Cache file
+         */
+        name?: string;
+    }
+
+    export interface Response extends Cache.Options {
+        /**
+         * Location of data
+         */
+        interactionId: string;
+    }
+}
 
 //class
 
 /**
- * Cache Data in JSON format.
+ * Basic JSON Database
  */
 class Cache {
-    classId: string;
-    baseName: string;
-    path: string;
-    file: any;
+    public config: Cache.Options;
+    private path: string;
 
     /**
-     * 
-     * @param {String} name Name
+     * @param {Logs.Options} options Logs Options
      */
-    constructor(name: string = 'NAME') {
-        this.classId = '@ing3kth/core/Cache';
+    public constructor(options: Cache.Options | string = {}) {
+        //config
 
-        this.baseName = name;
-
-        this.path = CurrentWorkingDirectory() + '/ing3kth' + _config.cache.file.path + `/${this.baseName}.${_config.cache.file.extension}`;
-
-        if (!fs.existsSync(this.path)) {
-            this.create();
-        } else {
-            this.file = fs.readFileSync(this.path);
+        if (typeof options === 'string') {
+            options = {
+                name: options,
+            };
         }
-    }
 
-    /**
-     * @param {Object} dataWithFile Insert Data with log file.
-     * @returns {voi}
-     */
-    create(dataWithFile:object = {}):void {
-        const _FILE:fs.WriteStream = fs.createWriteStream(this.path, {
-            flags: 'w'
-        });
+        const _defaultConfig: Cache.Options = {
+            path: '/ing3kth/cache/',
+            name: 'NAME',
+        };
 
-        _FILE.once('ready', async () => {
-            await _FILE.write(JSON.stringify(dataWithFile));
-        });
+        this.config = { ..._defaultConfig, ...options, ...{ name: options.name?.replace(' ', '_') || _defaultConfig.name } };
 
-        _FILE.on('finish', async () => {
-            try {
-                this.file = await fs.readFileSync(this.path);
-            } catch (err) {
-                throw new Error(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`)
-            }
-        });
+
+        //path
+        this.path = `${CurrentWorkingDirectory()}${JoinPath(`${this.config.path}/${this.config.name}.json`)}`;
     }
 
     /**
      * 
      * @param {any} data Data to save.
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<ICache>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {Cache.Response}
      */
-    async input(data:any, interactionId:string = ''):Promise<ICache> {
+    public input(data: any, interactionId?: string): Cache.Response {
         if (!interactionId) {
             interactionId = String(new Date().getTime());
         }
 
-        try {
-            let _json:any = await JSON.parse(this.file);
+        if (fs.existsSync(this.path)) {
+            var _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
 
+            _cacheFile[interactionId] = data;
+
+            fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
+        } else {
+            var _json: any = {};
             _json[interactionId] = data;
 
-            await fs.writeFileSync(this.path, await JSON.stringify(await _json));
-        } catch (err) {
-            console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Cache File`, 'red') + `\n`);
-            await fs.writeFileSync(this.path, await JSON.stringify({}));
+            fs.createWriteStream(this.path).write(JSON.stringify(_json));
         }
 
-        return {
-            name: this.baseName,
-            interactionId: interactionId,
-        };
+        return { ...this.config, ...{ interactionId: interactionId } };
     }
 
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<any>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {any}
      */
-    async output(interactionId:string):Promise<any> {
-        const _json:any = await JSON.parse(this.file);
+    public output<MyInterface = any>(interactionId: string): MyInterface | undefined {
+        if (fs.existsSync(this.path)) {
+            const _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
 
-        return await _json[interactionId];
+            return _cacheFile[interactionId];
+        }
     }
 
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<void>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {void}
      */
-    async clear(interactionId:string):Promise<void> {
-        let _json:any = await JSON.parse(this.file);
+    public clear(interactionId: string): void {
+        var _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
 
-        delete _json[interactionId];
+        delete _cacheFile[interactionId];
 
-        await fs.writeFileSync(this.path, await JSON.stringify(await _json));
+        fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
     }
 
+    //static
+
     /**
-     * @param {ICache} path Path to Data.
-     * @returns {Promise<any>}
+     * @param {Cache.Response} path Path to Data.
+     * @returns {any}
      */
-    static async output(path:ICache):Promise<any> {
-        const _NewCache:Cache = await new Cache(path.name);
-        return await _NewCache.output(path.interactionId);
+    public static output<MyInterface = any>(path: Cache.Response): MyInterface | undefined {
+        const _NewCache = new Cache(path);
+
+        return _NewCache.output(path.interactionId);
     }
 }
 
 //export
+
 export { Cache };

@@ -1,44 +1,52 @@
-import { ICache } from '../interface/ICache';
+declare namespace Cache {
+    interface Options {
+        /**
+         * Location of Cache Folder
+        */
+        path?: string;
+        /**
+         * Name of Cache file
+         */
+        name?: string;
+    }
+    interface Response extends Cache.Options {
+        /**
+         * Location of data
+         */
+        interactionId: string;
+    }
+}
 /**
- * Cache Data in JSON format.
+ * Basic JSON Database
  */
 declare class Cache {
-    classId: string;
-    baseName: string;
-    path: string;
-    file: any;
+    config: Cache.Options;
+    private path;
     /**
-     *
-     * @param {String} name Name
+     * @param {Logs.Options} options Logs Options
      */
-    constructor(name?: string);
-    /**
-     * @param {Object} dataWithFile Insert Data with log file.
-     * @returns {voi}
-     */
-    create(dataWithFile?: object): void;
+    constructor(options?: Cache.Options | string);
     /**
      *
      * @param {any} data Data to save.
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<ICache>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {Cache.Response}
      */
-    input(data: any, interactionId?: string): Promise<ICache>;
+    input(data: any, interactionId?: string): Cache.Response;
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<any>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {any}
      */
-    output(interactionId: string): Promise<any>;
+    output<MyInterface = any>(interactionId: string): MyInterface | undefined;
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<void>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {void}
      */
-    clear(interactionId: string): Promise<void>;
+    clear(interactionId: string): void;
     /**
-     * @param {ICache} path Path to Data.
-     * @returns {Promise<any>}
+     * @param {Cache.Response} path Path to Data.
+     * @returns {any}
      */
-    static output(path: ICache): Promise<any>;
+    static output<MyInterface = any>(path: Cache.Response): MyInterface | undefined;
 }
 export { Cache };
-//# sourceMappingURL=Cache.d.ts.map

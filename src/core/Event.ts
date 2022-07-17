@@ -1,23 +1,27 @@
 //class
 
+/**
+ * Basic Custom Event Emitter
+ */
 class CustomEvent {
     protected EventController: {
         //key:value
         [key: string]: Array<Function>;
     };
 
-    constructor() {
+    public constructor() {
         this.EventController = {};
     }
 
     /**
      * 
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {any} args Data
+     * @returns {void}
      */
-     public emit(name: string, ...args: Array<any>): void {
+    public emit(name: string, ...args: Array<any>): void {
         if (this.EventController[name]) {
-            this.EventController[name].forEach((callback:Function) => {
+            this.EventController[name].forEach((callback: Function) => {
                 callback(...args);
             });
         }
@@ -25,13 +29,14 @@ class CustomEvent {
 
     /**
      * 
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
-     public off(name: string, callback?: Function): void {
+    public off(name: string, callback?: Function): void {
         if (this.EventController[name]) {
             if (callback) {
-                this.EventController[name] = this.EventController[name].filter((cb:Function) => {
+                this.EventController[name] = this.EventController[name].filter((cb: Function) => {
                     return cb !== callback;
                 });
             } else {
@@ -42,10 +47,11 @@ class CustomEvent {
 
     /**
      * 
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
-     public on(name: string, callback: Function): void {
+    public on(name: string, callback: Function): void {
         if (!this.EventController[name]) {
             this.EventController[name] = [];
         }
@@ -55,14 +61,14 @@ class CustomEvent {
 
     /**
      * 
-     * @param {String} name Name
+     * @param {string} name Name
      * @param {Function} callback Call Back Function
+     * @returns {void}
      */
-     public once(name: string, callback: Function): void {
-        const self = this;
-        const onceCallback = function (...args: Array<any>) {
+    public once(name: string, callback: Function): void {
+        const onceCallback = (...args: Array<any>) => {
             callback(...args);
-            self.off(name, onceCallback);
+            this.off(name, onceCallback);
         };
 
         this.on(name, onceCallback);
@@ -71,4 +77,5 @@ class CustomEvent {
 }
 
 //export
+
 export { CustomEvent };

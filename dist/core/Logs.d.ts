@@ -1,56 +1,69 @@
-import { ILogs } from '../interface/ILogs';
-declare type Logs_Mode = 'error' | 'warning' | 'system' | 'info' | 'unknown';
+declare namespace Logs {
+    interface Options {
+        /**
+         * Save to Log file
+         */
+        save?: boolean;
+        /**
+         * Show the log in the console
+         */
+        showup?: boolean;
+        /**
+         * Location of Logs Folder
+        */
+        path?: string;
+        /**
+         * Name of Log file
+         */
+        name?: string;
+    }
+    type Mode = 'error' | 'warning' | 'system' | 'info';
+    interface Response {
+        date?: Date;
+        mode?: string;
+        data: any;
+    }
+}
 /**
- * Log data for debugging purposes.
+ * Basic Logs System
  */
 declare class Logs {
-    classId: string;
-    path: string;
-    file: any;
+    config: Logs.Options;
+    private path;
     /**
-     * @param {String} fileName File name.
-     * @param {String} path Where to save the logs file.
+     * @param {Logs.Options} options Logs Options
      */
-    constructor(fileName?: string, path?: string);
-    /**
-     * @param {String} dataWithFile Insert Data with log file.
-     * @returns {Promise<any>}
-     */
-    new(dataWithFile?: string): Promise<any>;
+    constructor(options?: Logs.Options | string);
     /**
      *
      * @param {any} data Any data to log.
-     * @param {String} mode Log mode. (log, error, system)
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<any>}
+     * @param {string} mode Log mode. (log, error, system)
+     * @returns {void}
      */
-    log(data: any, mode?: Logs_Mode, showup?: boolean): Promise<any>;
+    log(data: any, mode?: Logs.Mode): void;
     /**
      *
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<Array<ILogs>>}
+     * @returns {Array<Logs.Response>}
      */
-    get(showup?: boolean): Promise<Array<ILogs>>;
-    static logMessage(data: any, mode?: Logs_Mode): string;
+    get(): Array<Logs.Response>;
+    private static logMessage;
+    /**
+     * @param {Logs.Options} options Logs Options
+     */
+    static create(options: Logs.Options): Logs;
     /**
      *
      * @param {any} data Any data to log.
      * @param {String} mode Log mode.
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<void>}
+     * @param {Logs.Options} options Logs Options
+     * @returns {void}
      */
-    static log(data: any, mode?: Logs_Mode, showup?: boolean): Promise<void>;
+    static log(data: any, mode?: Logs.Mode, options?: Logs.Options): void;
     /**
      *
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<any>}
+     * @param {Logs.Options} options Logs Options
+     * @returns {Array<Logs.Response>}
      */
-    static get(showup?: boolean): Promise<any>;
-    /**
-     * @param {Number} times Number of times to pre create the log.
-     * @returns {Promise<void>}
-     */
-    static preCreate_WithDate(times?: number): Promise<void>;
+    static get(options?: Logs.Options): Array<Logs.Response>;
 }
-export { Logs, type Logs_Mode };
-//# sourceMappingURL=Logs.d.ts.map
+export { Logs };

@@ -1,3 +1,13 @@
 #! /usr/bin/env node
-export {};
-//# sourceMappingURL=main.d.ts.map
+interface ICommand {
+    data: {
+        name: string;
+        description: string;
+        option: Array<{
+            name: string;
+            description: string;
+        }>;
+    };
+    execute: (...args: Array<any>) => any | Promise<any>;
+}
+export type { ICommand };

@@ -1,7 +1,11 @@
 //import
-import * as util from 'util';
+
+import type { ICommand } from '../main';
+
+import { format as TextFormat } from 'util';
 
 //export
+
 export default {
   data: {
     name: "echo <data>",
@@ -14,11 +18,11 @@ export default {
     ],
   },
   //script
-  async execute(data:any, { error }:{ error: any }):Promise<void> {
-    console.log(util.format(data));
+  async execute(data: any, { error }: { error: any }): Promise<any> {
+    console.log(TextFormat(data));
 
     if (error) {
       console.error(new Error(error));
     }
   },
-};
+} as ICommand;

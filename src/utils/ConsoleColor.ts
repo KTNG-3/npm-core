@@ -1,3 +1,5 @@
+//interface
+
 const _Color = {
     black: '\x1b[30m',
     red: '\x1b[31m',
@@ -32,15 +34,19 @@ const _Background = {
 
 const _NewLine = '\n';
 
+//function
+
 /**
 * 
-* @param {String} text Text
-* @param {String} color Color
-* @returns {String}
+* @param {string} text Text
+* @param {string} color Color
+* @returns {string}
 */
-function colored(text:string, color:keyof typeof _Color):string {
+function colored(text: string, color: keyof typeof _Color): string {
     return `${_Color[color]}${text}${_Effect.reset}`;
 }
+
+//export
 
 export {
     _Color as color,

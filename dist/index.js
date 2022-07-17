@@ -1,45 +1,25 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Config = exports.toUft8 = exports.Wait = exports.Random = exports.Milliseconds = exports.ConsoleColor = exports.Logs = exports.Cache = void 0;
 //core
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Wait = exports.fromUft8 = exports.toUft8 = exports.Random = exports.DifferenceMillisecond = exports.ToMilliseconds = exports.makeBlur = exports.ConsoleColor = exports.Logs = exports.EventEmitter = exports.Cache = void 0;
+const tslib_1 = require("tslib");
 var Cache_1 = require("./core/Cache");
 Object.defineProperty(exports, "Cache", { enumerable: true, get: function () { return Cache_1.Cache; } });
+var Event_1 = require("./core/Event");
+Object.defineProperty(exports, "EventEmitter", { enumerable: true, get: function () { return Event_1.CustomEvent; } });
 var Logs_1 = require("./core/Logs");
 Object.defineProperty(exports, "Logs", { enumerable: true, get: function () { return Logs_1.Logs; } });
 //utils
-exports.ConsoleColor = __importStar(require("./utils/ConsoleColor"));
+exports.ConsoleColor = tslib_1.__importStar(require("./utils/ConsoleColor"));
+var makeBlur_1 = require("./utils/makeBlur");
+Object.defineProperty(exports, "makeBlur", { enumerable: true, get: function () { return makeBlur_1.makeBlur; } });
 var Milliseconds_1 = require("./utils/Milliseconds");
-Object.defineProperty(exports, "Milliseconds", { enumerable: true, get: function () { return Milliseconds_1.ToMilliseconds; } });
+Object.defineProperty(exports, "ToMilliseconds", { enumerable: true, get: function () { return Milliseconds_1.ToMilliseconds; } });
+Object.defineProperty(exports, "DifferenceMillisecond", { enumerable: true, get: function () { return Milliseconds_1.DifferenceMillisecond; } });
 var Random_1 = require("./utils/Random");
 Object.defineProperty(exports, "Random", { enumerable: true, get: function () { return Random_1.Random; } });
+var Uft8_1 = require("./utils/Uft8");
+Object.defineProperty(exports, "toUft8", { enumerable: true, get: function () { return Uft8_1.toUft8; } });
+Object.defineProperty(exports, "fromUft8", { enumerable: true, get: function () { return Uft8_1.fromUft8; } });
 var Wait_1 = require("./utils/Wait");
 Object.defineProperty(exports, "Wait", { enumerable: true, get: function () { return Wait_1.wait; } });
-var toUft8_1 = require("./utils/toUft8");
-Object.defineProperty(exports, "toUft8", { enumerable: true, get: function () { return toUft8_1.toUft8; } });
-//main
-var config_1 = require("./config");
-Object.defineProperty(exports, "Config", { enumerable: true, get: function () { return config_1._config; } });
-//# sourceMappingURL=index.js.map

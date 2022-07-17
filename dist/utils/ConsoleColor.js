@@ -1,4 +1,5 @@
 "use strict";
+//interface
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.colored = exports.newline = exports.background = exports.effect = exports.color = void 0;
 const _Color = {
@@ -35,14 +36,14 @@ const _Background = {
 exports.background = _Background;
 const _NewLine = '\n';
 exports.newline = _NewLine;
+//function
 /**
 *
-* @param {String} text Text
-* @param {String} color Color
-* @returns {String}
+* @param {string} text Text
+* @param {string} color Color
+* @returns {string}
 */
 function colored(text, color) {
     return `${_Color[color]}${text}${_Effect.reset}`;
 }
 exports.colored = colored;
-//# sourceMappingURL=ConsoleColor.js.map

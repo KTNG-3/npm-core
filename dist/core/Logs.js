@@ -1,218 +1,132 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+//import
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logs = void 0;
-//import
-const fs = __importStar(require("fs"));
-const util = __importStar(require("util"));
+const tslib_1 = require("tslib");
+const path_1 = require("path");
 const process_1 = require("process");
-const config_1 = require("../config");
-const consoleColor = __importStar(require("../utils/ConsoleColor"));
+const fs = tslib_1.__importStar(require("fs"));
+const util_1 = require("util");
+const ConsoleColor_1 = require("../utils/ConsoleColor");
+//class
 /**
- * Log data for debugging purposes.
+ * Basic Logs System
  */
 class Logs {
     /**
-     * @param {String} fileName File name.
-     * @param {String} path Where to save the logs file.
+     * @param {Logs.Options} options Logs Options
      */
-    constructor(fileName = 'NAME', path = config_1._config.logs.file.path) {
-        this.classId = '@ing3kth/core/Logs';
-        this.path = (0, process_1.cwd)() + '/ing3kth' + path + `/${fileName}.${config_1._config.logs.file.extension}`;
-        if (!fs.existsSync(this.path)) {
-            this.new();
+    constructor(options = {}) {
+        //config
+        var _a;
+        if (typeof options === 'string') {
+            options = {
+                name: options,
+            };
         }
-        else {
-            this.file = fs.readFileSync(this.path);
-        }
-    }
-    /**
-     * @param {String} dataWithFile Insert Data with log file.
-     * @returns {Promise<any>}
-     */
-    new(dataWithFile = Logs.logMessage('========== Logs File Created ==========', 'system')) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (config_1._config.logs.save) {
-                const _FILE = yield fs.createWriteStream(this.path, {
-                    flags: 'w'
-                });
-                yield _FILE.once('ready', () => __awaiter(this, void 0, void 0, function* () {
-                    yield _FILE.write(String(dataWithFile));
-                }));
-                yield _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
-                    try {
-                        this.file = yield fs.readFileSync(this.path);
-                    }
-                    catch (err) {
-                        console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create New Log At: ${this.path}`, 'red') + `\n`);
-                        return err;
-                    }
-                }));
-            }
-        });
+        const _defaultConfig = {
+            save: false,
+            showup: true,
+            path: '/ing3kth/logs/',
+            name: 'NAME',
+        };
+        this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
+        //path
+        this.path = `${(0, process_1.cwd)()}${(0, path_1.join)(`${this.config.path}/${this.config.name}.log`)}`;
     }
     /**
      *
      * @param {any} data Any data to log.
-     * @param {String} mode Log mode. (log, error, system)
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<any>}
+     * @param {string} mode Log mode. (log, error, system)
+     * @returns {void}
      */
-    log(data, mode = 'info', showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            switch (String(mode).toLowerCase()) {
+    log(data, mode = 'info') {
+        if (this.config.showup === true) {
+            switch (mode) {
                 case 'error':
-                    if (showup) {
-                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'red'));
-                    }
-                    data = new Error(data);
+                    console.log(`<${mode}> ` + (0, ConsoleColor_1.colored)(`${String(data)}`, 'red'));
                     break;
                 case 'warning':
-                    if (showup) {
-                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'yellow'));
-                    }
+                    console.log(`<${mode}> ` + (0, ConsoleColor_1.colored)(`${String(data)}`, 'yellow'));
                     break;
                 case 'system':
-                    if (showup) {
-                        console.log(`<${mode}> ` + consoleColor.colored(`${String(data)}`, 'cyan'));
-                    }
+                    console.log(`<${mode}> ` + (0, ConsoleColor_1.colored)(`${String(data)}`, 'cyan'));
                     break;
                 case 'info':
-                    if (showup) {
-                        console.log(`<${mode}> ` + String(data));
-                    }
+                    console.log(`<${mode}> ` + String(data));
                     break;
                 default:
-                    mode = 'unknown';
                     break;
             }
-            if (config_1._config.logs.save) {
-                try {
-                    this.file += Logs.logMessage(data, mode);
-                    yield fs.writeFileSync(this.path, yield this.file);
-                }
-                catch (err) {
-                    console.log(`<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Log File`, 'red'));
-                    return err;
-                }
+        }
+        if (this.config.save == true) {
+            if (fs.existsSync(this.path)) {
+                var _logFile = fs.readFileSync(this.path).toString();
+                _logFile += Logs.logMessage(data, mode);
+                fs.writeFileSync(this.path, _logFile);
             }
-            return yield data;
-        });
+            else {
+                const _logFile = fs.createWriteStream(this.path);
+                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}.log${Logs.logMessage(data, mode)}`);
+            }
+        }
     }
     /**
      *
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<Array<ILogs>>}
+     * @returns {Array<Logs.Response>}
      */
-    get(showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var _get = [];
-            if (fs.existsSync(this.path)) {
-                const _getFile = String(this.file);
-                const file_per_line = _getFile.split("\n");
-                var file_split = [];
-                for (const _line of file_per_line) {
-                    file_split.push(_line.split("|||"));
-                }
-                for (let i = 0; i < file_split.length; i++) {
-                    const _split = file_split[i];
-                    const _log_date = new Date(_split[0]);
-                    const _log_mode = String(_split[1]);
-                    const _log_message = util.format(_split[2]);
-                    if (_log_message === 'undefined') {
-                        continue;
-                    }
-                    _get.push({
-                        date: _log_date,
-                        mode: _log_mode,
-                        data: _log_message,
-                    });
-                }
-                if (showup) {
-                    console.log(_get);
-                }
+    get() {
+        var _get = [];
+        if (fs.existsSync(this.path)) {
+            var file_split = [];
+            for (const _line of fs.readFileSync(this.path).toString().split("\n")) {
+                file_split.push(_line.split("|||"));
             }
-            return _get;
-        });
+            for (let i = 0; i < file_split.length; i++) {
+                const _split = file_split[i];
+                if (typeof _split[2] === 'undefined') {
+                    continue;
+                }
+                _get.push({
+                    date: new Date(_split[0]),
+                    mode: String(_split[1]),
+                    data: (0, util_1.format)(_split[2]),
+                });
+            }
+        }
+        return _get;
     }
+    //static
     static logMessage(data, mode = 'info') {
-        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${util.format(data)}`;
+        return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${(0, util_1.format)(data)}`;
+    }
+    /**
+     * @param {Logs.Options} options Logs Options
+     */
+    static create(options) {
+        const _MyLogs = new Logs(options);
+        fs.createWriteStream(`${(0, process_1.cwd)()}${(0, path_1.join)(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
+        return _MyLogs;
     }
     /**
      *
      * @param {any} data Any data to log.
      * @param {String} mode Log mode.
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<void>}
+     * @param {Logs.Options} options Logs Options
+     * @returns {void}
      */
-    static log(data, mode = 'info', showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const newLog = yield new Logs();
-            yield newLog.log(data, mode, showup);
-        });
+    static log(data, mode = 'info', options) {
+        const newLog = new Logs(options);
+        newLog.log(data, mode);
     }
     /**
      *
-     * @param {Boolean} showup Show the log in the console.
-     * @returns {Promise<any>}
+     * @param {Logs.Options} options Logs Options
+     * @returns {Array<Logs.Response>}
      */
-    static get(showup = config_1._config.logs.show) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const newLog = yield new Logs();
-            return yield newLog.get(showup);
-        });
-    }
-    /**
-     * @param {Number} times Number of times to pre create the log.
-     * @returns {Promise<void>}
-     */
-    static preCreate_WithDate(times = 1) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _date = new Date();
-            let _year = Number(_date.getUTCFullYear());
-            let _month = Number(_date.getUTCMonth());
-            let _day = Number(_date.getUTCDate());
-            let _hours = Number(_date.getUTCHours());
-            for (let i = 0; i < Number(times); i++) {
-                if (_hours > 24) {
-                    break;
-                }
-                let fileName = `${_year}-${_month}-${_day}_${_hours}`;
-                yield new Logs(fileName);
-            }
-        });
+    static get(options) {
+        const newLog = new Logs(options);
+        return newLog.get();
     }
 }
 exports.Logs = Logs;
-//# sourceMappingURL=Logs.js.map

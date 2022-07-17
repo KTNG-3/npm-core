@@ -1,9 +1,11 @@
 "use strict";
+//interface
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ToMilliseconds = void 0;
+exports.DifferenceMillisecond = exports.ToMilliseconds = void 0;
+//function
 /**
  *
- * @param {Number} data Milliseconds
+ * @param {number} data Milliseconds
  * @returns {IMilliseconds}
  */
 function ToMilliseconds(data) {
@@ -55,4 +57,20 @@ function ToMilliseconds(data) {
     };
 }
 exports.ToMilliseconds = ToMilliseconds;
-//# sourceMappingURL=Milliseconds.js.map
+/**
+ *
+ * @param {number} ms1 Milliseconds 1
+ * @param {number} ms2 Milliseconds 2
+ * @returns {number}
+ */
+function DifferenceMillisecond(ms1, ms2) {
+    if (typeof ms1 !== 'number')
+        ms1 = ms1.getTime();
+    if (typeof ms2 !== 'number')
+        ms2 = ms2.getTime();
+    if (ms2 > ms1) {
+        return ms2 - ms1;
+    }
+    return ms1 - ms2;
+}
+exports.DifferenceMillisecond = DifferenceMillisecond;

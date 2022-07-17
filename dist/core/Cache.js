@@ -1,140 +1,84 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+//import
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cache = void 0;
-//import
-const fs = __importStar(require("fs"));
+const tslib_1 = require("tslib");
+const path_1 = require("path");
 const process_1 = require("process");
-const config_1 = require("../config");
-const consoleColor = __importStar(require("../utils/ConsoleColor"));
+const fs = tslib_1.__importStar(require("fs"));
 //class
 /**
- * Cache Data in JSON format.
+ * Basic JSON Database
  */
 class Cache {
     /**
-     *
-     * @param {String} name Name
+     * @param {Logs.Options} options Logs Options
      */
-    constructor(name = 'NAME') {
-        this.classId = '@ing3kth/core/Cache';
-        this.baseName = name;
-        this.path = (0, process_1.cwd)() + '/ing3kth' + config_1._config.cache.file.path + `/${this.baseName}.${config_1._config.cache.file.extension}`;
-        if (!fs.existsSync(this.path)) {
-            this.create();
+    constructor(options = {}) {
+        //config
+        var _a;
+        if (typeof options === 'string') {
+            options = {
+                name: options,
+            };
         }
-        else {
-            this.file = fs.readFileSync(this.path);
-        }
-    }
-    /**
-     * @param {Object} dataWithFile Insert Data with log file.
-     * @returns {voi}
-     */
-    create(dataWithFile = {}) {
-        const _FILE = fs.createWriteStream(this.path, {
-            flags: 'w'
-        });
-        _FILE.once('ready', () => __awaiter(this, void 0, void 0, function* () {
-            yield _FILE.write(JSON.stringify(dataWithFile));
-        }));
-        _FILE.on('finish', () => __awaiter(this, void 0, void 0, function* () {
-            try {
-                this.file = yield fs.readFileSync(this.path);
-            }
-            catch (err) {
-                throw new Error(`\n<error> ` + consoleColor.colored(`${this.classId} Fail To Create ${this.baseName} Cache At: ${this.path}`, 'red') + `\n`);
-            }
-        }));
+        const _defaultConfig = {
+            path: '/ing3kth/cache/',
+            name: 'NAME',
+        };
+        this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
+        //path
+        this.path = `${(0, process_1.cwd)()}${(0, path_1.join)(`${this.config.path}/${this.config.name}.json`)}`;
     }
     /**
      *
      * @param {any} data Data to save.
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<ICache>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {Cache.Response}
      */
-    input(data, interactionId = '') {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!interactionId) {
-                interactionId = String(new Date().getTime());
-            }
-            try {
-                let _json = yield JSON.parse(this.file);
-                _json[interactionId] = data;
-                yield fs.writeFileSync(this.path, yield JSON.stringify(yield _json));
-            }
-            catch (err) {
-                console.log(`\n<error> ` + consoleColor.colored(`${this.classId} Wait A Second(s) To Create The Cache File`, 'red') + `\n`);
-                yield fs.writeFileSync(this.path, yield JSON.stringify({}));
-            }
-            return {
-                name: this.baseName,
-                interactionId: interactionId,
-            };
-        });
+    input(data, interactionId) {
+        if (!interactionId) {
+            interactionId = String(new Date().getTime());
+        }
+        if (fs.existsSync(this.path)) {
+            var _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
+            _cacheFile[interactionId] = data;
+            fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
+        }
+        else {
+            var _json = {};
+            _json[interactionId] = data;
+            fs.createWriteStream(this.path).write(JSON.stringify(_json));
+        }
+        return Object.assign(Object.assign({}, this.config), { interactionId: interactionId });
     }
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<any>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {any}
      */
     output(interactionId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _json = yield JSON.parse(this.file);
-            return yield _json[interactionId];
-        });
+        if (fs.existsSync(this.path)) {
+            const _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
+            return _cacheFile[interactionId];
+        }
     }
     /**
-     * @param {String} interactionId Interaction ID.
-     * @returns {Promise<void>}
+     * @param {string} interactionId Interaction ID.
+     * @returns {void}
      */
     clear(interactionId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let _json = yield JSON.parse(this.file);
-            delete _json[interactionId];
-            yield fs.writeFileSync(this.path, yield JSON.stringify(yield _json));
-        });
+        var _cacheFile = JSON.parse(fs.readFileSync(this.path).toString());
+        delete _cacheFile[interactionId];
+        fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
     }
+    //static
     /**
-     * @param {ICache} path Path to Data.
-     * @returns {Promise<any>}
+     * @param {Cache.Response} path Path to Data.
+     * @returns {any}
      */
     static output(path) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const _NewCache = yield new Cache(path.name);
-            return yield _NewCache.output(path.interactionId);
-        });
+        const _NewCache = new Cache(path);
+        return _NewCache.output(path.interactionId);
     }
 }
 exports.Cache = Cache;
-//# sourceMappingURL=Cache.js.map

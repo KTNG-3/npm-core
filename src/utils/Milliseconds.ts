@@ -1,22 +1,37 @@
-import { IMilliseconds } from '../interface/IMilliseconds';
+//interface
+
+interface IMillisecondsPart {
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+    milliseconds: number;
+}
+
+interface IMilliseconds {
+    data: IMillisecondsPart;
+    all: IMillisecondsPart;
+}
+
+//function
 
 /**
  * 
- * @param {Number} data Milliseconds
+ * @param {number} data Milliseconds
  * @returns {IMilliseconds}
  */
-function ToMilliseconds(data:number):IMilliseconds {
-    let ms_total:number = data;
-    let second_total:number = 0;
-    let minute_total:number = 0;
-    let hour_total:number = 0;
-    let day_total:number = 0;
+function ToMilliseconds(data: number): IMilliseconds {
+    let ms_total: number = data;
+    let second_total: number = 0;
+    let minute_total: number = 0;
+    let hour_total: number = 0;
+    let day_total: number = 0;
 
-    let ms:number = ms_total;
-    let second:number = 0;
-    let minute:number = 0;
-    let hour:number = 0;
-    let day:number = 0;
+    let ms: number = ms_total;
+    let second: number = 0;
+    let minute: number = 0;
+    let hour: number = 0;
+    let day: number = 0;
 
     for (ms >= 1000; ms >= 1000;) {
         ms -= 1000;
@@ -60,4 +75,25 @@ function ToMilliseconds(data:number):IMilliseconds {
     };
 }
 
-export { ToMilliseconds };
+/**
+ * 
+ * @param {number} ms1 Milliseconds 1
+ * @param {number} ms2 Milliseconds 2
+ * @returns {number}
+ */
+function DifferenceMillisecond(ms1: number | Date, ms2: number | Date): number {
+    if (typeof ms1 !== 'number') ms1 = ms1.getTime();
+    if (typeof ms2 !== 'number') ms2 = ms2.getTime();
+
+    if (ms2 > ms1) {
+        return ms2 - ms1;
+    }
+
+    return ms1 - ms2;
+}
+
+//export
+
+export { ToMilliseconds, DifferenceMillisecond };
+
+export type { IMillisecondsPart, IMilliseconds };

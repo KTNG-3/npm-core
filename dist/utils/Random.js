@@ -1,11 +1,12 @@
 "use strict";
+//function
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Random = void 0;
 /**
  *
- * @param {Number} min Minimum value.
- * @param {Number} max Maximum value.
- * @returns {Number}
+ * @param {number} min Minimum value.
+ * @param {number} max Maximum value.
+ * @returns {number}
  */
 function Random(min = 0, max) {
     if (min === max) {
@@ -22,4 +23,3 @@ function Random(min = 0, max) {
     return _random;
 }
 exports.Random = Random;
-//# sourceMappingURL=Random.js.map

@@ -30,10 +30,9 @@ declare const _Background: {
 declare const _NewLine = "\n";
 /**
 *
-* @param {String} text Text
-* @param {String} color Color
-* @returns {String}
+* @param {string} text Text
+* @param {string} color Color
+* @returns {string}
 */
 declare function colored(text: string, color: keyof typeof _Color): string;
 export { _Color as color, _Effect as effect, _Background as background, _NewLine as newline, colored, };
-//# sourceMappingURL=ConsoleColor.d.ts.map

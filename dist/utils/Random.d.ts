@@ -1,9 +1,8 @@
 /**
  *
- * @param {Number} min Minimum value.
- * @param {Number} max Maximum value.
- * @returns {Number}
+ * @param {number} min Minimum value.
+ * @param {number} max Maximum value.
+ * @returns {number}
  */
 declare function Random(min: number | undefined, max: number): number;
 export { Random };
-//# sourceMappingURL=Random.d.ts.map

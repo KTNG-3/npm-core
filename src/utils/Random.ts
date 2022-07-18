@@ -12,9 +12,9 @@ function Random(min: number = 0, max: number): number {
     }
 
     if (min > max) {
-        const temp = min;
+        const _temp = min;
         min = max;
-        max = temp;
+        max = _temp;
     }
 
     const randomMin: number = Math.ceil(min);

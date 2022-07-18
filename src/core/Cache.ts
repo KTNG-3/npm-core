@@ -1,9 +1,10 @@
 //import
 
-import { join as JoinPath } from 'path';
-import { cwd as CurrentWorkingDirectory } from 'process';
+import * as path from 'path';
+import * as process from 'process';
 
 import * as fs from 'fs';
+import { FoldersBuilder } from '../utils/FileBuilder';
 
 //interface
 
@@ -57,7 +58,7 @@ class Cache {
 
 
         //path
-        this.path = `${CurrentWorkingDirectory()}${JoinPath(`${this.config.path}/${this.config.name}.json`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.json`)}`;
     }
 
     /**
@@ -78,6 +79,8 @@ class Cache {
 
             fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
         } else {
+            FoldersBuilder(String(this.config.path));
+
             var _json: any = {};
             _json[interactionId] = data;
 

@@ -13,9 +13,9 @@ function Random(min = 0, max) {
         return min;
     }
     if (min > max) {
-        const temp = min;
+        const _temp = min;
         min = max;
-        max = temp;
+        max = _temp;
     }
     const randomMin = Math.ceil(min);
     const randomMax = Math.floor(max);

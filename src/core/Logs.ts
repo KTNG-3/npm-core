@@ -1,9 +1,10 @@
 //import
 
-import { join as JoinPath } from 'path';
-import { cwd as CurrentWorkingDirectory } from 'process';
+import * as path from 'path';
+import * as process from 'process';
 
 import * as fs from 'fs';
+import { FoldersBuilder } from '../utils/FileBuilder';
 
 import { format as TextFormat } from 'util';
 import { colored as ColoredText } from '../utils/ConsoleColor';
@@ -71,7 +72,7 @@ class Logs {
 
         //path
 
-        this.path = `${CurrentWorkingDirectory()}${JoinPath(`${this.config.path}/${this.config.name}.log`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.log`)}`;
     }
 
     /**
@@ -108,6 +109,8 @@ class Logs {
 
                 fs.writeFileSync(this.path, _logFile);
             } else {
+                FoldersBuilder(String(this.config.path));
+
                 const _logFile = fs.createWriteStream(this.path);
 
                 _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}.log${Logs.logMessage(data, mode)}`);
@@ -160,7 +163,7 @@ class Logs {
     public static create(options: Logs.Options): Logs {
         const _MyLogs = new Logs(options);
 
-        fs.createWriteStream(`${CurrentWorkingDirectory()}${JoinPath(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
+        fs.createWriteStream(`${process.cwd()}${path.join(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
 
         return _MyLogs;
     }

@@ -3,9 +3,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logs = void 0;
 const tslib_1 = require("tslib");
-const path_1 = require("path");
-const process_1 = require("process");
+const path = tslib_1.__importStar(require("path"));
+const process = tslib_1.__importStar(require("process"));
 const fs = tslib_1.__importStar(require("fs"));
+const FileBuilder_1 = require("../utils/FileBuilder");
 const util_1 = require("util");
 const ConsoleColor_1 = require("../utils/ConsoleColor");
 //class
@@ -32,7 +33,7 @@ class Logs {
         };
         this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
         //path
-        this.path = `${(0, process_1.cwd)()}${(0, path_1.join)(`${this.config.path}/${this.config.name}.log`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.log`)}`;
     }
     /**
      *
@@ -66,6 +67,7 @@ class Logs {
                 fs.writeFileSync(this.path, _logFile);
             }
             else {
+                (0, FileBuilder_1.FoldersBuilder)(String(this.config.path));
                 const _logFile = fs.createWriteStream(this.path);
                 _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}.log${Logs.logMessage(data, mode)}`);
             }
@@ -105,7 +107,7 @@ class Logs {
      */
     static create(options) {
         const _MyLogs = new Logs(options);
-        fs.createWriteStream(`${(0, process_1.cwd)()}${(0, path_1.join)(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
+        fs.createWriteStream(`${process.cwd()}${path.join(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
         return _MyLogs;
     }
     /**

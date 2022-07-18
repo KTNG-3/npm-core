@@ -3,9 +3,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cache = void 0;
 const tslib_1 = require("tslib");
-const path_1 = require("path");
-const process_1 = require("process");
+const path = tslib_1.__importStar(require("path"));
+const process = tslib_1.__importStar(require("process"));
 const fs = tslib_1.__importStar(require("fs"));
+const FileBuilder_1 = require("../utils/FileBuilder");
 //class
 /**
  * Basic JSON Database
@@ -28,7 +29,7 @@ class Cache {
         };
         this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
         //path
-        this.path = `${(0, process_1.cwd)()}${(0, path_1.join)(`${this.config.path}/${this.config.name}.json`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.json`)}`;
     }
     /**
      *
@@ -46,6 +47,7 @@ class Cache {
             fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
         }
         else {
+            (0, FileBuilder_1.FoldersBuilder)(String(this.config.path));
             var _json = {};
             _json[interactionId] = data;
             fs.createWriteStream(this.path).write(JSON.stringify(_json));

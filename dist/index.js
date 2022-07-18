@@ -1,7 +1,7 @@
 "use strict";
 //core
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Wait = exports.fromUft8 = exports.toUft8 = exports.Random = exports.DifferenceMillisecond = exports.ToMilliseconds = exports.makeBlur = exports.ConsoleColor = exports.Logs = exports.EventEmitter = exports.Cache = void 0;
+exports.Wait = exports.fromUft8 = exports.toUft8 = exports.Random = exports.DifferenceMillisecond = exports.ToMilliseconds = exports.makeBlur = exports.FoldersBuilder = exports.ConsoleColor = exports.Logs = exports.EventEmitter = exports.Cache = void 0;
 const tslib_1 = require("tslib");
 var Cache_1 = require("./core/Cache");
 Object.defineProperty(exports, "Cache", { enumerable: true, get: function () { return Cache_1.Cache; } });
@@ -11,6 +11,8 @@ var Logs_1 = require("./core/Logs");
 Object.defineProperty(exports, "Logs", { enumerable: true, get: function () { return Logs_1.Logs; } });
 //utils
 exports.ConsoleColor = tslib_1.__importStar(require("./utils/ConsoleColor"));
+var FileBuilder_1 = require("./utils/FileBuilder");
+Object.defineProperty(exports, "FoldersBuilder", { enumerable: true, get: function () { return FileBuilder_1.FoldersBuilder; } });
 var makeBlur_1 = require("./utils/makeBlur");
 Object.defineProperty(exports, "makeBlur", { enumerable: true, get: function () { return makeBlur_1.makeBlur; } });
 var Milliseconds_1 = require("./utils/Milliseconds");

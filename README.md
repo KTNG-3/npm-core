@@ -1,6 +1,4 @@
-# NPM Core
-
-***This module changes very often. If you use any version then don't change it.***
+# @ing3kth NPM Core
 
 <!-- Main -->
 <div align="center">
@@ -34,12 +32,12 @@ Yarn:
 ### Usage
 
 ```javascript
-    const IngCore = require('@ing3kth/core');
+  const IngCore = require('@ing3kth/core');
 ```
 
-# Documentation
-
-Documentation Website: [Click Here](https://ktng-3.github.io/npm-core/docs.html)
+```typescript
+  import * as IngCore from '@ing3kth/core';
+```
 
 # Epilogue
 
@@ -50,7 +48,6 @@ On [GitHub](https://github.com/KTNG-3/npm-core) Will Update Before This Package 
 
 ***
 
-- [Website](https://ingkth.wordpress.com/)
 - *Report Bug*
   - [Github](https://github.com/KTNG-3/core/issues)
   - [Discord](https://discord.gg/pbyWbUYjyt)

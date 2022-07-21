@@ -44,8 +44,6 @@ Yarn:
 Thanks For Use My Package,
 On [GitHub](https://github.com/KTNG-3/npm-core) Will Update Before This Package Update.
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f918af41d7374eb9a56c20a3817c4413)](https://www.codacy.com/gh/KTNG-3/npm-core/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=KTNG-3/npm-core&amp;utm_campaign=Badge_Grade)
-
 ***
 
 - *Report Bug*

@@ -17,7 +17,7 @@ function toUft8(data: string, unicode: BufferEncoding = 'base64'): string {
  * @returns {string}
  */
 function fromUft8(data: string, unicode: BufferEncoding = 'base64'): string {
-    return Buffer.from(data, unicode).toString()
+    return Buffer.from(data, unicode).toString();
 }
 
 //export

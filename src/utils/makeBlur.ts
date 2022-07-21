@@ -21,7 +21,7 @@ function makeBlur(config: makeBlurConfig | string): string {
     if (typeof config === 'string') {
         config = {
             message: config,
-        }
+        };
     }
 
     const _config: makeBlurConfig = {

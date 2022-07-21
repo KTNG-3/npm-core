@@ -82,8 +82,8 @@ function ToMilliseconds(data: number): IMilliseconds {
  * @returns {number}
  */
 function DifferenceMillisecond(ms1: number | Date, ms2: number | Date): number {
-    if (typeof ms1 !== 'number') ms1 = ms1.getTime();
-    if (typeof ms2 !== 'number') ms2 = ms2.getTime();
+    if (typeof ms1 !== 'number') { ms1 = ms1.getTime() }
+    if (typeof ms2 !== 'number') { ms2 = ms2.getTime() }
 
     if (ms2 > ms1) {
         return ms2 - ms1;

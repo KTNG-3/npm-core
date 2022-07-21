@@ -12,7 +12,7 @@ declare namespace Logs {
         showup?: boolean;
         /**
          * Location of Logs Folder
-         * (default: /logs/)
+         * (default: logs)
         */
         path?: string;
         /**

@@ -2,7 +2,7 @@ declare namespace Cache {
     interface Options {
         /**
          * Location of Cache Folder
-         * (default: /cache/)
+         * (default: cache)
         */
         path?: string;
         /**

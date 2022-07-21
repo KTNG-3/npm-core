@@ -25,15 +25,15 @@ class Logs {
             };
         }
         if (options.path) {
-            if (!options.path.startsWith('/')) {
+            if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
                 options.path = `/${options.path}`;
             }
             if (options.path.endsWith('/')) {
-                options.path.slice(0, -1);
+                options.path = String(options.path).substring(0, options.path.length - 1);
             }
         }
         if (options.name) {
-            options.name.replace(' ', '_');
+            options.name = options.name.replace(' ', '_');
             if (!options.name.endsWith('.log')) {
                 options.name = `${options.name}.log`;
             }
@@ -45,7 +45,7 @@ class Logs {
             name: 'MAIN.log',
         }, options);
         //path
-        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}`)}`;
+        this.path = `${process.cwd()}\\${path.join(`${this.config.path}/${this.config.name}`)}`;
     }
     /**
      *

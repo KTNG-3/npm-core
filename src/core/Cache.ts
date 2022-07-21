@@ -12,10 +12,12 @@ namespace Cache {
     export interface Options {
         /**
          * Location of Cache Folder
+         * (default: /cache/)
         */
         path?: string;
         /**
          * Name of Cache file
+         * (default: MAIN.json)
          */
         name?: string;
     }
@@ -49,22 +51,43 @@ class Cache {
             };
         }
 
-        const _defaultConfig: Cache.Options = {
-            path: '/ing3kth/cache/',
-            name: 'NAME',
-        };
+        if (options.path) {
+            if (!options.path.startsWith('/')) {
+                options.path = `/${options.path}`;
+            }
 
-        this.config = { ..._defaultConfig, ...options, ...{ name: options.name?.replace(' ', '_') || _defaultConfig.name } };
+            if (options.path.endsWith('/')) {
+                options.path.slice(0, -1);
+            }
+        }
+
+        if (options.name) {
+            options.name.replace(' ', '_');
+
+            if (!options.name.endsWith('.json')) {
+                options.name = `${options.name}.json`;
+            }
+        }
+
+        this.config = {
+            ...{
+                path: '/cache/',
+                name: 'MAIN.log',
+            },
+            ...options
+        };
 
 
         //path
-        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.json`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}`)}`;
     }
+
+    //data
 
     /**
      * 
-     * @param {any} data Data to save.
-     * @param {string} interactionId Interaction ID.
+     * @param {any} data Data to save
+     * @param {string} interactionId Interaction ID
      * @returns {Cache.Response}
      */
     public input(data: any, interactionId?: string): Cache.Response {
@@ -91,7 +114,7 @@ class Cache {
     }
 
     /**
-     * @param {string} interactionId Interaction ID.
+     * @param {string} interactionId Interaction ID
      * @returns {any}
      */
     public output<MyInterface = any>(interactionId: string): MyInterface | undefined {
@@ -102,8 +125,11 @@ class Cache {
         }
     }
 
+    //remove
+
     /**
-     * @param {string} interactionId Interaction ID.
+     * Clear Data in file
+     * @param {string} interactionId Interaction ID
      * @returns {void}
      */
     public clear(interactionId: string): void {
@@ -114,16 +140,31 @@ class Cache {
         fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
     }
 
+    /**
+     * Remove file
+     * @returns {void}
+     */
+    public remove(): void {
+        fs.unlinkSync(this.path);
+    }
+
     //static
 
     /**
-     * @param {Cache.Response} path Path to Data.
+     * @param {Cache.Response} path Path to Data
+     * @param {boolean} clear Clear Data?
      * @returns {any}
      */
-    public static output<MyInterface = any>(path: Cache.Response): MyInterface | undefined {
+    public static output<MyInterface = any>(path: Cache.Response, clear?: boolean): MyInterface | undefined {
         const _NewCache = new Cache(path);
 
-        return _NewCache.output(path.interactionId);
+        const MyData = _NewCache.output(path.interactionId);
+
+        if (clear === true) {
+            _NewCache.clear(path.interactionId);
+        }
+
+        return MyData;
     }
 }
 

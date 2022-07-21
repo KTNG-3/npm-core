@@ -19,21 +19,33 @@ class Logs {
      */
     constructor(options = {}) {
         //config
-        var _a;
         if (typeof options === 'string') {
             options = {
                 name: options,
             };
         }
-        const _defaultConfig = {
+        if (options.path) {
+            if (!options.path.startsWith('/')) {
+                options.path = `/${options.path}`;
+            }
+            if (options.path.endsWith('/')) {
+                options.path.slice(0, -1);
+            }
+        }
+        if (options.name) {
+            options.name.replace(' ', '_');
+            if (!options.name.endsWith('.log')) {
+                options.name = `${options.name}.log`;
+            }
+        }
+        this.config = Object.assign({
             save: false,
             showup: true,
-            path: '/ing3kth/logs/',
-            name: 'NAME',
-        };
-        this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
+            path: '/logs/',
+            name: 'MAIN.log',
+        }, options);
         //path
-        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.log`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}`)}`;
     }
     /**
      *
@@ -69,7 +81,7 @@ class Logs {
             else {
                 (0, FileBuilder_1.FoldersBuilder)(String(this.config.path));
                 const _logFile = fs.createWriteStream(this.path);
-                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}.log${Logs.logMessage(data, mode)}`);
+                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}${Logs.logMessage(data, mode)}`);
             }
         }
     }
@@ -101,14 +113,6 @@ class Logs {
     //static
     static logMessage(data, mode = 'info') {
         return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${(0, util_1.format)(data)}`;
-    }
-    /**
-     * @param {Logs.Options} options Logs Options
-     */
-    static create(options) {
-        const _MyLogs = new Logs(options);
-        fs.createWriteStream(`${process.cwd()}${path.join(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
-        return _MyLogs;
     }
     /**
      *

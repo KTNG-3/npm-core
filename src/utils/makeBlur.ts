@@ -24,22 +24,22 @@ function makeBlur(config: makeBlurConfig | string): string {
         }
     }
 
-    const _defaultSettings: makeBlurConfig = {
-        message: '',
-        replaceWith: '?',
-        percent: 45,
-    }
-    const _config: makeBlurConfig = { ..._defaultSettings, ...config };
+    const _config: makeBlurConfig = {
+        ...{
+            message: '',
+            replaceWith: '?',
+            percent: 45,
+        },
+        ...config
+    };
 
-    const split_message = String(_config.message).split('');
     const _buur = [];
 
-    for (let i = 0; i < split_message.length; i++) {
-        const _random = Random(0, 100);
-        if (_random <= Number(_config.percent)) {
+    for (const _message of String(_config.message).split('')) {
+        if (Random(0, 100) <= Number(_config.percent)) {
             _buur.push(_config.replaceWith);
         } else {
-            _buur.push(split_message[i]);
+            _buur.push(_message);
         }
     }
 

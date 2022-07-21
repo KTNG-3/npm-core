@@ -7,7 +7,7 @@ export { Logs } from "./core/Logs";
 //utils
 
 export * as ConsoleColor from "./utils/ConsoleColor";
-export { FoldersBuilder } from "./utils/FileBuilder";
+export { FoldersBuilder, FilesBuilder } from "./utils/FileBuilder";
 export { makeBlur } from "./utils/makeBlur";
 export { ToMilliseconds, DifferenceMillisecond } from "./utils/Milliseconds";
 export { Random } from "./utils/Random";

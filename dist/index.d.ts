@@ -2,7 +2,7 @@ export { Cache } from "./core/Cache";
 export { CustomEvent as EventEmitter } from "./core/Event";
 export { Logs } from "./core/Logs";
 export * as ConsoleColor from "./utils/ConsoleColor";
-export { FoldersBuilder } from "./utils/FileBuilder";
+export { FoldersBuilder, FilesBuilder } from "./utils/FileBuilder";
 export { makeBlur } from "./utils/makeBlur";
 export { ToMilliseconds, DifferenceMillisecond } from "./utils/Milliseconds";
 export { Random } from "./utils/Random";

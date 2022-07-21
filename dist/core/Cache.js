@@ -17,24 +17,37 @@ class Cache {
      */
     constructor(options = {}) {
         //config
-        var _a;
         if (typeof options === 'string') {
             options = {
                 name: options,
             };
         }
-        const _defaultConfig = {
-            path: '/ing3kth/cache/',
-            name: 'NAME',
-        };
-        this.config = Object.assign(Object.assign(Object.assign({}, _defaultConfig), options), { name: ((_a = options.name) === null || _a === void 0 ? void 0 : _a.replace(' ', '_')) || _defaultConfig.name });
+        if (options.path) {
+            if (!options.path.startsWith('/')) {
+                options.path = `/${options.path}`;
+            }
+            if (options.path.endsWith('/')) {
+                options.path.slice(0, -1);
+            }
+        }
+        if (options.name) {
+            options.name.replace(' ', '_');
+            if (!options.name.endsWith('.json')) {
+                options.name = `${options.name}.json`;
+            }
+        }
+        this.config = Object.assign({
+            path: '/cache/',
+            name: 'MAIN.log',
+        }, options);
         //path
-        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.json`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}`)}`;
     }
+    //data
     /**
      *
-     * @param {any} data Data to save.
-     * @param {string} interactionId Interaction ID.
+     * @param {any} data Data to save
+     * @param {string} interactionId Interaction ID
      * @returns {Cache.Response}
      */
     input(data, interactionId) {
@@ -55,7 +68,7 @@ class Cache {
         return Object.assign(Object.assign({}, this.config), { interactionId: interactionId });
     }
     /**
-     * @param {string} interactionId Interaction ID.
+     * @param {string} interactionId Interaction ID
      * @returns {any}
      */
     output(interactionId) {
@@ -64,8 +77,10 @@ class Cache {
             return _cacheFile[interactionId];
         }
     }
+    //remove
     /**
-     * @param {string} interactionId Interaction ID.
+     * Clear Data in file
+     * @param {string} interactionId Interaction ID
      * @returns {void}
      */
     clear(interactionId) {
@@ -73,14 +88,26 @@ class Cache {
         delete _cacheFile[interactionId];
         fs.writeFileSync(this.path, JSON.stringify(_cacheFile));
     }
+    /**
+     * Remove file
+     * @returns {void}
+     */
+    remove() {
+        fs.unlinkSync(this.path);
+    }
     //static
     /**
-     * @param {Cache.Response} path Path to Data.
+     * @param {Cache.Response} path Path to Data
+     * @param {boolean} clear Clear Data?
      * @returns {any}
      */
-    static output(path) {
+    static output(path, clear) {
         const _NewCache = new Cache(path);
-        return _NewCache.output(path.interactionId);
+        const MyData = _NewCache.output(path.interactionId);
+        if (clear === true) {
+            _NewCache.clear(path.interactionId);
+        }
+        return MyData;
     }
 }
 exports.Cache = Cache;

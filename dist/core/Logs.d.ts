@@ -2,18 +2,22 @@ declare namespace Logs {
     interface Options {
         /**
          * Save to Log file
+         * (default: false)
          */
         save?: boolean;
         /**
          * Show the log in the console
+         * (default: true)
          */
         showup?: boolean;
         /**
          * Location of Logs Folder
+         * (default: /logs/)
         */
         path?: string;
         /**
          * Name of Log file
+         * (default: MAIN.log)
          */
         name?: string;
     }
@@ -47,10 +51,6 @@ declare class Logs {
      */
     get(): Array<Logs.Response>;
     private static logMessage;
-    /**
-     * @param {Logs.Options} options Logs Options
-     */
-    static create(options: Logs.Options): Logs;
     /**
      *
      * @param {any} data Any data to log.

@@ -15,18 +15,22 @@ namespace Logs {
     export interface Options {
         /**
          * Save to Log file
+         * (default: false)
          */
         save?: boolean;
         /**
          * Show the log in the console
+         * (default: true)
          */
         showup?: boolean;
         /**
          * Location of Logs Folder
+         * (default: /logs/)
         */
         path?: string;
         /**
          * Name of Log file
+         * (default: MAIN.log)
          */
         name?: string;
     }
@@ -61,18 +65,37 @@ class Logs {
             };
         }
 
-        const _defaultConfig: Logs.Options = {
-            save: false,
-            showup: true,
-            path: '/ing3kth/logs/',
-            name: 'NAME',
-        };
+        if (options.path) {
+            if (!options.path.startsWith('/')) {
+                options.path = `/${options.path}`;
+            }
 
-        this.config = { ..._defaultConfig, ...options, ...{ name: options.name?.replace(' ', '_') || _defaultConfig.name } };
+            if (options.path.endsWith('/')) {
+                options.path.slice(0, -1);
+            }
+        }
+
+        if (options.name) {
+            options.name.replace(' ', '_');
+
+            if (!options.name.endsWith('.log')) {
+                options.name = `${options.name}.log`;
+            }
+        }
+
+        this.config = {
+            ...{
+                save: false,
+                showup: true,
+                path: '/logs/',
+                name: 'MAIN.log',
+            },
+            ...options
+        };
 
         //path
 
-        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}.log`)}`;
+        this.path = `${process.cwd()}${path.join(`${this.config.path}/${this.config.name}`)}`;
     }
 
     /**
@@ -113,7 +136,7 @@ class Logs {
 
                 const _logFile = fs.createWriteStream(this.path);
 
-                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}.log${Logs.logMessage(data, mode)}`);
+                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}${Logs.logMessage(data, mode)}`);
             }
         }
     }
@@ -155,17 +178,6 @@ class Logs {
 
     private static logMessage(data: any, mode: Logs.Mode = 'info'): string {
         return `\n${new Date().toISOString()}|||${String(mode).toLowerCase()}|||${TextFormat(data)}`;
-    }
-
-    /**
-     * @param {Logs.Options} options Logs Options
-     */
-    public static create(options: Logs.Options): Logs {
-        const _MyLogs = new Logs(options);
-
-        fs.createWriteStream(`${process.cwd()}${path.join(`${options.path}/${options.name}.log`)}`).write(`${new Date().toISOString()}|||system|||CREATE ${options.name}.log`);
-
-        return _MyLogs;
     }
 
     /**

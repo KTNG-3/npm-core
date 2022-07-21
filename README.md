@@ -47,8 +47,8 @@ On [GitHub](https://github.com/KTNG-3/npm-core) Will Update Before This Package 
 ***
 
 - *Report Bug*
-  - [Github](https://github.com/KTNG-3/core/issues)
+  - [Github](https://github.com/KTNG-3/npm-core/issues)
   - [Discord](https://discord.gg/pbyWbUYjyt)
     - INg3_#9509
 - *Legal*
-  - [MIT License](https://github.com/KTNG-3/core/blob/main/LICENSE)
+  - [MIT License](https://github.com/KTNG-3/npm-core/blob/main/LICENSE)

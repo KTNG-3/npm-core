@@ -1,11 +1,30 @@
 "use strict";
 //import
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FilesBuilder = exports.FoldersBuilder = void 0;
+exports.FilesBuilder = exports.FoldersBuilder = exports.PathFinder = void 0;
 const tslib_1 = require("tslib");
+const path = tslib_1.__importStar(require("path"));
 const process = tslib_1.__importStar(require("process"));
 const fs = tslib_1.__importStar(require("fs"));
 //function
+/**
+ * Find your Path
+ * @param {{ path: string, name: string, extension?: string }} options Path finder options
+ * @returns {string}
+ */
+function PathFinder(options) {
+    if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
+        options.path = `/${options.path}`;
+    }
+    if (options.path.endsWith('/')) {
+        options.path = String(options.path).substring(0, options.path.length - 1);
+    }
+    if (options.extension && !options.name.endsWith(`.${options.extension}`)) {
+        options.name = `${options.name}.${options.extension}`;
+    }
+    return path.join(`${process.cwd()}/${options.path}/${options.name}`);
+}
+exports.PathFinder = PathFinder;
 /**
  * Create Folders
  * @param path Path to the folder

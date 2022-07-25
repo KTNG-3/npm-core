@@ -35,7 +35,7 @@ declare class Logs {
     config: Logs.Options;
     private path;
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     constructor(options?: Logs.Options | string);
     /**

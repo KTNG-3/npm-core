@@ -1,9 +1,34 @@
 //import
 
+import * as path from 'path';
 import * as process from 'process';
 import * as fs from 'fs';
 
 //function
+
+/**
+ * Find your Path
+ * @param {{ path: string, name: string, extension?: string }} options Path finder options
+ * @returns {string}
+ */
+function PathFinder(options: {
+    path: string,
+    name: string, extension?: string
+}): string {
+    if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
+        options.path = `/${options.path}`;
+    }
+
+    if (options.path.endsWith('/')) {
+        options.path = String(options.path).substring(0, options.path.length - 1);
+    }
+
+    if (options.extension && !options.name.endsWith(`.${options.extension}`)) {
+        options.name = `${options.name}.${options.extension}`;
+    }
+
+    return path.join(`${process.cwd()}/${options.path}/${options.name}`);
+}
 
 /**
  * Create Folders
@@ -11,7 +36,7 @@ import * as fs from 'fs';
  */
 function FoldersBuilder(path: string | Array<string>) {
     let _path: string = `${process.cwd()}`;
-    
+
     if (typeof path === 'string') {
         if (!path.startsWith('/')) {
             path = `/${path}`;
@@ -56,4 +81,7 @@ function FilesBuilder(path: string, data: string = '') {
 
 //export
 
-export { FoldersBuilder, FilesBuilder };
+export {
+    PathFinder,
+    FoldersBuilder, FilesBuilder
+};

@@ -1,10 +1,7 @@
 //import
 
-import * as path from 'path';
-import * as process from 'process';
-
 import * as fs from 'fs';
-import { FoldersBuilder } from '../utils/FileBuilder';
+import { FoldersBuilder, PathFinder } from '../utils/FileBuilder';
 
 import { format as TextFormat } from 'util';
 import { colored as ColoredText } from '../utils/ConsoleColor';
@@ -54,7 +51,7 @@ class Logs {
     private path: string;
 
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     public constructor(options: Logs.Options | string = {}) {
         //config
@@ -63,24 +60,6 @@ class Logs {
             options = {
                 name: options,
             };
-        }
-
-        if (options.path) {
-            if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
-                options.path = `/${options.path}`;
-            }
-
-            if (options.path.endsWith('/')) {
-                options.path = String(options.path).substring(0, options.path.length - 1);
-            }
-        }
-
-        if (options.name) {
-            options.name = options.name.replace(' ', '_');
-
-            if (!options.name.endsWith('.log')) {
-                options.name = `${options.name}.log`;
-            }
         }
 
         this.config = {
@@ -95,7 +74,10 @@ class Logs {
 
 
         //path
-        this.path = `${process.cwd()}\\${path.join(`${this.config.path}/${this.config.name}`)}`;
+        this.path = PathFinder({
+            path: String(this.config.path),
+            name: String(this.config.name), extension: 'log',
+        });
     }
 
     /**
@@ -136,7 +118,7 @@ class Logs {
 
                 const _logFile = fs.createWriteStream(this.path);
 
-                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}${Logs.logMessage(data, mode)}`);
+                _logFile.write(`${new Date().toISOString()}|||system|||CREATE${Logs.logMessage(data, mode)}`);
             }
         }
     }

@@ -1,10 +1,7 @@
 //import
 
-import * as path from 'path';
-import * as process from 'process';
-
 import * as fs from 'fs';
-import { FoldersBuilder } from '../utils/FileBuilder';
+import { FoldersBuilder, PathFinder } from '../utils/FileBuilder';
 
 //interface
 
@@ -40,7 +37,7 @@ class Cache {
     private path: string;
 
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     public constructor(options: Cache.Options | string = {}) {
         //config
@@ -51,24 +48,6 @@ class Cache {
             };
         }
 
-        if (options.path) {
-            if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
-                options.path = `/${options.path}`;
-            }
-
-            if (options.path.endsWith('/')) {
-                options.path = String(options.path).substring(0, options.path.length - 1);
-            }
-        }
-
-        if (options.name) {
-            options.name = options.name.replace(' ', '_');
-
-            if (!options.name.endsWith('.json')) {
-                options.name = `${options.name}.json`;
-            }
-        }
-
         this.config = {
             ...{
                 path: '/cache/',
@@ -77,9 +56,11 @@ class Cache {
             ...options
         };
 
-
         //path
-        this.path = `${process.cwd()}\\${path.join(`${this.config.path}/${this.config.name}`)}`;
+        this.path = PathFinder({
+            path: String(this.config.path),
+            name: String(this.config.name), extension: 'json',
+        });
     }
 
     //data

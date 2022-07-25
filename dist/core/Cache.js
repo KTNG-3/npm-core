@@ -3,8 +3,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cache = void 0;
 const tslib_1 = require("tslib");
-const path = tslib_1.__importStar(require("path"));
-const process = tslib_1.__importStar(require("process"));
 const fs = tslib_1.__importStar(require("fs"));
 const FileBuilder_1 = require("../utils/FileBuilder");
 //class
@@ -13,7 +11,7 @@ const FileBuilder_1 = require("../utils/FileBuilder");
  */
 class Cache {
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     constructor(options = {}) {
         //config
@@ -22,26 +20,15 @@ class Cache {
                 name: options,
             };
         }
-        if (options.path) {
-            if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
-                options.path = `/${options.path}`;
-            }
-            if (options.path.endsWith('/')) {
-                options.path = String(options.path).substring(0, options.path.length - 1);
-            }
-        }
-        if (options.name) {
-            options.name = options.name.replace(' ', '_');
-            if (!options.name.endsWith('.json')) {
-                options.name = `${options.name}.json`;
-            }
-        }
         this.config = Object.assign({
             path: '/cache/',
             name: 'MAIN.json',
         }, options);
         //path
-        this.path = `${process.cwd()}\\${path.join(`${this.config.path}/${this.config.name}`)}`;
+        this.path = (0, FileBuilder_1.PathFinder)({
+            path: String(this.config.path),
+            name: String(this.config.name), extension: 'json',
+        });
     }
     //data
     /**

@@ -25,7 +25,7 @@ declare class Cache {
     config: Cache.Options;
     private path;
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     constructor(options?: Cache.Options | string);
     /**

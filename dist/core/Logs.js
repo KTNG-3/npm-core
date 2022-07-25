@@ -3,8 +3,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logs = void 0;
 const tslib_1 = require("tslib");
-const path = tslib_1.__importStar(require("path"));
-const process = tslib_1.__importStar(require("process"));
 const fs = tslib_1.__importStar(require("fs"));
 const FileBuilder_1 = require("../utils/FileBuilder");
 const util_1 = require("util");
@@ -15,7 +13,7 @@ const ConsoleColor_1 = require("../utils/ConsoleColor");
  */
 class Logs {
     /**
-     * @param {Logs.Options} options Logs Options
+     * @param {Logs.Options} options Logs options
      */
     constructor(options = {}) {
         //config
@@ -24,20 +22,6 @@ class Logs {
                 name: options,
             };
         }
-        if (options.path) {
-            if (!options.path.startsWith('/') && !options.path.startsWith('.')) {
-                options.path = `/${options.path}`;
-            }
-            if (options.path.endsWith('/')) {
-                options.path = String(options.path).substring(0, options.path.length - 1);
-            }
-        }
-        if (options.name) {
-            options.name = options.name.replace(' ', '_');
-            if (!options.name.endsWith('.log')) {
-                options.name = `${options.name}.log`;
-            }
-        }
         this.config = Object.assign({
             save: false,
             showup: true,
@@ -45,7 +29,10 @@ class Logs {
             name: 'MAIN.log',
         }, options);
         //path
-        this.path = `${process.cwd()}\\${path.join(`${this.config.path}/${this.config.name}`)}`;
+        this.path = (0, FileBuilder_1.PathFinder)({
+            path: String(this.config.path),
+            name: String(this.config.name), extension: 'log',
+        });
     }
     /**
      *
@@ -81,7 +68,7 @@ class Logs {
             else {
                 (0, FileBuilder_1.FoldersBuilder)(String(this.config.path));
                 const _logFile = fs.createWriteStream(this.path);
-                _logFile.write(`${new Date().toISOString()}|||system|||CREATE ${this.config.name}${Logs.logMessage(data, mode)}`);
+                _logFile.write(`${new Date().toISOString()}|||system|||CREATE${Logs.logMessage(data, mode)}`);
             }
         }
     }

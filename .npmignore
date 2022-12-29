@@ -2,6 +2,12 @@
 .env.test
 .DS_Store
 .npmrc
+.gitignore
+.prettierignore
+.prettierrc.json
+.prettierrc
+.eslintignore
+.eslintrc.json
 .vscode
 .vscode/
 .dynamodb
@@ -18,6 +24,8 @@ test
 test/
 tests
 tests/
+temp
+temp/
 src
 src/
 update

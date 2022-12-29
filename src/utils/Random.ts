@@ -1,12 +1,12 @@
-//function
-
 /**
- * 
- * @param {number} min Minimum value.
- * @param {number} max Maximum value.
+ *
+ * @param {number} min Minimum value
+ * @param {number} max Maximum value
  * @returns {number}
  */
-function Random(min: number = 0, max: number): number {
+export function random(min = 0, max: number): number {
+    // setup
+
     if (min === max) {
         return min;
     }
@@ -17,13 +17,7 @@ function Random(min: number = 0, max: number): number {
         max = _temp;
     }
 
-    const randomMin: number = Math.ceil(min);
-    const randomMax: number = Math.floor(max);
-    const _random: number = Math.floor(Math.random() * (randomMax - randomMin + 1)) + randomMin;
+    // script
 
-    return _random;
+    return Math.random() * (max - min + 1) + min;
 }
-
-//exports
-
-export { Random };
